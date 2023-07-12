@@ -10,20 +10,20 @@
 
     <FrameLayout
         android:id="@+id/topMenu"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_width="70dp"
+        android:layout_height="match_parent"
         android:layout_margin="0dp"
         android:background="@color/colorTopMenu"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintStart_toStartOf="parent">
     </FrameLayout>
 
     <FrameLayout
         android:id="@+id/bottomMenu"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_width="70dp"
+        android:layout_height="match_parent"
         android:layout_margin="0dp"
         android:background="@color/colorBottomMenu"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintEnd_toEndOf="parent">
     </FrameLayout>
 
     <LinearLayout
@@ -32,16 +32,16 @@
         app:layout_constraintWidth_default="spread"
         android:layout_height="0dp"
         app:layout_constraintHeight_default="spread"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginEnd="60dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="60dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
         android:background="@color/colorButtonsBackground"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/topMenu"
-        app:layout_constraintBottom_toTopOf="@id/bottomMenu"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:orientation="horizontal"
+        app:layout_constraintStart_toEndOf="@id/topMenu"
+        app:layout_constraintEnd_toStartOf="@id/bottomMenu"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
