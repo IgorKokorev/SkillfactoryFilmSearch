@@ -1,8 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">FilmsSearch</string>
-    <string name="monsters_inc">Monsters, Inc.</string>
-    <string name="finding_nemo">Finding Nemo</string>
-    <string name="pictures_source_text">Posters from https://www.movieposters.com/</string>
     <string name="button_text_menu">Menu</string>
     <string name="button_text_favorites">Favorites</string>
     <string name="button_text_watchlist">Watchlist</string>
