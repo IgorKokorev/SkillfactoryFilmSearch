@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FilmsSearch</string>
+    <string name="monsters_inc">Monsters, Inc.</string>
+    <string name="finding_nemo">Buscando a Nemo</string>
+    <string name="pictures_source_text">Carteles de https://www.movieposters.com/</string>
+    <string name="button_text_menu">Menu</string>
+    <string name="button_text_favorites">Selección</string>
+    <string name="button_text_watchlist">Guardado</string>
+    <string name="button_text_info">Información</string>
+    <string name="button_text_settings">Ajustes</string>
+    <string name="button_menu_toast">No! No toques mis cojones!</string>
+    <string name="button_favorites_toast">Tú eres mi favorito!</string>
+    <string name="button_watchlist_toast">Te guardo en mi corazón!</string>
+    <string name="button_info_toast">Es la información secreta!</string>
+    <string name="button_settings_toast">Sí, lo sé, tengo que ajustar mis pantalones en cinturón...</string>
+</resources>

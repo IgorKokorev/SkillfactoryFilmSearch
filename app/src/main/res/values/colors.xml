@@ -3,7 +3,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="colorBottomMenu">#FF2060A0</color>
-    <color name="colorTopMenu">#FF4080C0</color>
+    <color name="color_light_blue">#FFA0B0FF</color>
+    <color name="colorTopMenu">#FF80A0F0</color>
     <color name="colorBackground">#FFFFFFFF</color>
     <color name="colorButtonsBackground">#FFF0F0F0</color>
+    <color name="ic_launcher_background">#3c74cc</color>
 </resources>
