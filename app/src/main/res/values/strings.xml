@@ -13,4 +13,8 @@
     <string name="button_watchlist_toast">I\'m watching you!</string>
     <string name="button_info_toast">It\'s classified!</string>
     <string name="button_settings_toast">Let\'s set up some things!</string>
+    <string name="ratatouille">Ratatouille</string>
+    <string name="toy_story">Toy story</string>
+    <string name="incredibles">The Incredibles</string>
+    <string name="walle">WALL-E</string>
 </resources>

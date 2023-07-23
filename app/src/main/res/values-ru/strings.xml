@@ -14,4 +14,8 @@
     <string name="button_watchlist_toast">Так, заносим тебя в список...</string>
     <string name="button_info_toast">Информация засекречена!</string>
     <string name="button_settings_toast">Где мой камертон?</string>
+    <string name="ratatouille">Рататуй</string>
+    <string name="toy_story">История игрушек</string>
+    <string name="incredibles">Суперсемейка</string>
+    <string name="walle">ВАЛЛ-И</string>
 </resources>
