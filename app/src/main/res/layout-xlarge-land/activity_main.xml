@@ -12,7 +12,6 @@
         android:layout_width="250dp"
         android:layout_height="match_parent"
         android:layout_margin="20dp"
-        android:background="@color/colorTopMenu"
         app:cardCornerRadius="40dp"
         app:cardElevation="50dp"
         app:layout_constraintStart_toStartOf="parent">
@@ -52,12 +51,11 @@
 
     <FrameLayout
         android:id="@+id/bottomMenu"
-        android:layout_width="150dp"
+        android:layout_width="120dp"
         android:layout_height="match_parent"
         android:layout_margin="0dp"
         android:background="@color/colorBottomMenu"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteX="664dp" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/pictures_source"
@@ -68,7 +66,7 @@
         android:gravity="center"
         android:linksClickable="true"
         android:text="@string/pictures_source_text"
-        android:textSize="30sp"
+        android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@id/bottomMenu"
         app:layout_constraintStart_toEndOf="@id/topMenu"
         app:layout_constraintTop_toTopOf="parent" />
@@ -106,7 +104,7 @@
                 android:background="?selectableItemBackgroundBorderless"
                 android:text="@string/button_text_menu"
                 android:textColor="@android:color/white"
-                android:textSize="60sp" />
+                android:textSize="48sp" />
 
             <Button
                 android:id="@+id/button_favorites"
@@ -115,7 +113,7 @@
                 android:background="?selectableItemBackgroundBorderless"
                 android:text="@string/button_text_favorites"
                 android:textColor="@android:color/white"
-                android:textSize="60sp" />
+                android:textSize="48sp" />
 
             <Button
                 android:id="@+id/button_watchlist"
@@ -124,7 +122,7 @@
                 android:background="?selectableItemBackgroundBorderless"
                 android:text="@string/button_text_watchlist"
                 android:textColor="@android:color/white"
-                android:textSize="60sp" />
+                android:textSize="48sp" />
 
             <Button
                 android:id="@+id/button_info"
@@ -133,7 +131,7 @@
                 android:background="?selectableItemBackgroundBorderless"
                 android:text="@string/button_text_info"
                 android:textColor="@android:color/white"
-                android:textSize="60sp" />
+                android:textSize="48sp" />
 
             <Button
                 android:id="@+id/button_settings"
@@ -142,7 +140,7 @@
                 android:background="?selectableItemBackgroundBorderless"
                 android:text="@string/button_text_settings"
                 android:textColor="@android:color/white"
-                android:textSize="60sp" />
+                android:textSize="48sp" />
 
         </LinearLayout>
 

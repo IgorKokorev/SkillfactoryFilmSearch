@@ -6,7 +6,7 @@
     <string name="pictures_source_text">Постеры позаимствованы с https://www.movieposters.com/</string>
     <string name="button_text_menu">Меню</string>
     <string name="button_text_favorites">Избранное</string>
-    <string name="button_text_watchlist">Список просмотра</string>
+    <string name="button_text_watchlist">Посмотреть</string>
     <string name="button_text_info">Информация</string>
     <string name="button_text_settings">Настройки</string>
     <string name="button_menu_toast">Нет! Нет! Не трогай меня!</string>

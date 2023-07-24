@@ -2,6 +2,7 @@ package film.search.filmssearch
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
@@ -12,33 +13,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         initMenuButtons()
-        initPostersToasts()
-    }
-
-    private fun initPostersToasts() {
-        findViewById<ImageView>(R.id.monsters_inc_poster).setOnClickListener() {
-            Toast.makeText(this, R.string.monsters_inc, Toast.LENGTH_SHORT).show()
-        }
-
-        findViewById<ImageView>(R.id.finding_nemo_poster).setOnClickListener() {
-            Toast.makeText(this, R.string.finding_nemo, Toast.LENGTH_SHORT).show()
-        }
-
-        findViewById<ImageView>(R.id.ratatouille_poster).setOnClickListener() {
-            Toast.makeText(this, R.string.ratatouille, Toast.LENGTH_SHORT).show()
-        }
-
-        findViewById<ImageView>(R.id.toy_story_poster).setOnClickListener() {
-            Toast.makeText(this, R.string.toy_story, Toast.LENGTH_SHORT).show()
-        }
-
-        findViewById<ImageView>(R.id.incredibles_poster).setOnClickListener() {
-            Toast.makeText(this, R.string.incredibles, Toast.LENGTH_SHORT).show()
-        }
-
-        findViewById<ImageView>(R.id.walle_poster).setOnClickListener() {
-            Toast.makeText(this, R.string.walle, Toast.LENGTH_SHORT).show()
-        }
     }
 
     private fun initMenuButtons() {
