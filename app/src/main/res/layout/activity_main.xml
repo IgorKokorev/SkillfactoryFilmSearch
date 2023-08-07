@@ -6,7 +6,7 @@
     android:theme="@style/Base.Theme.FilmSearch"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/menu_background"
+    android:background="@drawable/screen_background"
     tools:context="film.search.filmsearch.MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
