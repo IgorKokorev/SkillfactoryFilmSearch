@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FilmSearch</string>
+    <string name="monsters_inc">Monsters, Inc.</string>
+    <string name="finding_nemo">Buscando a Nemo</string>
+    <string name="pictures_source_text">Carteles de https://www.movieposters.com/</string>
+    <string name="text_menu">Menu</string>
+    <string name="text_favorites">Selección</string>
+    <string name="text_watch_later">Guardado</string>
+    <string name="text_collection">Collección</string>
+    <string name="text_settings">Ajustes</string>
+    <string name="watch_later_toast">No! No toques mis cojones!</string>
+    <string name="favorites_toast">Tú eres mi favorito!</string>
+    <string name="button_watchlist_toast">Te guardo en mi corazón!</string>
+    <string name="collection_toast">Es la información secreta!</string>
+    <string name="settings_toast">Sí, lo sé, tengo que ajustar mis pantalones en cinturón...</string>
+    <string name="ratatouille">Ratatouille</string>
+    <string name="toy_story">Toy story</string>
+    <string name="incredibles">Los Increíbles</string>
+    <string name="walle">WALL-E</string>
+    <string name="page_title">Buscar pelis</string>
+</resources>
