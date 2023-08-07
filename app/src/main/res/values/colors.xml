@@ -7,5 +7,10 @@
     <color name="colorTopMenu">#FF80A0F0</color>
     <color name="colorBackground">#FFFFFFFF</color>
     <color name="colorButtonsBackground">#FFF0F0F0</color>
-    <color name="ic_launcher_background">#3c74cc</color>
+    <color name="ic_launcher_background">#FF3C74CC</color>
+    <color name="menu_item_color">#FFFFFFFF</color>
+    <color name="my_light_primary">#FFFFFFFF</color>
+    <color name="colorPrimaryDark">#FF2060A0</color>
+    <color name="colorPrimary">#FFA0C0FF</color>
+    <color name="colorAccent">#FFFFC0A0</color>
 </resources>

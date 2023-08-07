@@ -1,4 +1,4 @@
-package film.search.filmssearch
+package film.search.filmsearch
 
 import org.junit.Test
 
