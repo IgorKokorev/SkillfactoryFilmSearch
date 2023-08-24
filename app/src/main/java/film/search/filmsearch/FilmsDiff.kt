@@ -2,6 +2,7 @@ package film.search.filmsearch
 
 import androidx.recyclerview.widget.DiffUtil
 
+// Calculates difference between 2 films for DiffUtil
 class FilmsDiff(val oldList: MutableList<Film> , val newList: MutableList<Film> ): DiffUtil.Callback() {
 
         override fun getOldListSize(): Int {

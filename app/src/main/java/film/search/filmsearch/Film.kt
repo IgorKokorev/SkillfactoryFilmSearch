@@ -3,6 +3,7 @@ package film.search.filmsearch
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
+// Data class with film's data
 @Parcelize
 data class Film(
     val poster: Int,

@@ -41,4 +41,5 @@
     <string name="walle_description">In the distant future, a small waste-collecting robot inadvertently embarks on a space journey that will ultimately decide the fate of mankind.</string>
     <string name="share">Share</string>
     <string name="send_to_friend">Send film %s to a friend?</string>
+    <string name="double_tap_toast">Double tap for exit</string>
 </resources>
