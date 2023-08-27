@@ -3,12 +3,14 @@ package film.search.filmsearch
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
+// Data class with film's data
 @Parcelize
 data class Film(
     val poster: Int,
     val title: String,
     val description: String
 ) : Parcelable {
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

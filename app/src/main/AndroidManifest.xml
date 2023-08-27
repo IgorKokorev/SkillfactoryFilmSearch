@@ -13,9 +13,6 @@
         android:theme="@style/Theme.FilmSearch"
         tools:targetApi="30">
         <activity
-            android:name="film.search.filmsearch.FilmDetailsActivity"
-            android:exported="false" />
-        <activity
             android:name="film.search.filmsearch.MainActivity"
             android:exported="true">
             <intent-filter>
