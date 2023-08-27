@@ -5,6 +5,7 @@ import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
+// Decorator for RecyclerView in Main fragment
 class TopSpacingItemDecoration (private val paddingInDp: Int): RecyclerView.ItemDecoration() {
     private val Int.convertPx: Int
         get() = (this * Resources.getSystem().displayMetrics.density).toInt()

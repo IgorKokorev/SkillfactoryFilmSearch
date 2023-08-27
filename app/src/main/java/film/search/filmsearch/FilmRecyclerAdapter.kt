@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import film.search.filmssearch.databinding.FilmItemBinding
 
+// Adapter for RecyclerView with list of films
 class FilmRecyclerAdapter(private val clickListener: OnItemClickListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val films = mutableListOf<Film>()
