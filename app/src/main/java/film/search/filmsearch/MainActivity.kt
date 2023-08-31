@@ -10,6 +10,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var backPressed = 0L
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -19,12 +20,85 @@ class MainActivity : AppCompatActivity() {
 
         initMenuButtons()
 
+        initFilmsDB()
+
         // starting main fragment
         supportFragmentManager
             .beginTransaction()
             .add(R.id.fragment_placeholder, MainFragment())
             .addToBackStack(null)
             .commit()
+    }
+
+    private fun initFilmsDB() {
+        // Fake film db
+        films = mutableListOf(
+            Film(
+                R.drawable.brave,
+                getString(R.string.brave_title),
+                getString(R.string.brave_description)
+            ),
+            Film(
+                R.drawable.cars,
+                getString(R.string.cars_title),
+                getString(R.string.cars_description)
+            ),
+            Film(
+                R.drawable.finding_nemo,
+                getString(R.string.finding_nemo_title),
+                getString(R.string.finding_nemo_description)
+            ),
+            Film(
+                R.drawable.incredibles,
+                getString(R.string.incredibles_title),
+                getString(R.string.incredibles_description)
+            ),
+            Film(
+                R.drawable.lightyear,
+                getString(R.string.lightyear_title),
+                getString(R.string.lightyear_description)
+            ),
+            Film(
+                R.drawable.luca,
+                getString(R.string.luca_title),
+                getString(R.string.luca_description)
+            ),
+            Film(
+                R.drawable.monsters_inc,
+                getString(R.string.monsters_inc_title),
+                getString(R.string.monsters_inc_description)
+            ),
+            Film(
+                R.drawable.onward,
+                getString(R.string.onward_title),
+                getString(R.string.onward_description)
+            ),
+            Film(
+                R.drawable.ratatouille,
+                getString(R.string.ratatouille_title),
+                getString(R.string.ratatouille_description)
+            ),
+            Film(
+                R.drawable.soul,
+                getString(R.string.soul_title),
+                getString(R.string.soul_description)
+            ),
+            Film(
+                R.drawable.toy_story,
+                getString(R.string.toy_story_title),
+                getString(R.string.toy_story_description)
+            ),
+            Film(
+                R.drawable.toy_story_four,
+                getString(R.string.toy_story_4_title),
+                getString(R.string.toy_story_4_description)
+            ),
+            Film(
+                R.drawable.walle,
+                getString(R.string.walle_title),
+                getString(R.string.walle_description)
+            )
+        )
     }
 
     // Check back pressed. If 2 times in less than 2 sec om main screen - exit. If not main screen (fragment) - back.
@@ -34,7 +108,8 @@ class MainActivity : AppCompatActivity() {
                 onBackPressedDispatcher.onBackPressed()
                 finish()
             } else {
-                Toast.makeText(this, getString(R.string.double_tap_toast), Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.double_tap_toast), Toast.LENGTH_SHORT)
+                    .show()
             }
 
             backPressed = System.currentTimeMillis()
@@ -46,18 +121,19 @@ class MainActivity : AppCompatActivity() {
     // Contains constant - interval for double tap in ms
     companion object {
         const val TIME_INTERVAL = 2000L
+        var films = mutableListOf<Film>()
+        val favoriteFilms = mutableListOf<Film>()
+
     }
 
     // Initialize menu buttons - toasts
     private fun initMenuButtons() {
-
         binding.topAppBar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.settings -> {
                     Toast.makeText(this, R.string.settings_toast, Toast.LENGTH_SHORT).show()
                     true
                 }
-
                 else -> false
             }
         }
@@ -65,7 +141,11 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigation.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.favorites -> {
-                    Toast.makeText(this, R.string.favorites_toast, Toast.LENGTH_SHORT).show()
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.fragment_placeholder, FavoritesFragment())
+                        .addToBackStack(null)
+                        .commit()
                     true
                 }
 
@@ -87,7 +167,7 @@ class MainActivity : AppCompatActivity() {
     // Launch Film Details screen (fragment) and transfer film data to it
     fun launchDetailsFragment(film: Film) {
         val bundle = Bundle()
-        bundle.putParcelable("film", film)
+        bundle.putInt("filmId", films.indexOf(film))
         val fragment = FilmDetailsFragment()
         fragment.arguments = bundle
 
