@@ -10,7 +10,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var backPressed = 0L
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -18,8 +17,10 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        // initializing menu buttons click listeners
         initMenuButtons()
 
+        // initializing fake films db
         initFilmsDB()
 
         // starting main fragment
@@ -32,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initFilmsDB() {
         // Fake film db
-        films = mutableListOf(
+        allFilms = mutableListOf(
             Film(
                 R.drawable.brave,
                 getString(R.string.brave_title),
@@ -118,14 +119,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // Contains constant - interval for double tap in ms
-    companion object {
-        const val TIME_INTERVAL = 2000L
-        var films = mutableListOf<Film>()
-        val favoriteFilms = mutableListOf<Film>()
-
-    }
-
     // Initialize menu buttons - toasts
     private fun initMenuButtons() {
         binding.topAppBar.setOnMenuItemClickListener {
@@ -134,6 +127,7 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(this, R.string.settings_toast, Toast.LENGTH_SHORT).show()
                     true
                 }
+
                 else -> false
             }
         }
@@ -167,7 +161,7 @@ class MainActivity : AppCompatActivity() {
     // Launch Film Details screen (fragment) and transfer film data to it
     fun launchDetailsFragment(film: Film) {
         val bundle = Bundle()
-        bundle.putInt("filmId", films.indexOf(film))
+        bundle.putParcelable(FILM, film)
         val fragment = FilmDetailsFragment()
         fragment.arguments = bundle
 
@@ -176,5 +170,17 @@ class MainActivity : AppCompatActivity() {
             .replace(R.id.fragment_placeholder, fragment)
             .addToBackStack(null)
             .commit()
+    }
+
+    // Contains constants:
+    // interval for double tap in ms
+    // name of the bundle with film info to transfer to another fragment
+    // allFilms - fake film db
+    // favoriteFilms - list of favorite films
+    companion object {
+        const val TIME_INTERVAL = 2000L
+        const val FILM = "film"
+        var allFilms = mutableListOf<Film>()
+        val favoriteFilms = mutableListOf<Film>()
     }
 }

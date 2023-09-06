@@ -5,5 +5,9 @@ import film.search.filmssearch.databinding.FilmItemBinding
 
 // Holder for Recycler view item
 class FilmViewHolder(val binding: FilmItemBinding) : RecyclerView.ViewHolder(binding.root) {
+/*    init {
+        binding.itemContainer.setOnClickListener {
 
+        }
+    }*/
 }
