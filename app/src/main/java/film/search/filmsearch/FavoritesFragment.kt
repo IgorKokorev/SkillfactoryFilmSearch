@@ -6,9 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import film.search.filmsearch.MainActivity.Companion.favoriteFilms
-import film.search.filmsearch.MainActivity.Companion.films
+import film.search.filmsearch.MainActivity.Companion.allFilms
 import film.search.filmssearch.databinding.FragmentFavoritesBinding
 
+// List of favorites films fragment. Mostly the same as main fragment
 class FavoritesFragment : Fragment() {
     private lateinit var binding: FragmentFavoritesBinding
     private lateinit var filmsAdapter: FilmRecyclerAdapter
@@ -24,7 +25,7 @@ class FavoritesFragment : Fragment() {
 
     private fun initRecycler() {
         favoriteFilms.clear()
-        for (film in films) {
+        for (film in allFilms) {
             if (film.isFavorite) favoriteFilms.add(film)
         }
 

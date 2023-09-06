@@ -7,10 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
-import film.search.filmsearch.MainActivity.Companion.films
+import film.search.filmsearch.MainActivity.Companion.FILM
 import film.search.filmssearch.R
 import film.search.filmssearch.databinding.FragmentFilmDetailsBinding
 
+// Fragment with film details
 class FilmDetailsFragment : Fragment() {
     private lateinit var binding: FragmentFilmDetailsBinding
     private lateinit var film: Film
@@ -22,23 +23,26 @@ class FilmDetailsFragment : Fragment() {
     ): View {
         binding = FragmentFilmDetailsBinding.inflate(layoutInflater)
 
-        val filmId = arguments?.getInt("filmId")
-        if (filmId == null) return binding.root
+        // getting film id as argument
+        film = arguments?.getParcelable(FILM) as Film? ?: return binding.root
 
-        film = films[filmId]
-
+        // setting views data
         binding.detailsToolbar.title = film.title
         binding.detailsPoster.setImageResource(film.poster)
         binding.detailsDescription.text = film.description
 
+        // setting 'favorite' fab
         setFavoriteIcon()
 
-        binding.detailsFabFavorites.setOnClickListener {
-            film.isFavorite = !film.isFavorite
-            setFavoriteIcon()
-        }
+        // setting 'share' fab
+        setShareIcon()
 
-        binding.detailsFab.setOnClickListener {
+        return binding.root
+    }
+
+    private fun setShareIcon() {
+        // setting share fab click listener
+        binding.shareFab.setOnClickListener {
             Snackbar.make(
                 binding.root,
                 getString(R.string.send_to_friend, film.title),
@@ -56,14 +60,21 @@ class FilmDetailsFragment : Fragment() {
                 }
                 .show()
         }
-
-        return binding.root
     }
 
     private fun setFavoriteIcon() {
-        binding.detailsFabFavorites.setImageResource(
+
+        // setting 'add to favorites' fab click listener
+        binding.favoritesFab.setOnClickListener {
+            film.isFavorite = !film.isFavorite
+            setFavoriteIcon()
+        }
+
+        // changing 'add to favorites' fab icon depending on status
+        binding.favoritesFab.setImageResource(
             if (film.isFavorite) R.drawable.icon_favorite
             else R.drawable.icon_favorite_border
         )
+
     }
 }
