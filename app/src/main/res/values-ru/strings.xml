@@ -38,4 +38,8 @@
     <string name="share">Поделиться</string>
     <string name="send_to_friend">Послать фильм %s другу?</string>
     <string name="double_tap_toast">Нажмите два раза для выхода</string>
+    <string name="notification_title">Отправка фильма</string>
+    <string name="notification_text">Отправляем фильм %s другу...</string>
+    <string name="send_film_text">Глянь какой шедевр я нашёл: %s - %s</string>
+    <string name="send_film_title">Отправить:</string>
 </resources>

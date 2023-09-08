@@ -38,5 +38,9 @@
     <string name="send_to_friend">Send film %s to a friend?</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="double_tap_toast">Double tap for exit</string>
+    <string name="notification_title">Sending film</string>
+    <string name="notification_text">Sending film %s to a friend...</string>
+    <string name="send_film_text">Check out this film: %s - %s</string>
+    <string name="send_film_title">Share To:</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

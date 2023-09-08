@@ -23,6 +23,9 @@ class MainActivity : AppCompatActivity() {
         // initializing fake films db
         initFilmsDB()
 
+        // initializing notification service
+        notificationService = NotificationService(this)
+
         // starting main fragment
         supportFragmentManager
             .beginTransaction()
@@ -180,6 +183,7 @@ class MainActivity : AppCompatActivity() {
     companion object {
         const val TIME_INTERVAL = 2000L
         const val FILM = "film"
+        lateinit var notificationService: NotificationService
         var allFilms = mutableListOf<Film>()
         val favoriteFilms = mutableListOf<Film>()
     }

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import film.search.filmsearch.MainActivity.Companion.FILM
+import film.search.filmsearch.MainActivity.Companion.notificationService
 import film.search.filmssearch.R
 import film.search.filmssearch.databinding.FragmentFilmDetailsBinding
 
@@ -56,14 +57,20 @@ class FilmDetailsFragment : Fragment() {
                 Snackbar.LENGTH_SHORT
             )
                 .setAction(getString(R.string.share)) {
+                    notificationService.sendNotification(
+                        R.drawable.icon_share,
+                        getString(R.string.notification_title),
+                        getString(R.string.notification_text, film.title)
+                    )
+
                     val intent = Intent()
                     intent.action = Intent.ACTION_SEND
                     intent.putExtra(
                         Intent.EXTRA_TEXT,
-                        "Check out this film: ${film.title} \n\n ${film.description}"
+                        getString(R.string.send_film_text, film.title, film.description)
                     )
                     intent.type = "text/plain"
-                    startActivity(Intent.createChooser(intent, "Share To:"))
+                    startActivity(Intent.createChooser(intent, getString(R.string.send_film_title)))
                 }
                 .show()
         }
