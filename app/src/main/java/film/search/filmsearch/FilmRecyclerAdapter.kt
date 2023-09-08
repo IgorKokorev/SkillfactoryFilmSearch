@@ -9,7 +9,7 @@ import film.search.filmssearch.databinding.FilmItemBinding
 // Adapter for RecyclerView with list of films
 class FilmRecyclerAdapter(private val clickListener: OnItemClickListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private val films = mutableListOf<Film>()
+    val films = mutableListOf<Film>()
 
     override fun getItemCount() = films.size
 
@@ -17,19 +17,22 @@ class FilmRecyclerAdapter(private val clickListener: OnItemClickListener) :
         return FilmViewHolder(FilmItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
+    // initializing holder's data for each film
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is FilmViewHolder -> {
-                holder.binding.poster.setImageResource(films[position].poster)
-                holder.binding.title.text = films[position].title
-                holder.binding.description.text = films[position].description
+                val film = films[position]
+                holder.binding.poster.setImageResource(film.poster)
+                holder.binding.title.text = film.title
+                holder.binding.description.text = film.description
                 holder.binding.itemContainer.setOnClickListener {
-                    clickListener.click(films[position])
+                    clickListener.click(film)
                 }
             }
         }
     }
 
+    // initializing adapter's database with given list. Using DiffUtil for changes
     fun addItems(newList: MutableList<Film>) {
         val numbersDiff = FilmsDiff(films, newList)
         val diffResult = DiffUtil.calculateDiff(numbersDiff)
@@ -39,7 +42,7 @@ class FilmRecyclerAdapter(private val clickListener: OnItemClickListener) :
     }
 
 
-    //Интерфейс для обработки кликов
+    // interface for on-film clicks handler
     interface OnItemClickListener {
         fun click(film: Film)
     }

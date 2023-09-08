@@ -3,15 +3,11 @@
     <string name="app_name">Поиск фильмов</string>
     <string name="monsters_inc_title">Корпорация монстров</string>
     <string name="finding_nemo_title">В поисках Немо</string>
-    <string name="pictures_source_text">Постеры позаимствованы с https://www.movieposters.com/</string>
-    <string name="text_menu">Меню</string>
     <string name="text_favorites">Избранное</string>
     <string name="text_watch_later">Посмотреть позже</string>
     <string name="text_collection">Коллекция</string>
     <string name="text_settings">Настройки</string>
     <string name="watch_later_toast">Нет! Нет! Не трогай меня!</string>
-    <string name="favorites_toast">Нео - избранный!</string>
-    <string name="button_watchlist_toast">Так, заносим тебя в список...</string>
     <string name="collection_toast">Информация засекречена!</string>
     <string name="settings_toast">Где мой камертон?</string>
     <string name="ratatouille_title">Рататуй</string>
@@ -42,4 +38,8 @@
     <string name="share">Поделиться</string>
     <string name="send_to_friend">Послать фильм %s другу?</string>
     <string name="double_tap_toast">Нажмите два раза для выхода</string>
+    <string name="notification_title">Отправка фильма</string>
+    <string name="notification_text">Отправляем фильм %s другу...</string>
+    <string name="send_film_text">Глянь какой шедевр я нашёл: %s - %s</string>
+    <string name="send_film_title">Отправить:</string>
 </resources>
