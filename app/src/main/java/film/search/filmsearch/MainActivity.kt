@@ -1,6 +1,7 @@
 package film.search.filmsearch
 
 import android.os.Bundle
+import android.view.Window
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import film.search.filmssearch.R
@@ -11,6 +12,11 @@ class MainActivity : AppCompatActivity() {
     private var backPressed = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+/*        window.requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS)
+        window.allowEnterTransitionOverlap = true
+        window.allowReturnTransitionOverlap = true*/
+
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)

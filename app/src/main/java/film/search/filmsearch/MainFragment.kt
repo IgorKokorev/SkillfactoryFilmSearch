@@ -1,38 +1,78 @@
 package film.search.filmsearch
 
+import android.os.Build
 import android.os.Bundle
+import android.transition.Scene
+import android.transition.Slide
+import android.transition.TransitionManager
+import android.transition.TransitionSet
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import film.search.filmsearch.MainActivity.Companion.allFilms
+import film.search.filmssearch.R
 import film.search.filmssearch.databinding.FragmentMainBinding
+import film.search.filmssearch.databinding.MergeHomeScreenContentBinding
 
 // Main fragment with list of films
 class MainFragment : Fragment() {
-    private lateinit var binding: FragmentMainBinding
+    private lateinit var mainBinding: FragmentMainBinding
+    private lateinit var mergeBinding: MergeHomeScreenContentBinding
     private lateinit var filmsAdapter: FilmRecyclerAdapter
+
+    init {
+
+        enterTransition = Slide(Gravity.END).apply {
+            duration = 800
+        }
+        returnTransition = Slide(Gravity.END).apply {
+            duration = 800
+            mode = Slide.MODE_OUT
+        }
+
+        exitTransition = Slide(Gravity.START).apply { duration = 800;mode = Slide.MODE_OUT }
+        reenterTransition = Slide(Gravity.START).apply { duration = 800; }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // inflating the fragment
-        binding = FragmentMainBinding.inflate(layoutInflater)
+        mainBinding = FragmentMainBinding.inflate(layoutInflater)
+        mergeBinding = MergeHomeScreenContentBinding.bind(mainBinding.root)
 
-        // initializing RecyclerView
-        initRecycler()
+        return mainBinding.root
+    }
+
+    @RequiresApi(Build.VERSION_CODES.Q)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+
+/*        val scene = Scene.getSceneForLayout(mainBinding.mainFragmentRoot, R.layout.merge_home_screen_content, requireContext())
+        val searchSlide = Slide(Gravity.TOP).addTarget(mergeBinding.searchView)
+        val recyclerSlide = Slide(Gravity.BOTTOM).addTarget(mergeBinding.mainRecycler)
+        val customTransition = TransitionSet().apply {
+            duration = 500
+            addTransition(recyclerSlide)
+            addTransition(searchSlide)
+        }
+        TransitionManager.go(scene, customTransition)*/
 
         // Setting the whole search view clickable
-        binding.searchView.setOnClickListener {
-            binding.searchView.isIconified = false
+        mergeBinding.searchView.setOnClickListener {
+            mergeBinding.searchView.isIconified = false
         }
 
         // Setting the 'on-the-fly' search logic
-        binding.searchView.setOnQueryTextListener(object : OnQueryTextListener {
+        mergeBinding.searchView.setOnQueryTextListener(object : OnQueryTextListener {
 
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return true
@@ -55,20 +95,24 @@ class MainFragment : Fragment() {
         })
 
         // Hide/show search view depending on recycler view scroll direction
-        binding.mainRecycler.addOnScrollListener(object : OnScrollListener() {
+        mergeBinding.mainRecycler.addOnScrollListener(object : OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 if (dy < 0) {
-                    binding.searchView.visibility = View.GONE
+                    mergeBinding.searchView.visibility = View.GONE
                 } else if (dy > 0) {
-                    binding.searchView.visibility = View.VISIBLE
+                    mergeBinding.searchView.visibility = View.VISIBLE
                 }
             }
         })
 
-        return binding.root
-    }
+        // initializing RecyclerView
+        initRecycler()
 
+//        val scene = Scene.getSceneForLayout(mainBinding.mainFragmentRoot, R.layout.merge_home_screen_content, requireContext())
+//        scene.enter()
+
+    }
     // Initializing Recycler view with films
     private fun initRecycler() {
         // on item click listener
@@ -80,9 +124,9 @@ class MainFragment : Fragment() {
         })
         // adding all the films to recycler view adapter
         filmsAdapter.addItems(allFilms)
-        binding.mainRecycler.adapter = filmsAdapter
+        mergeBinding.mainRecycler.adapter = filmsAdapter
         // adding decorator with spaces between items
         val decorator = TopSpacingItemDecoration(8)
-        binding.mainRecycler.addItemDecoration(decorator)
+        mergeBinding.mainRecycler.addItemDecoration(decorator)
     }
 }
