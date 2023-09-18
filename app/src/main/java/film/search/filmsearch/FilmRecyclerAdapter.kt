@@ -22,12 +22,7 @@ class FilmRecyclerAdapter(private val clickListener: OnItemClickListener) :
         when (holder) {
             is FilmViewHolder -> {
                 val film = films[position]
-                holder.binding.poster.setImageResource(film.poster)
-                holder.binding.title.text = film.title
-                holder.binding.description.text = film.description
-                holder.binding.itemContainer.setOnClickListener {
-                    clickListener.click(film)
-                }
+                holder.setData(film, clickListener, position)
             }
         }
     }
@@ -44,6 +39,6 @@ class FilmRecyclerAdapter(private val clickListener: OnItemClickListener) :
 
     // interface for on-film clicks handler
     interface OnItemClickListener {
-        fun click(film: Film)
+        fun click(film: Film, position: Int, binding: FilmItemBinding)
     }
 }
