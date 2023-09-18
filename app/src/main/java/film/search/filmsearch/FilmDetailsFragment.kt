@@ -3,6 +3,7 @@ package film.search.filmsearch
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.transition.AutoTransition
 import android.transition.Slide
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -10,7 +11,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
+import film.search.filmsearch.MainActivity.Companion.DESCRIPTION
 import film.search.filmsearch.MainActivity.Companion.FILM
+import film.search.filmsearch.MainActivity.Companion.POSITION
+import film.search.filmsearch.MainActivity.Companion.POSTER
+import film.search.filmsearch.MainActivity.Companion.TRANSITION_NAME
 import film.search.filmsearch.MainActivity.Companion.notificationService
 import film.search.filmssearch.R
 import film.search.filmssearch.databinding.FragmentFilmDetailsBinding
@@ -36,10 +41,12 @@ class FilmDetailsFragment : Fragment() {
                 }
                 ) ?: return binding.root
 
+        val position = arguments?.getInt(POSITION)
+
         // setting views data
         binding.detailsToolbar.title = film.title
-        binding.detailsPoster.setImageResource(film.poster)
-        binding.detailsDescription.text = film.description
+        binding.poster.setImageResource(film.poster)
+        binding.description.text = film.description
 
         // setting 'favorite' fab
         setFavoriteIcon()
