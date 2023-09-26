@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import film.search.filmsearch.MainActivity.Companion.favoriteFilms
 import film.search.filmsearch.MainActivity.Companion.allFilms
+import film.search.filmssearch.databinding.FilmItemBinding
 import film.search.filmssearch.databinding.FragmentFavoritesBinding
 
 // List of favorites films fragment. Mostly the same as main fragment
@@ -30,8 +31,8 @@ class FavoritesFragment : Fragment() {
         }
 
         filmsAdapter = FilmRecyclerAdapter(object : FilmRecyclerAdapter.OnItemClickListener {
-            override fun click(film: Film) {
-                (requireActivity() as MainActivity).launchDetailsFragment(film)
+            override fun click(film: Film, position: Int, binding: FilmItemBinding) {
+                (requireActivity() as MainActivity).launchDetailsFragment(film, position, binding)
             }
         })
 

@@ -4,9 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:theme="@style/Base.Theme.FilmSearch"
+    android:id="@+id/main_fragment_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/screen_background"
+    android:visibility="visible"
     tools:context="film.search.filmsearch.MainFragment">
 
     <androidx.appcompat.widget.SearchView
@@ -27,6 +29,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layoutAnimation="@anim/popping_layout_anim"
         tools:listitem="@layout/film_item"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

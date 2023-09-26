@@ -1,6 +1,7 @@
 package film.search.filmsearch
 
 import android.os.Bundle
+import android.transition.AutoTransition
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,30 +10,37 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import film.search.filmsearch.MainActivity.Companion.allFilms
+import film.search.filmsearch.MainActivity.Companion.filmDetailsFragment
+import film.search.filmssearch.databinding.FilmItemBinding
 import film.search.filmssearch.databinding.FragmentMainBinding
 
 // Main fragment with list of films
 class MainFragment : Fragment() {
-    private lateinit var binding: FragmentMainBinding
+    private lateinit var mainBinding: FragmentMainBinding
     private lateinit var filmsAdapter: FilmRecyclerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // inflating the fragment
-        binding = FragmentMainBinding.inflate(layoutInflater)
+        mainBinding = FragmentMainBinding.inflate(layoutInflater)
+        return mainBinding.root
+    }
 
-        // initializing RecyclerView
-        initRecycler()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        sharedElementEnterTransition = AutoTransition().setDuration(1000L)
+        sharedElementReturnTransition = AutoTransition().setDuration(1000L)
 
         // Setting the whole search view clickable
-        binding.searchView.setOnClickListener {
-            binding.searchView.isIconified = false
+        mainBinding.searchView.setOnClickListener {
+            mainBinding.searchView.isIconified = false
         }
 
         // Setting the 'on-the-fly' search logic
-        binding.searchView.setOnQueryTextListener(object : OnQueryTextListener {
+        mainBinding.searchView.setOnQueryTextListener(object : OnQueryTextListener {
 
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return true
@@ -55,34 +63,35 @@ class MainFragment : Fragment() {
         })
 
         // Hide/show search view depending on recycler view scroll direction
-        binding.mainRecycler.addOnScrollListener(object : OnScrollListener() {
+        mainBinding.mainRecycler.addOnScrollListener(object : OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 if (dy < 0) {
-                    binding.searchView.visibility = View.GONE
+                    mainBinding.searchView.visibility = View.GONE
                 } else if (dy > 0) {
-                    binding.searchView.visibility = View.VISIBLE
+                    mainBinding.searchView.visibility = View.VISIBLE
                 }
             }
         })
 
-        return binding.root
-    }
+        // initializing RecyclerView
+        initRecycler()
 
+    }
     // Initializing Recycler view with films
     private fun initRecycler() {
         // on item click listener
         filmsAdapter = FilmRecyclerAdapter(object : FilmRecyclerAdapter.OnItemClickListener {
             // If a film is clicked a new fragment with film details is launched
-            override fun click(film: Film) {
-                (requireActivity() as MainActivity).launchDetailsFragment(film)
+            override fun click(film: Film, position: Int, binding: FilmItemBinding) {
+                (requireActivity() as MainActivity).launchDetailsFragment(film, position, binding)
             }
         })
         // adding all the films to recycler view adapter
         filmsAdapter.addItems(allFilms)
-        binding.mainRecycler.adapter = filmsAdapter
+        mainBinding.mainRecycler.adapter = filmsAdapter
         // adding decorator with spaces between items
         val decorator = TopSpacingItemDecoration(8)
-        binding.mainRecycler.addItemDecoration(decorator)
+        mainBinding.mainRecycler.addItemDecoration(decorator)
     }
 }
