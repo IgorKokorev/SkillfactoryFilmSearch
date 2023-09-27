@@ -1,7 +1,6 @@
 package film.search.filmsearch
 
 import android.os.Bundle
-import android.text.TextUtils.replace
 import android.transition.AutoTransition
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -49,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         // initializing notification service
         notificationService = NotificationService(this)
 
-        filmDetailsFragment.sharedElementEnterTransition = AutoTransition().setDuration(1000L)
+//        filmDetailsFragment.sharedElementEnterTransition = AutoTransition().setDuration(1000L)
 
         // starting main fragment
         supportFragmentManager
@@ -74,58 +73,58 @@ class MainActivity : AppCompatActivity() {
             ),
             Film(
                 R.drawable.finding_nemo,
-                getString(film.search.filmssearch.R.string.finding_nemo_title),
-                getString(film.search.filmssearch.R.string.finding_nemo_description)
+                getString(R.string.finding_nemo_title),
+                getString(R.string.finding_nemo_description)
             ),
             Film(
-                film.search.filmssearch.R.drawable.incredibles,
-                getString(film.search.filmssearch.R.string.incredibles_title),
-                getString(film.search.filmssearch.R.string.incredibles_description)
+                R.drawable.incredibles,
+                getString(R.string.incredibles_title),
+                getString(R.string.incredibles_description)
             ),
             Film(
-                film.search.filmssearch.R.drawable.lightyear,
-                getString(film.search.filmssearch.R.string.lightyear_title),
-                getString(film.search.filmssearch.R.string.lightyear_description)
+                R.drawable.lightyear,
+                getString(R.string.lightyear_title),
+                getString(R.string.lightyear_description)
             ),
             Film(
-                film.search.filmssearch.R.drawable.luca,
-                getString(film.search.filmssearch.R.string.luca_title),
-                getString(film.search.filmssearch.R.string.luca_description)
+                R.drawable.luca,
+                getString(R.string.luca_title),
+                getString(R.string.luca_description)
             ),
             Film(
-                film.search.filmssearch.R.drawable.monsters_inc,
-                getString(film.search.filmssearch.R.string.monsters_inc_title),
-                getString(film.search.filmssearch.R.string.monsters_inc_description)
+                R.drawable.monsters_inc,
+                getString(R.string.monsters_inc_title),
+                getString(R.string.monsters_inc_description)
             ),
             Film(
-                film.search.filmssearch.R.drawable.onward,
-                getString(film.search.filmssearch.R.string.onward_title),
-                getString(film.search.filmssearch.R.string.onward_description)
+                R.drawable.onward,
+                getString(R.string.onward_title),
+                getString(R.string.onward_description)
             ),
             Film(
-                film.search.filmssearch.R.drawable.ratatouille,
-                getString(film.search.filmssearch.R.string.ratatouille_title),
-                getString(film.search.filmssearch.R.string.ratatouille_description)
+                R.drawable.ratatouille,
+                getString(R.string.ratatouille_title),
+                getString(R.string.ratatouille_description)
             ),
             Film(
-                film.search.filmssearch.R.drawable.soul,
-                getString(film.search.filmssearch.R.string.soul_title),
-                getString(film.search.filmssearch.R.string.soul_description)
+                R.drawable.soul,
+                getString(R.string.soul_title),
+                getString(R.string.soul_description)
             ),
             Film(
-                film.search.filmssearch.R.drawable.toy_story,
-                getString(film.search.filmssearch.R.string.toy_story_title),
-                getString(film.search.filmssearch.R.string.toy_story_description)
+                R.drawable.toy_story,
+                getString(R.string.toy_story_title),
+                getString(R.string.toy_story_description)
             ),
             Film(
-                film.search.filmssearch.R.drawable.toy_story_four,
-                getString(film.search.filmssearch.R.string.toy_story_4_title),
-                getString(film.search.filmssearch.R.string.toy_story_4_description)
+                R.drawable.toy_story_four,
+                getString(R.string.toy_story_4_title),
+                getString(R.string.toy_story_4_description)
             ),
             Film(
-                film.search.filmssearch.R.drawable.walle,
-                getString(film.search.filmssearch.R.string.walle_title),
-                getString(film.search.filmssearch.R.string.walle_description)
+                R.drawable.walle,
+                getString(R.string.walle_title),
+                getString(R.string.walle_description)
             )
         )
     }
@@ -137,7 +136,7 @@ class MainActivity : AppCompatActivity() {
                 onBackPressedDispatcher.onBackPressed()
                 finish()
             } else {
-                Toast.makeText(this, getString(film.search.filmssearch.R.string.double_tap_toast), Toast.LENGTH_SHORT)
+                Toast.makeText(this, getString(R.string.double_tap_toast), Toast.LENGTH_SHORT)
                     .show()
             }
 
@@ -151,8 +150,8 @@ class MainActivity : AppCompatActivity() {
     private fun initMenuButtons() {
         binding.topAppBar.setOnMenuItemClickListener {
             when (it.itemId) {
-                film.search.filmssearch.R.id.settings -> {
-                    Toast.makeText(this, film.search.filmssearch.R.string.settings_toast, Toast.LENGTH_SHORT).show()
+                R.id.settings -> {
+                    Toast.makeText(this, R.string.settings_toast, Toast.LENGTH_SHORT).show()
                     true
                 }
 
@@ -162,22 +161,46 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomNavigation.setOnItemSelectedListener {
             when (it.itemId) {
-                film.search.filmssearch.R.id.favorites -> {
+                R.id.home -> {
+                    val tag = "home"
+                    val fragment = supportFragmentManager.findFragmentByTag(tag) ?: MainFragment()
                     supportFragmentManager
                         .beginTransaction()
-                        .replace(R.id.fragment_placeholder, FavoritesFragment())
-                        .addToBackStack(null)
+                        .replace(R.id.fragment_placeholder, fragment, tag)
+                        .addToBackStack(FRAGMENT_TAG)
+                        .commit()
+                    true
+                }
+                R.id.favorites -> {
+                    val tag = "favorites"
+                    val fragment = supportFragmentManager.findFragmentByTag(tag) ?: FavoritesFragment()
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.fragment_placeholder, fragment, tag)
+                        .addToBackStack(FRAGMENT_TAG)
                         .commit()
                     true
                 }
 
-                film.search.filmssearch.R.id.watch_later -> {
-                    Toast.makeText(this, film.search.filmssearch.R.string.watch_later_toast, Toast.LENGTH_SHORT).show()
+                R.id.watch_later -> {
+                    val tag = "watch later"
+                    val fragment = supportFragmentManager.findFragmentByTag(tag) ?: WatchLaterFragment()
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.fragment_placeholder, fragment, tag)
+                        .addToBackStack(FRAGMENT_TAG)
+                        .commit()
                     true
                 }
 
-                film.search.filmssearch.R.id.collections -> {
-                    Toast.makeText(this, film.search.filmssearch.R.string.collection_toast, Toast.LENGTH_SHORT).show()
+                R.id.collections -> {
+                    val tag = "collection"
+                    val fragment = supportFragmentManager.findFragmentByTag(tag) ?: CollectionFragment()
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.fragment_placeholder, fragment, tag)
+                        .addToBackStack(FRAGMENT_TAG)
+                        .commit()
                     true
                 }
 

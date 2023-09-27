@@ -2,18 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/home"
+        android:icon="@drawable/icon_home"
+        android:title="@string/menu__text_home"/>
+    <item
         android:id="@+id/favorites"
         android:icon="@drawable/icon_favorite"
-        android:title="@string/text_favorites"
+        android:title="@string/menu_text_favorites"
         app:showAsAction="withText"/>
     <item
         android:id="@+id/watch_later"
         android:icon="@drawable/icon_watch_later"
-        android:title="@string/text_watch_later"
+        android:title="@string/menu_text_watch_later"
         app:showAsAction="withText"/>
     <item
         android:id="@+id/collections"
         android:icon="@drawable/icon_collections"
-        android:title="@string/text_collection"
+        android:title="@string/menu_text_collection"
         app:showAsAction="withText"/>
 </menu>

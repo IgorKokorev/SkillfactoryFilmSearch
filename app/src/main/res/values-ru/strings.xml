@@ -3,10 +3,10 @@
     <string name="app_name">Поиск фильмов</string>
     <string name="monsters_inc_title">Корпорация монстров</string>
     <string name="finding_nemo_title">В поисках Немо</string>
-    <string name="text_favorites">Избранное</string>
-    <string name="text_watch_later">Посмотреть позже</string>
-    <string name="text_collection">Коллекция</string>
-    <string name="text_settings">Настройки</string>
+    <string name="menu_text_favorites">Избранное</string>
+    <string name="menu_text_watch_later">Посмотреть позже</string>
+    <string name="menu_text_collection">Коллекция</string>
+    <string name="menu_text_settings">Настройки</string>
     <string name="watch_later_toast">Нет! Нет! Не трогай меня!</string>
     <string name="collection_toast">Информация засекречена!</string>
     <string name="settings_toast">Где мой камертон?</string>
@@ -42,4 +42,5 @@
     <string name="notification_text">Отправляем фильм %s другу...</string>
     <string name="send_film_text">Глянь какой шедевр я нашёл: %s - %s</string>
     <string name="send_film_title">Отправить:</string>
+    <string name="menu__text_home">Домой!</string>
 </resources>
