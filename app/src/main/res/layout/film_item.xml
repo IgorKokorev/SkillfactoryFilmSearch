@@ -52,6 +52,8 @@
             android:translationZ="10dp"
             app:progress="80"
             app:color_background="#80808080"
+            app:animate="true"
+            app:animation_time="5000"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
 

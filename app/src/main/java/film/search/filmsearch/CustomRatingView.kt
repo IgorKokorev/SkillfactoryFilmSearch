@@ -13,32 +13,35 @@ import android.view.View
 import android.view.animation.DecelerateInterpolator
 import film.search.filmssearch.R
 
+// Custom view to show circular rating with animation
 class CustomRatingView @JvmOverloads constructor(context: Context, attributeSet: AttributeSet? = null) : View(context, attributeSet) {
-    private val drawRectangle = RectF()
-    private var defaultSize: Float = 50f
-    private var radius: Float = defaultSize / 2f
+    private val drawRectangle = RectF() // Where we draw
+    private var defaultSize: Float = 50f // default view size
+    private var radius: Float = defaultSize / 2f // radius
     private var centerX: Float = defaultSize / 2f
     private var centerY: Float = defaultSize / 2f
-    private var stroke = 10f
-    private var progress = 50
-    private var animProgress = 0
+    private var stroke = 10f // bar stroke
+    private var progress = 50 // progress from 0 to 100
+    private var animProgress = 0 // current progress when animating
     private var ratingTextSize = 60f
-    private var color1 = Color.parseColor("#FFE84258")
+    private var color1 = Color.parseColor("#FFE84258") // bar colors from bad to good
     private var color2 = Color.parseColor("#FFFD8060")
     private var color3 = Color.parseColor("#FFFEE191")
     private var color4 = Color.parseColor("#FFA0FFA4")
     private var colorBackground = Color.DKGRAY
-    private lateinit var strokePaint: Paint
+    private var animate = false // do we need to animate the view
+    private var animationTime = 1000
+    private lateinit var strokePaint: Paint // paints for elements
     private lateinit var digitPaint: Paint
     private lateinit var circlePaint: Paint
-    private lateinit var barAnimator: ValueAnimator
+    private lateinit var barAnimator: ValueAnimator // animator for the view
 
+    // initializing view params from attributes
     init {
         val attr =
             context.theme.obtainStyledAttributes(attributeSet, R.styleable.CustomRatingView, 0, 0)
         try {
-            stroke = attr.getFloat(
-                R.styleable.CustomRatingView_stroke, stroke)
+            stroke = attr.getFloat(R.styleable.CustomRatingView_stroke, stroke)
             progress = attr.getInt(R.styleable.CustomRatingView_progress, progress)
             color1 = attr.getColor(R.styleable.CustomRatingView_color1, color1)
             color2 = attr.getColor(R.styleable.CustomRatingView_color2, color2)
@@ -46,11 +49,14 @@ class CustomRatingView @JvmOverloads constructor(context: Context, attributeSet:
             color4 = attr.getColor(R.styleable.CustomRatingView_color4, color4)
             colorBackground = attr.getColor(R.styleable.CustomRatingView_color_background, colorBackground)
             defaultSize = attr.getDimension(R.styleable.CustomRatingView_default_size, defaultSize)
+            animate = attr.getBoolean(R.styleable.CustomRatingView_animate, animate)
+            animationTime = attr.getInt(R.styleable.CustomRatingView_animation_time, animationTime)
         } finally {
             attr.recycle()
         }
     }
 
+    // initializing all the paints
     private fun initPaint() {
         strokePaint = Paint().apply {
             style = Paint.Style.STROKE
@@ -73,6 +79,7 @@ class CustomRatingView @JvmOverloads constructor(context: Context, attributeSet:
         }
     }
 
+    // color depends on progress
     private fun getPaintColor(progress: Int): Int = when(progress) {
         in 0 .. 25 -> color1
         in 26 .. 50 -> color2
@@ -80,6 +87,7 @@ class CustomRatingView @JvmOverloads constructor(context: Context, attributeSet:
         else -> color4
     }
 
+    // calculating radius if needed
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         radius = if (width > height) {
             height.div(2f)
@@ -88,6 +96,7 @@ class CustomRatingView @JvmOverloads constructor(context: Context, attributeSet:
         }
     }
 
+    // calculating all the sizes
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val widthMode = MeasureSpec.getMode(widthMeasureSpec)
         val widthSize = MeasureSpec.getSize(widthMeasureSpec)
@@ -105,6 +114,7 @@ class CustomRatingView @JvmOverloads constructor(context: Context, attributeSet:
         setMeasuredDimension(minSide, minSide)
     }
 
+    // draw
     override fun onDraw(canvas: Canvas) {
         drawRating(canvas)
         drawText(canvas)
@@ -137,16 +147,21 @@ class CustomRatingView @JvmOverloads constructor(context: Context, attributeSet:
         canvas.drawText(message, centerX - advance / 2, centerY  + advance / 4, digitPaint)
     }
 
+    // setting progress
     fun setProgress(pr: Int) {
-        setProgress(pr, true)
+        if (pr < 0) progress = 0
+        else if (pr > 100) progress = 100
+        else progress = pr
+
+        animProgress = progress
+        setProgress(pr, animate)
     }
 
-    fun setProgress(pr: Int, animate: Boolean) {
-        if (animate) {
-            progress = pr
+    fun setProgress(pr: Int, toAnimate: Boolean) {
+        if (toAnimate) {
             animProgress = 0
             barAnimator = ValueAnimator.ofFloat(0f, 1f)
-            barAnimator.setDuration(3000)
+            barAnimator.setDuration(animationTime.toLong())
 
             // reset progress without animating
             setProgress(0, false)
@@ -161,7 +176,6 @@ class CustomRatingView @JvmOverloads constructor(context: Context, attributeSet:
             }
         } else {
             initPaint()
-//            invalidate()
             postInvalidate()
         }
     }

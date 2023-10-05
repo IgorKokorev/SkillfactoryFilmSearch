@@ -19,5 +19,7 @@
         <attr name="color4" format="color" />
         <attr name="color_background" format="color" />
         <attr name="default_size" format="dimension" />
+        <attr name="animate" format="boolean" />
+        <attr name="animation_time" format="integer" />
     </declare-styleable>
 </resources>
