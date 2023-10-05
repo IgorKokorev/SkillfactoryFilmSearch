@@ -22,6 +22,7 @@ class FilmViewHolder(val binding: FilmItemBinding) : RecyclerView.ViewHolder(bin
         binding.root.setOnClickListener {
             clickListener.click(film, position, binding)
         }
+        binding.ratingView.setProgress(film.rating)
         adapterPosition
     }
 }

@@ -64,67 +64,80 @@ class MainActivity : AppCompatActivity() {
             Film(
                 R.drawable.brave,
                 getString(R.string.brave_title),
-                getString(R.string.brave_description)
+                getString(R.string.brave_description),
+                49
             ),
             Film(
                 R.drawable.cars,
                 getString(R.string.cars_title),
-                getString(R.string.cars_description)
+                getString(R.string.cars_description),
+                99
             ),
             Film(
                 R.drawable.finding_nemo,
                 getString(R.string.finding_nemo_title),
-                getString(R.string.finding_nemo_description)
+                getString(R.string.finding_nemo_description),
+                56
             ),
             Film(
                 R.drawable.incredibles,
                 getString(R.string.incredibles_title),
-                getString(R.string.incredibles_description)
+                getString(R.string.incredibles_description),
+                83
             ),
             Film(
                 R.drawable.lightyear,
                 getString(R.string.lightyear_title),
-                getString(R.string.lightyear_description)
+                getString(R.string.lightyear_description),
+                23
             ),
             Film(
                 R.drawable.luca,
                 getString(R.string.luca_title),
-                getString(R.string.luca_description)
+                getString(R.string.luca_description),
+                38
             ),
             Film(
                 R.drawable.monsters_inc,
                 getString(R.string.monsters_inc_title),
-                getString(R.string.monsters_inc_description)
+                getString(R.string.monsters_inc_description),
+                100
             ),
             Film(
                 R.drawable.onward,
                 getString(R.string.onward_title),
-                getString(R.string.onward_description)
+                getString(R.string.onward_description),
+                72
             ),
             Film(
                 R.drawable.ratatouille,
                 getString(R.string.ratatouille_title),
-                getString(R.string.ratatouille_description)
+                getString(R.string.ratatouille_description),
+                0
             ),
             Film(
                 R.drawable.soul,
                 getString(R.string.soul_title),
-                getString(R.string.soul_description)
+                getString(R.string.soul_description),
+                88
             ),
             Film(
                 R.drawable.toy_story,
                 getString(R.string.toy_story_title),
-                getString(R.string.toy_story_description)
+                getString(R.string.toy_story_description),
+                15
             ),
             Film(
                 R.drawable.toy_story_four,
                 getString(R.string.toy_story_4_title),
-                getString(R.string.toy_story_4_description)
+                getString(R.string.toy_story_4_description),
+                16
             ),
             Film(
                 R.drawable.walle,
                 getString(R.string.walle_title),
-                getString(R.string.walle_description)
+                getString(R.string.walle_description),
+                93
             )
         )
     }
