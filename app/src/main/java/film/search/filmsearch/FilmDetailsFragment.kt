@@ -41,8 +41,6 @@ class FilmDetailsFragment : Fragment() {
                 }
                 ) ?: return binding.root
 
-        val position = arguments?.getInt(POSITION)
-
         // setting views data
         binding.detailsToolbar.title = film.title
         binding.poster.setImageResource(film.poster)

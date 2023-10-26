@@ -5,4 +5,14 @@
     <color name="menu_item_color">#FFFFFFFF</color>
     <color name="colorPrimaryDark">#FF2060A0</color>
     <color name="colorAccent">#FFFFC0A0</color>
+    <color name="colorAccentLight">#FFC1E8FF</color>
+    <color name="colorRoseLight">#FFFFC1E8</color>
+    <color name="colorGreenLight">#FFE8FFC1</color>
+    <color name="colorPinkLight">#FFE8C1FF</color>
+    <color name="colorGreyLight">#FFE0E0E0</color>
+    <color name="colorAccentDark">#FF004C69</color>
+    <color name="colorRoseDark">#FF69004C</color>
+    <color name="colorGreenDark">#FF4C6900</color>
+    <color name="colorPinkDark">#FF4C0069</color>
+    <color name="colorGreyDark">#FF202020</color>
 </resources>

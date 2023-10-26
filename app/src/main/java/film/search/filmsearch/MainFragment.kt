@@ -31,9 +31,6 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        sharedElementEnterTransition = AutoTransition().setDuration(1000L)
-        sharedElementReturnTransition = AutoTransition().setDuration(1000L)
-
         // Setting the whole search view clickable
         mainBinding.searchView.setOnClickListener {
             mainBinding.searchView.isIconified = false
@@ -76,6 +73,8 @@ class MainFragment : Fragment() {
 
         // initializing RecyclerView
         initRecycler()
+
+        AnimationHelper.performFragmentCircularRevealAnimation(mainBinding.mainFragmentRoot, requireActivity(), 0)
 
     }
     // Initializing Recycler view with films

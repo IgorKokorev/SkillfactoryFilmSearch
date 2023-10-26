@@ -21,9 +21,11 @@ class FavoritesFragment : Fragment() {
     ): View {
         binding = FragmentFavoritesBinding.inflate(layoutInflater)
         initRecycler()
+        AnimationHelper.performFragmentCircularRevealAnimation(binding.root, requireActivity(), 1)
         return binding.root
     }
 
+    // initializing 'favorites' recycler view
     private fun initRecycler() {
         favoriteFilms.clear()
         for (film in allFilms) {

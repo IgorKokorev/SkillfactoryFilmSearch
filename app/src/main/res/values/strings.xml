@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">FilmSearch</string>
-    <string name="text_favorites">Favorites</string>
-    <string name="text_watch_later">Watch later</string>
-    <string name="text_collection">Information</string>
-    <string name="text_settings">Settings</string>
+    <string name="menu_text_favorites">Favorites</string>
+    <string name="menu_text_watch_later">Watch later</string>
+    <string name="menu_text_collection">Information</string>
+    <string name="menu_text_settings">Settings</string>
     <string name="watch_later_toast">Oh my! You clicked me!</string>
     <string name="collection_toast">It\'s classified!</string>
     <string name="settings_toast">Let\'s set up some things!</string>
@@ -36,11 +36,10 @@
     <string name="walle_description">In the distant future, a small waste-collecting robot inadvertently embarks on a space journey that will ultimately decide the fate of mankind.</string>
     <string name="share">Share</string>
     <string name="send_to_friend">Send film %s to a friend?</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="double_tap_toast">Double tap for exit</string>
     <string name="notification_title">Sending film</string>
     <string name="notification_text">Sending film %s to a friend...</string>
     <string name="send_film_text">Check out this film: %s - %s</string>
     <string name="send_film_title">Share To:</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="menu__text_home">Go home!</string>
 </resources>
