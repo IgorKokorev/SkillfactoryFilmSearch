@@ -1,4 +1,4 @@
-package film.search.filmsearch
+package film.search.filmsearch.view.rvadapters
 
 import android.content.res.Resources
 import android.graphics.Rect

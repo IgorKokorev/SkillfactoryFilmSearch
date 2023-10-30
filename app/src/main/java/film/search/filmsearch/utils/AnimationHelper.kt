@@ -1,4 +1,4 @@
-package film.search.filmsearch
+package film.search.filmsearch.utils
 
 import android.app.Activity
 import android.view.View

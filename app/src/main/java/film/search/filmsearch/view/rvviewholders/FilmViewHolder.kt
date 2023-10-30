@@ -1,7 +1,10 @@
-package film.search.filmsearch
+package film.search.filmsearch.view.rvviewholders
 
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import film.search.filmsearch.view.rvadapters.FilmRecyclerAdapter
+import film.search.filmsearch.view.MainActivity
+import film.search.filmsearch.domain.Film
 import film.search.filmssearch.databinding.FilmItemBinding
 
 // Holder for Recycler view item

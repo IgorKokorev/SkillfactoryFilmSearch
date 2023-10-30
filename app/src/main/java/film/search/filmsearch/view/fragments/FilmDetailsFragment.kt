@@ -1,22 +1,16 @@
-package film.search.filmsearch
+package film.search.filmsearch.view.fragments
 
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.transition.AutoTransition
-import android.transition.Slide
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
-import film.search.filmsearch.MainActivity.Companion.DESCRIPTION
-import film.search.filmsearch.MainActivity.Companion.FILM
-import film.search.filmsearch.MainActivity.Companion.POSITION
-import film.search.filmsearch.MainActivity.Companion.POSTER
-import film.search.filmsearch.MainActivity.Companion.TRANSITION_NAME
-import film.search.filmsearch.MainActivity.Companion.notificationService
+import film.search.filmsearch.view.MainActivity.Companion.FILM
+import film.search.filmsearch.view.MainActivity.Companion.notificationService
+import film.search.filmsearch.domain.Film
 import film.search.filmssearch.R
 import film.search.filmssearch.databinding.FragmentFilmDetailsBinding
 
