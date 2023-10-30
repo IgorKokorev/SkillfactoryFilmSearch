@@ -8,8 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
-import film.search.filmsearch.view.MainActivity.Companion.FILM
-import film.search.filmsearch.view.MainActivity.Companion.notificationService
+import film.search.filmsearch.App
 import film.search.filmsearch.domain.Film
 import film.search.filmssearch.R
 import film.search.filmssearch.databinding.FragmentFilmDetailsBinding
@@ -29,9 +28,9 @@ class FilmDetailsFragment : Fragment() {
         // getting film as argument. Method depends on OS version
         film = (
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    arguments?.getParcelable(FILM, Film::class.java)
+                    arguments?.getParcelable(App.instance.FILM, Film::class.java)
                 } else {
-                    arguments?.getParcelable(FILM) as Film?
+                    arguments?.getParcelable(App.instance.FILM) as Film?
                 }
                 ) ?: return binding.root
 
@@ -58,7 +57,7 @@ class FilmDetailsFragment : Fragment() {
                 Snackbar.LENGTH_SHORT
             )
                 .setAction(getString(R.string.share)) {
-                    notificationService.sendNotification(
+                    App.instance.notificationService.sendNotification(
                         R.drawable.icon_share,
                         getString(R.string.notification_title),
                         getString(R.string.notification_text, film.title)
