@@ -1,4 +1,4 @@
-package film.search.filmsearch
+package film.search.filmsearch.domain
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

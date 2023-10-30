@@ -1,4 +1,4 @@
-package film.search.filmsearch
+package film.search.filmsearch.utils
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
