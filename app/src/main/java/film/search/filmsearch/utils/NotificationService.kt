@@ -7,6 +7,7 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat.getSystemService
 
+// Service for push notifications
 class NotificationService(val context: Context) {
     val CHANNEL_ID = "filmNotification"
     val name = "Film status"

@@ -2,9 +2,9 @@ package film.search.filmsearch.view.rvviewholders
 
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import film.search.filmsearch.view.rvadapters.FilmRecyclerAdapter
-import film.search.filmsearch.view.MainActivity
+import film.search.filmsearch.App
 import film.search.filmsearch.domain.Film
+import film.search.filmsearch.view.rvadapters.FilmRecyclerAdapter
 import film.search.filmssearch.databinding.FilmItemBinding
 
 // Holder for Recycler view item
@@ -18,7 +18,7 @@ class FilmViewHolder(val binding: FilmItemBinding) : RecyclerView.ViewHolder(bin
             .centerCrop()
             .into(binding.poster) // image view
 
-        binding.poster.transitionName = MainActivity.TRANSITION_NAME + position
+        binding.poster.transitionName = App.instance.TRANSITION_NAME + position
 
         binding.title.text = film.title
         binding.description.text = film.description
