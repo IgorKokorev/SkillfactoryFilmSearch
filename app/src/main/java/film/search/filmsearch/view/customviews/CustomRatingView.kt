@@ -1,4 +1,4 @@
-package film.search.filmsearch
+package film.search.filmsearch.view.customviews
 
 import android.animation.ValueAnimator
 import android.animation.ValueAnimator.AnimatorUpdateListener

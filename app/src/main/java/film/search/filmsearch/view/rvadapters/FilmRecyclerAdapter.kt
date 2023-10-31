@@ -1,9 +1,11 @@
-package film.search.filmsearch
+package film.search.filmsearch.view.rvadapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import film.search.filmsearch.domain.Film
+import film.search.filmsearch.view.rvviewholders.FilmViewHolder
 import film.search.filmssearch.databinding.FilmItemBinding
 
 // Adapter for RecyclerView with list of films
@@ -28,14 +30,13 @@ class FilmRecyclerAdapter(private val clickListener: OnItemClickListener) :
     }
 
     // initializing adapter's database with given list. Using DiffUtil for changes
-    fun addItems(newList: MutableList<Film>) {
+    fun addItems(newList: List<Film>) {
         val numbersDiff = FilmsDiff(films, newList)
         val diffResult = DiffUtil.calculateDiff(numbersDiff)
         films.clear()
         films.addAll(newList)
         diffResult.dispatchUpdatesTo(this)
     }
-
 
     // interface for on-film clicks handler
     interface OnItemClickListener {

@@ -10,7 +10,7 @@
     android:background="@drawable/background_main_screen"
     android:visibility="invisible"
     tools:visibility="visible"
-    tools:context="film.search.filmsearch.MainFragment">
+    tools:context="film.search.filmsearch.view.fragments.MainFragment">
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/search_view"
