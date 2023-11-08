@@ -7,6 +7,7 @@ import film.search.filmsearch.App
 import film.search.filmsearch.domain.Film
 import film.search.filmsearch.domain.Interactor
 
+// ViewModel for FavoritesFragment
 class FavoritesFragmentViewModel : ViewModel() {
     val filmsListLiveData = MutableLiveData<List<Film>>()
     private var interactor: Interactor = App.instance.interactor

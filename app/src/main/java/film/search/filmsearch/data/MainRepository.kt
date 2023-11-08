@@ -4,7 +4,7 @@ import android.content.Context
 import film.search.filmsearch.domain.Film
 import film.search.filmssearch.R
 
-
+// Main repository contains fake film db
 class MainRepository(val context: Context) {
     val allFilms = mutableListOf(
         Film(
