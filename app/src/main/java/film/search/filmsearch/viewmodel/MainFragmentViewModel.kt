@@ -20,7 +20,7 @@ class MainFragmentViewModel : ViewModel() {
 //            .url("https://api.themoviedb.org/3/authentication")
 //            .get()
 //            .addHeader("accept", "application/json")
-//            .addHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4MDc4NzQzNGYzMzg1NjcyYWVlYTA4MDAzMzRjMWUxNyIsInN1YiI6IjY1NDRkNGE3MWFjMjkyMDExYjNkNzgzYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.PLydGoD3-dmqbnBIPWQanSIlWBfNby_BJIkKGMO49_0")
+//            .addHeader("Authorization", "Bearer ")
 //            .build()
 //
 //        val response1 = client.newCall(request1).enqueue(object : Callback {
