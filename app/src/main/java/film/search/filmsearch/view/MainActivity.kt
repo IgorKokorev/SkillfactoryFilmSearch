@@ -11,6 +11,7 @@ import film.search.filmsearch.view.fragments.FavoritesFragment
 import film.search.filmsearch.view.fragments.FilmDetailsFragment
 import film.search.filmsearch.view.fragments.MainFragment
 import film.search.filmsearch.view.fragments.WatchLaterFragment
+import film.search.filmssearch.BuildConfig
 import film.search.filmssearch.R
 import film.search.filmssearch.databinding.ActivityMainBinding
 import film.search.filmssearch.databinding.FilmItemBinding
