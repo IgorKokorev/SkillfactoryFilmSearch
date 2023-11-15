@@ -11,7 +11,7 @@
 
     <style name="Theme.FilmSearch" parent="Base.Theme.FilmSearch" />
     <declare-styleable name="CustomRatingView">
-        <attr name="progress" format="integer" />
+        <attr name="progress" format="float" />
         <attr name="stroke" format="float" />
         <attr name="color1" format="color" />
         <attr name="color2" format="color" />

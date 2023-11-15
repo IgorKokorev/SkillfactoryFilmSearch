@@ -3,6 +3,7 @@ package film.search.filmsearch.view.rvviewholders
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import film.search.filmsearch.App
+import film.search.filmsearch.data.tmbd.ApiConstants
 import film.search.filmsearch.domain.Film
 import film.search.filmsearch.view.rvadapters.FilmRecyclerAdapter
 import film.search.filmssearch.databinding.FilmItemBinding
@@ -14,7 +15,7 @@ class FilmViewHolder(val binding: FilmItemBinding) : RecyclerView.ViewHolder(bin
 
         // Using Glide for images
         Glide.with(binding.root) // container
-            .load(film.poster) // what picture is loaded
+            .load(ApiConstants.IMAGES_URL + "w342" + film.poster) // what picture is loaded
             .centerCrop()
             .into(binding.poster) // image view
 
