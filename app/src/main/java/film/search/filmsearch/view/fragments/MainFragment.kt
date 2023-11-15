@@ -1,5 +1,6 @@
 package film.search.filmsearch.view.fragments
 
+//import film.search.filmsearch.view.MainActivity.Companion.allFilms
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,14 +9,14 @@ import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
-import film.search.filmsearch.view.rvadapters.FilmRecyclerAdapter
-import film.search.filmsearch.view.MainActivity
-//import film.search.filmsearch.view.MainActivity.Companion.allFilms
-import film.search.filmsearch.view.rvadapters.TopSpacingItemDecoration
 import film.search.filmsearch.domain.Film
 import film.search.filmsearch.utils.AnimationHelper
+import film.search.filmsearch.view.MainActivity
+import film.search.filmsearch.view.rvadapters.FilmRecyclerAdapter
+import film.search.filmsearch.view.rvadapters.TopSpacingItemDecoration
 import film.search.filmsearch.viewmodel.MainFragmentViewModel
 import film.search.filmssearch.databinding.FilmItemBinding
 import film.search.filmssearch.databinding.FragmentMainBinding
@@ -24,6 +25,7 @@ import film.search.filmssearch.databinding.FragmentMainBinding
 class MainFragment : Fragment() {
     private lateinit var mainBinding: FragmentMainBinding
     private lateinit var filmsAdapter: FilmRecyclerAdapter
+    private var page = 1
     private val viewModel by lazy {
         ViewModelProvider.NewInstanceFactory().create(MainFragmentViewModel::class.java)
     }
@@ -108,7 +110,11 @@ class MainFragment : Fragment() {
         mainBinding.mainRecycler.addItemDecoration(decorator)
 
         // Hide/show search view depending on recycler view scroll direction
-        mainBinding.mainRecycler.addOnScrollListener(object : OnScrollListener() {
+        // Download new data when we're at the end of the list
+        val scrollListener = object : OnScrollListener() {
+            private val layoutManager: LinearLayoutManager = mainBinding.mainRecycler.layoutManager as LinearLayoutManager
+            var isLoading = false
+
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 if (dy < 0) {
@@ -116,7 +122,22 @@ class MainFragment : Fragment() {
                 } else if (dy > 0) {
                     mainBinding.searchView.visibility = View.VISIBLE
                 }
+
+                val visibleItemCount: Int = layoutManager.childCount
+                val totalItemCount: Int = layoutManager.itemCount
+                val firstVisibleItems = layoutManager.findFirstVisibleItemPosition()
+
+                if (!isLoading) {
+                    if (visibleItemCount + firstVisibleItems >= totalItemCount - 3) {
+                        isLoading = true
+
+                        viewModel.addNextPage()
+
+                        isLoading = false
+                    }
+                }
             }
-        })
+        }
+        mainBinding.mainRecycler.addOnScrollListener(scrollListener)
     }
 }

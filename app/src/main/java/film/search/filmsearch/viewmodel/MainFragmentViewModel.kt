@@ -9,18 +9,24 @@ import film.search.filmsearch.domain.Interactor
 class MainFragmentViewModel : ViewModel() {
     val filmsListLiveData = MutableLiveData<List<Film>>()
     private var interactor: Interactor = App.instance.interactor
+    private var page = 0
     init {
-        interactor.getFilmsFromApi(1, object : ApiCallback {
-            override fun onSuccess(films: List<Film>) {
-                filmsListLiveData.postValue(films)
-            }
-            override fun onFailure() {
-            }
-        })
+        addNextPage()
     }
 
     interface ApiCallback {
         fun onSuccess(films: List<Film>)
         fun onFailure()
+    }
+
+    fun addNextPage() {
+        interactor.getFilmsFromApi(++page, object : ApiCallback {
+            override fun onSuccess(films: List<Film>) {
+                filmsListLiveData.value = filmsListLiveData.value?.plus(films) ?: films
+            }
+            override fun onFailure() {
+                page--
+            }
+        })
     }
 }
