@@ -20,7 +20,8 @@
             android:scaleType="centerCrop"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars" />
+            tools:src="@tools:sample/avatars"
+            android:contentDescription="@string/poster"/>
 
         <TextView
             android:id="@+id/title"
@@ -53,7 +54,7 @@
             app:progress="80"
             app:color_background="#80808080"
             app:animate="true"
-            app:animation_time="5000"
+            app:animation_time="1000"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
 

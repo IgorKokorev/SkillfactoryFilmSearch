@@ -12,7 +12,7 @@ object Converter {
                 title = it.title,
                 poster = it.posterPath,
                 description = it.overview,
-                rating = it.voteAverage,
+                rating = it.voteAverage / 10f,
                 isFavorite = false
             )
             )

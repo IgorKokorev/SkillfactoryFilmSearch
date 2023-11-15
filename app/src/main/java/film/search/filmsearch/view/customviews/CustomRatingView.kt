@@ -1,7 +1,6 @@
 package film.search.filmsearch.view.customviews
 
 import android.animation.ValueAnimator
-import android.animation.ValueAnimator.AnimatorUpdateListener
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
@@ -21,7 +20,7 @@ class CustomRatingView @JvmOverloads constructor(context: Context, attributeSet:
     private var centerX: Float = defaultSize / 2f
     private var centerY: Float = defaultSize / 2f
     private var stroke = 10f // bar stroke
-    private var progress = 50.0f // progress from 0 to 100
+    private var progress = 5.0f // progress from 0 to 10
     private var animProgress = 0.0f // current progress when animating
     private var ratingTextSize = 60f
     private var color1 = Color.parseColor("#FFE84258") // bar colors from bad to good
@@ -30,7 +29,7 @@ class CustomRatingView @JvmOverloads constructor(context: Context, attributeSet:
     private var color4 = Color.parseColor("#FFA0FFA4")
     private var colorBackground = Color.DKGRAY
     private var animate = false // do we need to animate the view
-    private var animationTime = 1000
+    private var animationTime = 300
     private lateinit var strokePaint: Paint // paints for elements
     private lateinit var digitPaint: Paint
     private lateinit var circlePaint: Paint
@@ -139,7 +138,7 @@ class CustomRatingView @JvmOverloads constructor(context: Context, attributeSet:
     private fun convertProgressToDegrees(progress: Float): Float = progress * 3.6f
 
     private fun drawText(canvas: Canvas) {
-        val message = String.format("%.1f", animProgress / 10f)
+        val message = String.format("%.1f", animProgress)
         val widths = FloatArray(message.length)
         digitPaint.getTextWidths(message, widths)
         var advance = 0f
@@ -160,17 +159,17 @@ class CustomRatingView @JvmOverloads constructor(context: Context, attributeSet:
     fun setProgress(pr: Float, toAnimate: Boolean) {
         if (toAnimate) {
             animProgress = 0.0f
-            barAnimator = ValueAnimator.ofFloat(0f, 1f)
+            barAnimator = ValueAnimator.ofFloat(0f, 10f)
             barAnimator.setDuration(animationTime.toLong())
 
             // reset progress without animating
             setProgress(0.0f, false)
             barAnimator.setInterpolator(DecelerateInterpolator())
-            barAnimator.addUpdateListener(AnimatorUpdateListener { animation ->
+            barAnimator.addUpdateListener { animation ->
                 val interpolation = animation.animatedValue as Float
                 animProgress = interpolation * progress
                 setProgress(animProgress, false)
-            })
+            }
             if (!barAnimator.isStarted()) {
                 barAnimator.start()
             }

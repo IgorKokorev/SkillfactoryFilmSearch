@@ -11,7 +11,6 @@ import film.search.filmsearch.view.fragments.FavoritesFragment
 import film.search.filmsearch.view.fragments.FilmDetailsFragment
 import film.search.filmsearch.view.fragments.MainFragment
 import film.search.filmsearch.view.fragments.WatchLaterFragment
-import film.search.filmssearch.BuildConfig
 import film.search.filmssearch.R
 import film.search.filmssearch.databinding.ActivityMainBinding
 import film.search.filmssearch.databinding.FilmItemBinding
@@ -44,6 +43,7 @@ class MainActivity : AppCompatActivity() {
 
     // Check back pressed. If 2 times in less than 2 sec om main screen - exit. If not main screen (fragment) - back.
     override fun onBackPressed() {
+        super.onBackPressed()
         if (supportFragmentManager.backStackEntryCount <= 1) {
             if (backPressed + App.instance.TIME_INTERVAL > System.currentTimeMillis()) {
                 onBackPressedDispatcher.onBackPressed()
