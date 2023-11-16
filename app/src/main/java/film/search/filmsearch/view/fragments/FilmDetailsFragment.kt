@@ -7,8 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import film.search.filmsearch.App
+import film.search.filmsearch.data.tmbd.ApiConstants
 import film.search.filmsearch.domain.Film
 import film.search.filmssearch.R
 import film.search.filmssearch.databinding.FragmentFilmDetailsBinding
@@ -36,7 +38,11 @@ class FilmDetailsFragment : Fragment() {
 
         // setting views data
         binding.detailsToolbar.title = film.title
-        binding.poster.setImageResource(film.poster)
+        Glide.with(this)
+            .load(ApiConstants.IMAGES_URL + "w780" + film.poster)
+            .centerCrop()
+            .into(binding.poster)
+//        binding.poster.setImageResource(film.poster)
         binding.description.text = film.description
 
         // setting 'favorite' fab

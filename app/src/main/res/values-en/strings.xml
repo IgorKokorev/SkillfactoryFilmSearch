@@ -1,40 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">FilmSearch</string>
-    <string name="monsters_inc_title">Monsters, Inc.</string>
-    <string name="finding_nemo_title">Finding Nemo</string>
     <string name="menu_text_favorites">Favorites</string>
     <string name="menu_text_watch_later">Watch later</string>
     <string name="menu_text_collection">Collection</string>
     <string name="menu_text_settings">Settings</string>
-    <string name="watch_later_toast">Oh my! You clicked me!</string>
-    <string name="collection_toast">It\'s classified!</string>
     <string name="settings_toast">Let\'s set up some things!</string>
-    <string name="ratatouille_title">Ratatouille</string>
-    <string name="toy_story_title">Toy story</string>
-    <string name="incredibles_title">The Incredibles</string>
-    <string name="walle_title">WALL-E</string>
     <string name="page_title">Search films</string>
-    <string name="brave_title">Brave</string>
-    <string name="cars_title">Cars</string>
-    <string name="lightyear_title">Lightyear</string>
-    <string name="luca_title">Luca</string>
-    <string name="onward_title">Onward</string>
-    <string name="soul_title">Soul</string>
-    <string name="toy_story_4_title">Toy story 4</string>
-    <string name="brave_description">Set in Scotland in a rugged and mythical time, this movie features Princess Merida (Kelly Macdonald), an aspiring archer and impetuous daughter of Queen Elinor (Dame Emma Thompson). Merida makes a reckless choice that unleashes unintended peril and forces her to spring into action to set things right.</string>
-    <string name="cars_description">On the way to the biggest race of his life, a hotshot rookie race car gets stranded in a rundown town and learns that winning isn\'t everything in life.</string>
-    <string name="finding_nemo_description">After his son is captured in the Great Barrier Reef and taken to Sydney, a timid clownfish sets out on a journey to bring him home.</string>
-    <string name="incredibles_description">While trying to lead a quiet suburban life, a family of undercover superheroes are forced into action to save the world.</string>
-    <string name="lightyear_description">While spending years attempting to return home, marooned Space Ranger Buzz Lightyear encounters an army of ruthless robots commanded by Zurg who are attempting to steal his fuel source.</string>
-    <string name="luca_description">On the Italian Riviera, an unlikely but strong friendship grows between a human being and a sea monster disguised as a human.</string>
-    <string name="monsters_inc_description">In order to power the city, monsters have to scare children so that they scream. However, the children are toxic to the monsters, and after a child gets through, two monsters realize things may not be what they think.</string>
-    <string name="onward_description">In a magical world full of technological advances, elven brothers Ian and Barley Lightfoot set out on an adventure to resurrect their late father for a day.</string>
-    <string name="ratatouille_description">A rat who can cook makes an unusual alliance with a young kitchen worker at a famous Paris restaurant.</string>
-    <string name="soul_description">After landing the gig of a lifetime, a New York jazz pianist suddenly finds himself trapped in a strange land between Earth and the afterlife.</string>
-    <string name="toy_story_description">A cowboy doll is profoundly threatened and jealous when a new spaceman action figure supplants him as top toy in a boy\'s bedroom.</string>
-    <string name="toy_story_4_description">When a new toy called \"Forky\" joins Woody and the gang, a road trip alongside old and new friends reveals how big the world can be for a toy.</string>
-    <string name="walle_description">In the distant future, a small waste-collecting robot inadvertently embarks on a space journey that will ultimately decide the fate of mankind.</string>
     <string name="share">Share</string>
     <string name="send_to_friend">Send film %s to a friend?</string>
     <string name="double_tap_toast">Double tap for exit</string>
@@ -43,4 +15,5 @@
     <string name="send_film_text">Check out this film: %s - %s</string>
     <string name="send_film_title">Share To:</string>
     <string name="menu__text_home">Go home!</string>
+    <string name="poster">Poster</string>
 </resources>

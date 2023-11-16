@@ -6,10 +6,10 @@ import kotlinx.parcelize.Parcelize
 // Data class with film's data
 @Parcelize
 data class Film(
-    val poster: Int,
+    val poster: String,
     val title: String,
     val description: String,
-    val rating: Int,
+    val rating: Double,
     var isFavorite: Boolean = false
 ) : Parcelable {
 
@@ -27,7 +27,7 @@ data class Film(
     }
 
     override fun hashCode(): Int {
-        var result = poster
+        var result = poster.hashCode()
         result = 31 * result + title.hashCode()
         result = 31 * result + description.hashCode()
         return result
