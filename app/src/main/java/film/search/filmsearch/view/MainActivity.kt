@@ -5,7 +5,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import film.search.filmsearch.App
 import film.search.filmsearch.domain.Film
-import film.search.filmsearch.utils.NotificationService
 import film.search.filmsearch.view.fragments.CollectionFragment
 import film.search.filmsearch.view.fragments.FavoritesFragment
 import film.search.filmsearch.view.fragments.FilmDetailsFragment
@@ -31,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         initMenuButtons()
 
         // initializing notification service
-        App.instance.notificationService = NotificationService(this)
+//        App.instance.notificationService = NotificationService(this)
 
         // starting main fragment
         supportFragmentManager

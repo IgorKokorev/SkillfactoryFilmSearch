@@ -11,7 +11,7 @@ import retrofit2.Response
 import java.util.Locale
 
 // class to interact with film db
-class Interactor(private val retrofitService: TmdbApi) {
+class Interactor(private val repo: MainRepository, private val retrofitService: TmdbApi) {
     fun getFilmsFromApi(page: Int, callback: MainFragmentViewModel.ApiCallback) {
         retrofitService.getFilms(Secret.KEY, Locale.getDefault().language, page).enqueue(object :
             Callback<TmdbResultsDto> {

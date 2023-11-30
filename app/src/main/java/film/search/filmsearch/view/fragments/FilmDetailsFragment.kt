@@ -63,11 +63,11 @@ class FilmDetailsFragment : Fragment() {
                 Snackbar.LENGTH_SHORT
             )
                 .setAction(getString(R.string.share)) {
-                    App.instance.notificationService.sendNotification(
-                        R.drawable.icon_share,
-                        getString(R.string.notification_title),
-                        getString(R.string.notification_text, film.title)
-                    )
+//                    App.instance.notificationService.sendNotification(
+//                        R.drawable.icon_share,
+//                        getString(R.string.notification_title),
+//                        getString(R.string.notification_text, film.title)
+//                    )
 
                     val intent = Intent()
                     intent.action = Intent.ACTION_SEND

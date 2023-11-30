@@ -5,12 +5,17 @@ import androidx.lifecycle.ViewModel
 import film.search.filmsearch.App
 import film.search.filmsearch.domain.Film
 import film.search.filmsearch.domain.Interactor
+import javax.inject.Inject
 
 class MainFragmentViewModel : ViewModel() {
     val filmsListLiveData = MutableLiveData<List<Film>>()
-    private var interactor: Interactor = App.instance.interactor
+
+    @Inject
+    lateinit var interactor: Interactor
     private var page = 0
+
     init {
+        App.instance.dagger.inject(this)
         addNextPage()
     }
 
@@ -24,6 +29,7 @@ class MainFragmentViewModel : ViewModel() {
             override fun onSuccess(films: List<Film>) {
                 filmsListLiveData.value = filmsListLiveData.value?.plus(films) ?: films
             }
+
             override fun onFailure() {
                 page--
             }
