@@ -1,15 +1,25 @@
 package film.search.filmsearch.di.modules
 
-import dagger.Binds
+import android.content.Context
 import dagger.Module
+import dagger.Provides
+import film.search.filmsearch.data.MainRepository
+import film.search.filmsearch.data.PreferenceProvider
+import film.search.filmsearch.data.tmbd.TmdbApi
 import film.search.filmsearch.domain.Interactor
 import javax.inject.Singleton
 
 @Module
-abstract class DomainModule {
-    @Singleton
-    @Binds
-    abstract fun getInteractor(interactor: Interactor) : InteractorInterface
-}
+class DomainModule(val context: Context) {
+    @Provides
+    fun provideContext() = context
 
-interface InteractorInterface
+    @Singleton
+    @Provides
+    fun providePreferences(context: Context) = PreferenceProvider(context)
+
+    @Singleton
+    @Provides
+    fun provideInteractor(repository: MainRepository, tmdbApi: TmdbApi, preferenceProvider: PreferenceProvider) =
+        Interactor(repo = repository, retrofitService = tmdbApi, preferences = preferenceProvider)
+}

@@ -16,4 +16,9 @@
     <string name="send_film_title">Отправить:</string>
     <string name="menu__text_home">Домой!</string>
     <string name="poster">Постер</string>
+    <string name="category_choice_header">Выберите категорию</string>
+    <string name="radio_button_popular">Популярные</string>
+    <string name="radio_button_top_rated">Топ</string>
+    <string name="radio_button_upcoming">Скоро</string>
+    <string name="radio_button_playing">В кино</string>
 </resources>
