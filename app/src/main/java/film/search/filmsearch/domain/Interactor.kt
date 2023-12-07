@@ -21,7 +21,7 @@ class Interactor(
         retrofitService.getFilms(getDefaultCategoryFromPreferences(), Secret.KEY, Locale.getDefault().language, page).enqueue(object :
             Callback<TmdbResultsDto> {
             override fun onResponse(call: Call<TmdbResultsDto>, response: Response<TmdbResultsDto>) {
-                callback.onSuccess(Converter.convertApiListToDtoList(response.body()?.tmdbFilms))
+                callback.onSuccess(Converter.convertApiListToFilmList(response.body()?.tmdbFilms))
             }
             override fun onFailure(call: Call<TmdbResultsDto>, t: Throwable) {
                 callback.onFailure()

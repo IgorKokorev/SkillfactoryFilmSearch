@@ -2,7 +2,6 @@ package film.search.filmsearch.data
 
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.core.content.edit
 
 class PreferenceProvider(context: Context) {
     // Application context
@@ -12,13 +11,13 @@ class PreferenceProvider(context: Context) {
 
     init {
         if(preference.getBoolean(KEY_FIRST_LAUNCH, false)) {
-            preference.edit { putString(KEY_DEFAULT_CATEGORY, DEFAULT_CATEGORY) }
-            preference.edit { putBoolean(KEY_FIRST_LAUNCH, false) }
+            preference.edit().putString(KEY_DEFAULT_CATEGORY, DEFAULT_CATEGORY).apply()
+            preference.edit().putBoolean(KEY_FIRST_LAUNCH, false).apply()
         }
     }
 
     fun saveDefaultCategory(category: String) {
-        preference.edit { putString(KEY_DEFAULT_CATEGORY, category) }
+        preference.edit().putString(KEY_DEFAULT_CATEGORY, category).apply()
     }
 
     fun getDefaultCategory(): String {

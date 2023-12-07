@@ -25,7 +25,7 @@ import film.search.filmssearch.databinding.FragmentMainBinding
 class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
     private lateinit var filmsAdapter: FilmRecyclerAdapter
-    private var page = 1
+//    private var page = 1
     private val viewModel by lazy {
         ViewModelProvider.NewInstanceFactory().create(MainFragmentViewModel::class.java)
     }
@@ -48,9 +48,7 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.filmsListLiveData.observe(viewLifecycleOwner, Observer<List<Film>> {
-            filmsDataBase = it
-        })
+        readFilmsDBFromViewModel()
 
         // Setting the whole search view clickable
         binding.searchView.setOnClickListener {
@@ -63,8 +61,18 @@ class MainFragment : Fragment() {
         // initializing RecyclerView
         initRecycler()
 
+        // initializing swipe refresh
+        initPullToRefresh()
+
         AnimationHelper.performFragmentCircularRevealAnimation(binding.mainFragmentRoot, requireActivity(), 0)
 
+    }
+
+    private fun readFilmsDBFromViewModel() {
+        viewModel.filmsListLiveData.observe(viewLifecycleOwner, Observer<List<Film>> {
+            filmsDataBase = it
+
+        })
     }
 
     private fun setUpSearch() {
@@ -130,9 +138,7 @@ class MainFragment : Fragment() {
                 if (!isLoading) {
                     if (visibleItemCount + firstVisibleItems >= totalItemCount - 3) {
                         isLoading = true
-
                         viewModel.addNextPage()
-
                         isLoading = false
                     }
                 }
@@ -143,11 +149,17 @@ class MainFragment : Fragment() {
 
     private fun initPullToRefresh() {
         binding.pullToRefresh.setOnRefreshListener {
-            //Чистим адаптер(items нужно будет сделать паблик или создать для этого публичный метод)
-            filmsAdapter.films.clear()
-            //Делаем новый запрос фильмов на сервер
-            viewModel.addNextPage()
-            //Убираем крутящееся колечко
+
+            viewModel.loadFirstPage()
+            readFilmsDBFromViewModel()
+            filmsAdapter.addItems(filmsDataBase)
+
+/*            viewModel.filmsListLiveData.observe(viewLifecycleOwner, Observer<List<Film>> {
+                filmsDataBase = it
+
+            })
+            filmsAdapter.addItems(filmsDataBase)*/
+
             binding.pullToRefresh.isRefreshing = false
         }
     }
