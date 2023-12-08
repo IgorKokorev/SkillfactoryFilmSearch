@@ -16,7 +16,7 @@ class MainFragmentViewModel : ViewModel() {
 
     init {
         App.instance.dagger.inject(this)
-        addNextPage()
+        loadFirstPage()
     }
 
     interface ApiCallback {
@@ -34,5 +34,11 @@ class MainFragmentViewModel : ViewModel() {
                 page--
             }
         })
+    }
+
+    fun loadFirstPage() {
+        filmsListLiveData.value = emptyList()
+        page = 0
+        addNextPage()
     }
 }

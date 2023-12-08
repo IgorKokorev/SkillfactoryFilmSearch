@@ -11,13 +11,8 @@
         android:title="@string/menu_text_favorites"
         app:showAsAction="withText"/>
     <item
-        android:id="@+id/watch_later"
+        android:id="@+id/settings"
         android:icon="@drawable/icon_watch_later"
-        android:title="@string/menu_text_watch_later"
-        app:showAsAction="withText"/>
-    <item
-        android:id="@+id/collections"
-        android:icon="@drawable/icon_collections"
-        android:title="@string/menu_text_collection"
+        android:title="@string/menu_text_settings"
         app:showAsAction="withText"/>
 </menu>

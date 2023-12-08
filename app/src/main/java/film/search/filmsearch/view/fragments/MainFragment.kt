@@ -23,9 +23,9 @@ import film.search.filmssearch.databinding.FragmentMainBinding
 
 // Main fragment with list of films
 class MainFragment : Fragment() {
-    private lateinit var mainBinding: FragmentMainBinding
+    private lateinit var binding: FragmentMainBinding
     private lateinit var filmsAdapter: FilmRecyclerAdapter
-    private var page = 1
+//    private var page = 1
     private val viewModel by lazy {
         ViewModelProvider.NewInstanceFactory().create(MainFragmentViewModel::class.java)
     }
@@ -41,20 +41,18 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // inflating the fragment
-        mainBinding = FragmentMainBinding.inflate(layoutInflater)
-        return mainBinding.root
+        binding = FragmentMainBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.filmsListLiveData.observe(viewLifecycleOwner, Observer<List<Film>> {
-            filmsDataBase = it
-        })
+        readFilmsDBFromViewModel()
 
         // Setting the whole search view clickable
-        mainBinding.searchView.setOnClickListener {
-            mainBinding.searchView.isIconified = false
+        binding.searchView.setOnClickListener {
+            binding.searchView.isIconified = false
         }
 
         // Setting the 'on-the-fly' search logic
@@ -63,12 +61,22 @@ class MainFragment : Fragment() {
         // initializing RecyclerView
         initRecycler()
 
-        AnimationHelper.performFragmentCircularRevealAnimation(mainBinding.mainFragmentRoot, requireActivity(), 0)
+        // initializing swipe refresh
+        initPullToRefresh()
+
+        AnimationHelper.performFragmentCircularRevealAnimation(binding.mainFragmentRoot, requireActivity(), 0)
 
     }
 
+    private fun readFilmsDBFromViewModel() {
+        viewModel.filmsListLiveData.observe(viewLifecycleOwner, Observer<List<Film>> {
+            filmsDataBase = it
+
+        })
+    }
+
     private fun setUpSearch() {
-        mainBinding.searchView.setOnQueryTextListener(object : OnQueryTextListener {
+        binding.searchView.setOnQueryTextListener(object : OnQueryTextListener {
 
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return true
@@ -103,24 +111,24 @@ class MainFragment : Fragment() {
 
         // adding all the films to recycler view adapter
         filmsAdapter.addItems(filmsDataBase)
-        mainBinding.mainRecycler.adapter = filmsAdapter
+        binding.mainRecycler.adapter = filmsAdapter
 
         // adding decorator with spaces between items
         val decorator = TopSpacingItemDecoration(8)
-        mainBinding.mainRecycler.addItemDecoration(decorator)
+        binding.mainRecycler.addItemDecoration(decorator)
 
         // Hide/show search view depending on recycler view scroll direction
         // Download new data when we're at the end of the list
         val scrollListener = object : OnScrollListener() {
-            private val layoutManager: LinearLayoutManager = mainBinding.mainRecycler.layoutManager as LinearLayoutManager
+            private val layoutManager: LinearLayoutManager = binding.mainRecycler.layoutManager as LinearLayoutManager
             var isLoading = false
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 if (dy < 0) {
-                    mainBinding.searchView.visibility = View.GONE
+                    binding.searchView.visibility = View.GONE
                 } else if (dy > 0) {
-                    mainBinding.searchView.visibility = View.VISIBLE
+                    binding.searchView.visibility = View.VISIBLE
                 }
 
                 val visibleItemCount: Int = layoutManager.childCount
@@ -130,14 +138,23 @@ class MainFragment : Fragment() {
                 if (!isLoading) {
                     if (visibleItemCount + firstVisibleItems >= totalItemCount - 3) {
                         isLoading = true
-
                         viewModel.addNextPage()
-
                         isLoading = false
                     }
                 }
             }
         }
-        mainBinding.mainRecycler.addOnScrollListener(scrollListener)
+        binding.mainRecycler.addOnScrollListener(scrollListener)
+    }
+
+    private fun initPullToRefresh() {
+        binding.pullToRefresh.setOnRefreshListener {
+
+            viewModel.loadFirstPage()
+            readFilmsDBFromViewModel()
+            filmsAdapter.addItems(filmsDataBase)
+
+            binding.pullToRefresh.isRefreshing = false
+        }
     }
 }

@@ -14,7 +14,7 @@ import kotlin.math.roundToInt
     Center - clicked menu item (using position from 0)
  */
 object AnimationHelper {
-    private const val menuItems = 4
+    private const val menuItems = 3
     fun performFragmentCircularRevealAnimation(rootView: View, activity: Activity, position: Int) {
         Executors.newSingleThreadExecutor().execute {
             while (true) {

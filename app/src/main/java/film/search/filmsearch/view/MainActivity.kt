@@ -5,11 +5,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import film.search.filmsearch.App
 import film.search.filmsearch.domain.Film
-import film.search.filmsearch.view.fragments.CollectionFragment
 import film.search.filmsearch.view.fragments.FavoritesFragment
 import film.search.filmsearch.view.fragments.FilmDetailsFragment
 import film.search.filmsearch.view.fragments.MainFragment
-import film.search.filmsearch.view.fragments.WatchLaterFragment
+import film.search.filmsearch.view.fragments.SettingsFragment
 import film.search.filmssearch.R
 import film.search.filmssearch.databinding.ActivityMainBinding
 import film.search.filmssearch.databinding.FilmItemBinding
@@ -94,20 +93,9 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
 
-                R.id.watch_later -> {
-                    val tag = "watch later"
-                    val fragment = supportFragmentManager.findFragmentByTag(tag) ?: WatchLaterFragment()
-                    supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.fragment_placeholder, fragment, tag)
-                        .addToBackStack(App.instance.FRAGMENT_TAG)
-                        .commit()
-                    true
-                }
-
-                R.id.collections -> {
-                    val tag = "collection"
-                    val fragment = supportFragmentManager.findFragmentByTag(tag) ?: CollectionFragment()
+                R.id.settings -> {
+                    val tag = "settings"
+                    val fragment = supportFragmentManager.findFragmentByTag(tag) ?: SettingsFragment()
                     supportFragmentManager
                         .beginTransaction()
                         .replace(R.id.fragment_placeholder, fragment, tag)
