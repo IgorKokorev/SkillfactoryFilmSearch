@@ -154,12 +154,6 @@ class MainFragment : Fragment() {
             readFilmsDBFromViewModel()
             filmsAdapter.addItems(filmsDataBase)
 
-/*            viewModel.filmsListLiveData.observe(viewLifecycleOwner, Observer<List<Film>> {
-                filmsDataBase = it
-
-            })
-            filmsAdapter.addItems(filmsDataBase)*/
-
             binding.pullToRefresh.isRefreshing = false
         }
     }

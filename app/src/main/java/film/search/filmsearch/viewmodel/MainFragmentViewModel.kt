@@ -37,6 +37,7 @@ class MainFragmentViewModel : ViewModel() {
     }
 
     fun loadFirstPage() {
+        filmsListLiveData.value = emptyList()
         page = 0
         addNextPage()
     }
