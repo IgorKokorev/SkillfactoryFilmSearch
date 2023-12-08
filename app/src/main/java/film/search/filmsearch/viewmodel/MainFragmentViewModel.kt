@@ -31,6 +31,7 @@ class MainFragmentViewModel : ViewModel() {
             }
 
             override fun onFailure() {
+                filmsListLiveData.postValue(interactor.getFilmsFromDB())
                 page--
             }
         })

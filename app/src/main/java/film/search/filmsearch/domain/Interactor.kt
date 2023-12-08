@@ -21,13 +21,19 @@ class Interactor(
         retrofitService.getFilms(getDefaultCategoryFromPreferences(), Secret.KEY, Locale.getDefault().language, page).enqueue(object :
             Callback<TmdbResultsDto> {
             override fun onResponse(call: Call<TmdbResultsDto>, response: Response<TmdbResultsDto>) {
-                callback.onSuccess(Converter.convertApiListToFilmList(response.body()?.tmdbFilms))
+                val list = Converter.convertApiListToFilmList(response.body()?.tmdbFilms)
+                list.forEach {
+                    repo.putToDb(film = it)
+                }
+                callback.onSuccess(list)
             }
             override fun onFailure(call: Call<TmdbResultsDto>, t: Throwable) {
                 callback.onFailure()
             }
         })
     }
+
+    fun getFilmsFromDB(): List<Film> = repo.getAllFromDB()
 
     fun saveDefaultCategoryToPreferences(category: String) {
         preferences.saveDefaultCategory(category)
