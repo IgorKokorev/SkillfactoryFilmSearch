@@ -15,4 +15,9 @@
     <string name="send_film_title">Share To:</string>
     <string name="menu__text_home">Go home!</string>
     <string name="poster">Poster</string>
+    <string name="category_choice_header">Select a category</string>
+    <string name="radio_button_popular">Popular</string>
+    <string name="radio_button_top_rated">Top rated</string>
+    <string name="radio_button_upcoming">Upcoming</string>
+    <string name="radio_button_playing">Playing</string>
 </resources>

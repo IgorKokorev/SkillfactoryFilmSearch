@@ -4,7 +4,7 @@ import film.search.filmsearch.data.tmbd.TmdbFilm
 import film.search.filmsearch.domain.Film
 
 object Converter {
-    fun convertApiListToDtoList(list: List<TmdbFilm>?): List<Film> {
+    fun convertApiListToFilmList(list: List<TmdbFilm>?): List<Film> {
         val result = mutableListOf<Film>()
         list?.forEach {
             result.add(

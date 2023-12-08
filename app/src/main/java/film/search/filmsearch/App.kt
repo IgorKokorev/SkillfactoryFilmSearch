@@ -3,6 +3,9 @@ package film.search.filmsearch
 import android.app.Application
 import film.search.filmsearch.di.AppComponent
 import film.search.filmsearch.di.DaggerAppComponent
+import film.search.filmsearch.di.modules.DatabaseModule
+import film.search.filmsearch.di.modules.DomainModule
+import film.search.filmsearch.di.modules.RemoteModule
 
 class App : Application() {
     lateinit var dagger: AppComponent
@@ -16,7 +19,11 @@ class App : Application() {
         super.onCreate()
         instance = this
         //Создаем компонент
-        dagger = DaggerAppComponent.create()
+        dagger = DaggerAppComponent.builder()
+            .remoteModule(RemoteModule())
+            .databaseModule(DatabaseModule())
+            .domainModule(DomainModule(this))
+            .build()
     }
 
     companion object {

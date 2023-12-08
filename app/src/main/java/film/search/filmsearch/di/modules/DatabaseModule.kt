@@ -1,16 +1,13 @@
 package film.search.filmsearch.di.modules
 
-import dagger.Binds
 import dagger.Module
-import javax.inject.Inject
+import dagger.Provides
+import film.search.filmsearch.data.MainRepository
 import javax.inject.Singleton
 
 @Module
-abstract class DatabaseModule {
-    @Binds
+class DatabaseModule {
+    @Provides
     @Singleton
-    abstract fun getRepository(repository: MainRepository) : FilmRepositoryInterface
+    fun provideRepository() = MainRepository()
 }
-
-interface FilmRepositoryInterface
-class MainRepository @Inject constructor() : FilmRepositoryInterface

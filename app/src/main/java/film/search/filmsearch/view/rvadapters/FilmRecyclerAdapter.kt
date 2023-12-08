@@ -11,7 +11,7 @@ import film.search.filmssearch.databinding.FilmItemBinding
 // Adapter for RecyclerView with list of films
 class FilmRecyclerAdapter(private val clickListener: OnItemClickListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    val films = mutableListOf<Film>()
+    private val films = mutableListOf<Film>()
 
     override fun getItemCount() = films.size
 
@@ -36,6 +36,10 @@ class FilmRecyclerAdapter(private val clickListener: OnItemClickListener) :
         films.clear()
         films.addAll(newList)
         diffResult.dispatchUpdatesTo(this)
+    }
+
+    fun clearFilms() {
+        films.clear()
     }
 
     // interface for on-film clicks handler
