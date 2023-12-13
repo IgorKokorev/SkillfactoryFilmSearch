@@ -9,11 +9,11 @@ object Converter {
         list?.forEach {
             result.add(
                 Film(
-                title = it.title,
-                poster = it.posterPath,
-                description = it.overview,
-                rating = it.voteAverage / 10f,
-                isFavorite = false
+                    title = it.title,
+                    poster = it.posterPath,
+                    description = it.overview,
+                    rating = it.voteAverage / 10f,
+                    isFavorite = false
             )
             )
         }

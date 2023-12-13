@@ -135,7 +135,7 @@ class CustomRatingView @JvmOverloads constructor(context: Context, attributeSet:
         canvas.restore()
     }
 
-    private fun convertProgressToDegrees(progress: Float): Float = progress * 3.6f
+    private fun convertProgressToDegrees(progress: Float): Float = progress * 36f
 
     private fun drawText(canvas: Canvas) {
         val message = String.format("%.1f", animProgress)
