@@ -1,15 +1,23 @@
 package film.search.filmsearch.data
 
-import android.content.ContentValues
-import android.database.Cursor
-import film.search.filmsearch.data.db.DatabaseHelper
-import film.search.filmsearch.domain.Film
+import film.search.filmsearch.data.DAO.FilmDao
+import film.search.filmsearch.data.entity.Film
+import java.util.concurrent.Executors
 
-class MainRepository(databaseHelper: DatabaseHelper) {
-    private val sqlDb = databaseHelper.readableDatabase
-    private lateinit var cursor: Cursor
+// Responsible for interchanging data between ViewModels and DB
+class MainRepository(private val filmDao: FilmDao) {
 
-    // Put a new film to DB
+    fun putToDb(films: List<Film>) {
+        Executors.newSingleThreadExecutor().execute {
+            filmDao.insertAll(films)
+        }
+    }
+
+    fun getAllFromDB(): List<Film> {
+        return filmDao.getCachedFilms()
+    }
+
+/*    // Put a new film to DB
     fun putToDb(film: Film) {
         val cv = ContentValues()
         cv.apply {
@@ -136,5 +144,5 @@ class MainRepository(databaseHelper: DatabaseHelper) {
             }
         }
         return result
-    }
+    }*/
 }

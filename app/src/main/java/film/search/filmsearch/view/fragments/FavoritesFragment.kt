@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import film.search.filmsearch.domain.Film
+import film.search.filmsearch.data.entity.Film
 import film.search.filmsearch.utils.AnimationHelper
 import film.search.filmsearch.view.MainActivity
 import film.search.filmsearch.view.rvadapters.FilmRecyclerAdapter

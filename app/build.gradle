@@ -2,7 +2,14 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-parcelize'
+    id 'kotlin-kapt'
     id 'com.google.devtools.ksp'
+    id 'androidx.room'
+}
+
+// For room: export schema to the path
+room {
+    schemaDirectory "$projectDir/schemas"
 }
 
 android {

@@ -4,7 +4,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import film.search.filmsearch.App
 import film.search.filmsearch.data.tmbd.ApiConstants
-import film.search.filmsearch.domain.Film
+import film.search.filmsearch.data.entity.Film
 import film.search.filmsearch.view.rvadapters.FilmRecyclerAdapter
 import film.search.filmsearch.databinding.FilmItemBinding
 

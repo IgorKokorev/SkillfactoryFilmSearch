@@ -3,6 +3,7 @@ package film.search.filmsearch.domain
 import film.search.filmsearch.data.MainRepository
 import film.search.filmsearch.data.PreferenceProvider
 import film.search.filmsearch.data.Secret
+import film.search.filmsearch.data.entity.Film
 import film.search.filmsearch.data.tmbd.TmdbApi
 import film.search.filmsearch.data.tmbd.TmdbResultsDto
 import film.search.filmsearch.utils.Converter
@@ -22,9 +23,7 @@ class Interactor(
             Callback<TmdbResultsDto> {
             override fun onResponse(call: Call<TmdbResultsDto>, response: Response<TmdbResultsDto>) {
                 val list = Converter.convertApiListToFilmList(response.body()?.tmdbFilms)
-                list.forEach {
-                    repo.putToDb(film = it)
-                }
+                repo.putToDb(list)
                 callback.onSuccess(list)
             }
             override fun onFailure(call: Call<TmdbResultsDto>, t: Throwable) {

@@ -1,7 +1,7 @@
 package film.search.filmsearch.utils
 
 import film.search.filmsearch.data.tmbd.TmdbFilm
-import film.search.filmsearch.domain.Film
+import film.search.filmsearch.data.entity.Film
 
 object Converter {
     fun convertApiListToFilmList(list: List<TmdbFilm>?): List<Film> {

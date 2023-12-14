@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
-import film.search.filmsearch.domain.Film
+import film.search.filmsearch.data.entity.Film
 import film.search.filmsearch.utils.AnimationHelper
 import film.search.filmsearch.view.MainActivity
 import film.search.filmsearch.view.rvadapters.FilmRecyclerAdapter

@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import film.search.filmsearch.domain.Film
+import film.search.filmsearch.data.entity.Film
 import film.search.filmsearch.view.rvviewholders.FilmViewHolder
 import film.search.filmsearch.databinding.FilmItemBinding
 

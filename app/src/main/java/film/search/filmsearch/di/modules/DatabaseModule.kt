@@ -1,19 +1,26 @@
 package film.search.filmsearch.di.modules
 
 import android.content.Context
+import androidx.room.Room
 import dagger.Module
 import dagger.Provides
+import film.search.filmsearch.data.AppDatabase
+import film.search.filmsearch.data.DAO.FilmDao
 import film.search.filmsearch.data.MainRepository
-import film.search.filmsearch.data.db.DatabaseHelper
 import javax.inject.Singleton
 
 @Module
 class DatabaseModule {
     @Singleton
     @Provides
-    fun provideDatabaseHelper(context: Context) = DatabaseHelper(context)
+    fun provideFilmDao(context: Context) =
+        Room.databaseBuilder(
+            context,
+            AppDatabase::class.java,
+            "film_db"
+        ).build().filmDao()
 
-    @Provides
     @Singleton
-    fun provideRepository(databaseHelper: DatabaseHelper) = MainRepository(databaseHelper)
+    @Provides
+    fun provideRepository(filmDao: FilmDao) = MainRepository(filmDao)
 }

@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import film.search.filmsearch.App
 import film.search.filmsearch.data.tmbd.ApiConstants
-import film.search.filmsearch.domain.Film
+import film.search.filmsearch.data.entity.Film
 import film.search.filmsearch.R
 import film.search.filmsearch.databinding.FragmentFilmDetailsBinding
 

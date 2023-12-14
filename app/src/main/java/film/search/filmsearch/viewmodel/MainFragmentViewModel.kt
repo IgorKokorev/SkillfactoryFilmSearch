@@ -3,8 +3,9 @@ package film.search.filmsearch.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import film.search.filmsearch.App
-import film.search.filmsearch.domain.Film
+import film.search.filmsearch.data.entity.Film
 import film.search.filmsearch.domain.Interactor
+import java.util.concurrent.Executors
 import javax.inject.Inject
 
 class MainFragmentViewModel : ViewModel() {
@@ -31,8 +32,10 @@ class MainFragmentViewModel : ViewModel() {
             }
 
             override fun onFailure() {
-                filmsListLiveData.postValue(interactor.getFilmsFromDB())
-                page--
+                Executors.newSingleThreadExecutor().execute {
+                    filmsListLiveData.postValue(interactor.getFilmsFromDB())
+                    page--
+                }
             }
         })
     }

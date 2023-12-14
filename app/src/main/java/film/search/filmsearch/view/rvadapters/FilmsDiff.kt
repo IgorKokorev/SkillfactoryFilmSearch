@@ -1,7 +1,7 @@
 package film.search.filmsearch.view.rvadapters
 
 import androidx.recyclerview.widget.DiffUtil
-import film.search.filmsearch.domain.Film
+import film.search.filmsearch.data.entity.Film
 
 // Calculates difference between 2 film lists for DiffUtil
 class FilmsDiff(val oldList: MutableList<Film>, val newList: List<Film>) :
