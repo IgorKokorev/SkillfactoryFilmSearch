@@ -6,7 +6,7 @@ import film.search.filmsearch.App
 import film.search.filmsearch.data.tmbd.ApiConstants
 import film.search.filmsearch.domain.Film
 import film.search.filmsearch.view.rvadapters.FilmRecyclerAdapter
-import film.search.filmssearch.databinding.FilmItemBinding
+import film.search.filmsearch.databinding.FilmItemBinding
 
 // Holder for Recycler view item
 class FilmViewHolder(val binding: FilmItemBinding) : RecyclerView.ViewHolder(binding.root) {

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import film.search.filmsearch.domain.Film
 import film.search.filmsearch.view.rvviewholders.FilmViewHolder
-import film.search.filmssearch.databinding.FilmItemBinding
+import film.search.filmsearch.databinding.FilmItemBinding
 
 // Adapter for RecyclerView with list of films
 class FilmRecyclerAdapter(private val clickListener: OnItemClickListener) :

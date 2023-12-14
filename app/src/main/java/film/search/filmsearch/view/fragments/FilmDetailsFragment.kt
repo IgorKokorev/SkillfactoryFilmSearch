@@ -12,8 +12,8 @@ import com.google.android.material.snackbar.Snackbar
 import film.search.filmsearch.App
 import film.search.filmsearch.data.tmbd.ApiConstants
 import film.search.filmsearch.domain.Film
-import film.search.filmssearch.R
-import film.search.filmssearch.databinding.FragmentFilmDetailsBinding
+import film.search.filmsearch.R
+import film.search.filmsearch.databinding.FragmentFilmDetailsBinding
 
 // Fragment with film details
 class FilmDetailsFragment : Fragment() {

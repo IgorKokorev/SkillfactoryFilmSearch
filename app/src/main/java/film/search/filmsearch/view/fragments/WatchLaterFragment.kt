@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import film.search.filmsearch.utils.AnimationHelper
-import film.search.filmssearch.databinding.FragmentWatchLaterBinding
+import film.search.filmsearch.databinding.FragmentWatchLaterBinding
 
 // Empty 'watch later' fragment
 class WatchLaterFragment : Fragment() {

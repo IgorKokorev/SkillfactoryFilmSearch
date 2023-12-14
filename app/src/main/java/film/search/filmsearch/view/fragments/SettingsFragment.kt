@@ -9,8 +9,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import film.search.filmsearch.utils.AnimationHelper
 import film.search.filmsearch.viewmodel.SettingsFragmentViewModel
-import film.search.filmssearch.R
-import film.search.filmssearch.databinding.FragmentSettingsBinding
+import film.search.filmsearch.R
+import film.search.filmsearch.databinding.FragmentSettingsBinding
 
 class SettingsFragment : Fragment() {
     private lateinit var binding: FragmentSettingsBinding

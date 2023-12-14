@@ -13,8 +13,8 @@ import film.search.filmsearch.view.MainActivity
 import film.search.filmsearch.view.rvadapters.FilmRecyclerAdapter
 import film.search.filmsearch.view.rvadapters.TopSpacingItemDecoration
 import film.search.filmsearch.viewmodel.FavoritesFragmentViewModel
-import film.search.filmssearch.databinding.FilmItemBinding
-import film.search.filmssearch.databinding.FragmentFavoritesBinding
+import film.search.filmsearch.databinding.FilmItemBinding
+import film.search.filmsearch.databinding.FragmentFavoritesBinding
 
 // List of favorites films fragment. Mostly the same as main fragment
 class FavoritesFragment : Fragment() {

@@ -18,8 +18,8 @@ import film.search.filmsearch.view.MainActivity
 import film.search.filmsearch.view.rvadapters.FilmRecyclerAdapter
 import film.search.filmsearch.view.rvadapters.TopSpacingItemDecoration
 import film.search.filmsearch.viewmodel.MainFragmentViewModel
-import film.search.filmssearch.databinding.FilmItemBinding
-import film.search.filmssearch.databinding.FragmentMainBinding
+import film.search.filmsearch.databinding.FilmItemBinding
+import film.search.filmsearch.databinding.FragmentMainBinding
 
 // Main fragment with list of films
 class MainFragment : Fragment() {
