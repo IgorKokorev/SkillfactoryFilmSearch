@@ -14,7 +14,7 @@ class FavoritesFragmentViewModel : ViewModel() {
     lateinit var interactor: Interactor
     init {
         App.instance.dagger.inject(this)
-        interactor.getFilmsFromApi(1, object : MainFragmentViewModel.ApiCallback {
+        interactor.getFilmsFromApi(1, object : Interactor.ApiCallback {
             override fun onSuccess(films: List<Film>) {
                 filmsListLiveData.postValue(films)
             }

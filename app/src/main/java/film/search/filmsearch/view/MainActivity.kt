@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         if (supportFragmentManager.backStackEntryCount <= 1) {
-            if (backPressed + App.instance.TIME_INTERVAL > System.currentTimeMillis()) {
+            if (backPressed + App.instance.BACK_CLICK_TIME_INTERVAL > System.currentTimeMillis()) {
                 onBackPressedDispatcher.onBackPressed()
                 finish()
             } else {

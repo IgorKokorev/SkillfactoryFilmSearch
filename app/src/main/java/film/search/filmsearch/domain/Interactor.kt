@@ -7,35 +7,73 @@ import film.search.filmsearch.data.entity.Film
 import film.search.filmsearch.data.tmbd.TmdbApi
 import film.search.filmsearch.data.tmbd.TmdbResultsDto
 import film.search.filmsearch.utils.Converter
-import film.search.filmsearch.viewmodel.MainFragmentViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.Locale
 
-// class to interact with film db
+// class to interact with film db, external API and preferences
 class Interactor(
     private val repo: MainRepository,
     private val retrofitService: TmdbApi,
-    private val preferences: PreferenceProvider) {
-    fun getFilmsFromApi(page: Int, callback: MainFragmentViewModel.ApiCallback) {
-        retrofitService.getFilms(getDefaultCategoryFromPreferences(), Secret.KEY, Locale.getDefault().language, page).enqueue(object :
+    private val preferences: PreferenceProvider
+) {
+    fun getFilmsFromApi(page: Int, callback: ApiCallback) {
+
+        retrofitService.getFilms(
+            getDefaultCategoryFromPreferences(),
+            Secret.KEY,
+            Locale.getDefault().language,
+            page
+        ).enqueue(object :
             Callback<TmdbResultsDto> {
-            override fun onResponse(call: Call<TmdbResultsDto>, response: Response<TmdbResultsDto>) {
+            override fun onResponse(
+                call: Call<TmdbResultsDto>,
+                response: Response<TmdbResultsDto>
+            ) {
                 val list = Converter.convertApiListToFilmList(response.body()?.tmdbFilms)
-                repo.putToDb(list)
                 callback.onSuccess(list)
             }
+
             override fun onFailure(call: Call<TmdbResultsDto>, t: Throwable) {
                 callback.onFailure()
             }
         })
+
+
     }
 
-    fun getFilmsFromDB(): List<Film> = repo.getAllFromDB()
+    // Working with local films db
+    fun clearLocalFilmsDB() {
+        repo.clearFilmsDB()
+    }
+    fun saveFilmsToDB(list: List<Film>) {
+        repo.putFilmsToDb(list)
+    }
+    fun getFilmsFromDB(): List<Film> = repo.getAllFilmsFromDB()
 
+    // Working with default films category
     fun saveDefaultCategoryToPreferences(category: String) {
         preferences.saveDefaultCategory(category)
     }
     fun getDefaultCategoryFromPreferences() = preferences.getDefaultCategory()
+
+    // Last external API request time
+    fun saveLastAPIRequestTime() {
+        preferences.saveLastAPIRequestTime()
+    }
+    fun getLastAPIRequestTime() = preferences.getLastAPIRequestTime()
+
+    // Films category saved in local DB
+    fun saveCategoryInDB(category: String) {
+        preferences.saveCategoryInDB(category)
+    }
+    fun getCategoryInDB() = preferences.getCategoryInDB()
+
+    interface ApiCallback {
+        fun onSuccess(films: List<Film>)
+        fun onFailure()
+    }
+
+
 }

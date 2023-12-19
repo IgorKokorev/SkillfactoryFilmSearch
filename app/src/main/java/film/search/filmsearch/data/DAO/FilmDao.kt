@@ -1,6 +1,7 @@
 package film.search.filmsearch.data.DAO
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -14,4 +15,7 @@ interface FilmDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(list: List<Film>)
+
+    @Delete
+    fun deleteAll(list: List<Film>)
 }

@@ -14,20 +14,19 @@ class MainFragmentViewModel : ViewModel() {
     @Inject
     lateinit var interactor: Interactor
     private var page = 0
+    private var toLoadFromAPI = true
 
     init {
         App.instance.dagger.inject(this)
         loadFirstPage()
     }
 
-    interface ApiCallback {
-        fun onSuccess(films: List<Film>)
-        fun onFailure()
-    }
-
     fun addNextPage() {
-        interactor.getFilmsFromApi(++page, object : ApiCallback {
+        if (!toLoadFromAPI) return
+
+        interactor.getFilmsFromApi(++page, object : Interactor.ApiCallback {
             override fun onSuccess(films: List<Film>) {
+                interactor.saveFilmsToDB(films)
                 filmsListLiveData.value = filmsListLiveData.value?.plus(films) ?: films
             }
 
@@ -41,8 +40,29 @@ class MainFragmentViewModel : ViewModel() {
     }
 
     fun loadFirstPage() {
+        val currentTime = System.currentTimeMillis()
+        val savedTime = interactor.getLastAPIRequestTime()
+
         filmsListLiveData.value = emptyList()
         page = 0
-        addNextPage()
+
+        // if more than established time passed since last API call or category has been changed than request API again
+        if (
+            (currentTime - savedTime) > App.instance.API_REQUEST_TIME_INTERVAL ||
+            interactor.getDefaultCategoryFromPreferences() != interactor.getCategoryInDB()
+            ) {
+            toLoadFromAPI = true
+            interactor.clearLocalFilmsDB()
+            interactor.saveCategoryInDB(interactor.getDefaultCategoryFromPreferences())
+            interactor.saveLastAPIRequestTime()
+
+            addNextPage()
+        } else { // else get films from db
+            toLoadFromAPI = false
+            Executors.newSingleThreadExecutor().execute {
+                filmsListLiveData.postValue(interactor.getFilmsFromDB())
+            }
+        }
+
     }
 }
