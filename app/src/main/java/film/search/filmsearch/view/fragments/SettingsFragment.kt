@@ -5,18 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import film.search.filmsearch.utils.AnimationHelper
-import film.search.filmsearch.viewmodel.SettingsFragmentViewModel
 import film.search.filmsearch.R
 import film.search.filmsearch.databinding.FragmentSettingsBinding
+import film.search.filmsearch.utils.AnimationHelper
+import film.search.filmsearch.viewmodel.SettingsFragmentViewModel
 
 class SettingsFragment : Fragment() {
     private lateinit var binding: FragmentSettingsBinding
-    private val viewModel by lazy {
-        ViewModelProvider.NewInstanceFactory().create(SettingsFragmentViewModel::class.java)
-    }
+    private val viewModel: SettingsFragmentViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -7,28 +7,26 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import film.search.filmsearch.data.entity.Film
+import film.search.filmsearch.databinding.FilmItemBinding
+import film.search.filmsearch.databinding.FragmentMainBinding
 import film.search.filmsearch.utils.AnimationHelper
 import film.search.filmsearch.view.MainActivity
 import film.search.filmsearch.view.rvadapters.FilmRecyclerAdapter
 import film.search.filmsearch.view.rvadapters.TopSpacingItemDecoration
 import film.search.filmsearch.viewmodel.MainFragmentViewModel
-import film.search.filmsearch.databinding.FilmItemBinding
-import film.search.filmsearch.databinding.FragmentMainBinding
 
 // Main fragment with list of films
 class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
     private lateinit var filmsAdapter: FilmRecyclerAdapter
-//    private var page = 1
-    private val viewModel by lazy {
-        ViewModelProvider.NewInstanceFactory().create(MainFragmentViewModel::class.java)
-    }
+    private val viewModel: MainFragmentViewModel by activityViewModels()
+
     private var filmsDataBase = listOf<Film>()
         set(value) {
             if (field == value) return
@@ -63,6 +61,8 @@ class MainFragment : Fragment() {
 
         // initializing swipe refresh
         initPullToRefresh()
+
+        refreshFragment()
 
         AnimationHelper.performFragmentCircularRevealAnimation(binding.mainFragmentRoot, requireActivity(), 0)
 
@@ -150,11 +150,15 @@ class MainFragment : Fragment() {
     private fun initPullToRefresh() {
         binding.pullToRefresh.setOnRefreshListener {
 
-            viewModel.loadFirstPage()
-            readFilmsDBFromViewModel()
-            filmsAdapter.addItems(filmsDataBase)
+            refreshFragment()
 
             binding.pullToRefresh.isRefreshing = false
         }
+    }
+
+    private fun refreshFragment() {
+        viewModel.loadFirstPage()
+        readFilmsDBFromViewModel()
+        filmsAdapter.addItems(filmsDataBase)
     }
 }

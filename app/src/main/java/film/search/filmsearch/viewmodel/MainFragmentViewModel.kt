@@ -1,6 +1,7 @@
 package film.search.filmsearch.viewmodel
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import film.search.filmsearch.App
 import film.search.filmsearch.data.entity.Film
@@ -8,13 +9,14 @@ import film.search.filmsearch.domain.Interactor
 import java.util.concurrent.Executors
 import javax.inject.Inject
 
-class MainFragmentViewModel : ViewModel() {
-    val filmsListLiveData = MutableLiveData<List<Film>>()
-
+class MainFragmentViewModel(state: SavedStateHandle) : ViewModel() {
     @Inject
     lateinit var interactor: Interactor
-    private var page = 0
-    private var toLoadFromAPI = true
+
+    val filmsListLiveData = MutableLiveData<List<Film>>()   // LiveData with list of films for MainFragment RV
+    private var toLoadFromAPI = true                        // Do we need to download data from API
+    private var page = 0                                    // what page is to download from API
+    private val savedStateHandle = state                    // To save state of the VM
 
     init {
         App.instance.dagger.inject(this)
@@ -22,7 +24,7 @@ class MainFragmentViewModel : ViewModel() {
     }
 
     fun addNextPage() {
-        if (!toLoadFromAPI) return
+        if (!toLoadFromAPI) return  // Add next page only if we download data from API
 
         interactor.getFilmsFromApi(++page, object : Interactor.ApiCallback {
             override fun onSuccess(films: List<Film>) {
