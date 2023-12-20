@@ -4,7 +4,7 @@ import dagger.Module
 import dagger.Provides
 import film.search.filmsearch.data.tmbd.ApiConstants
 import film.search.filmsearch.data.tmbd.TmdbApi
-import film.search.filmssearch.BuildConfig
+import film.search.filmsearch.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

@@ -6,7 +6,7 @@ import android.content.Context
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat.getSystemService
-import film.search.filmssearch.BuildConfig
+import film.search.filmsearch.BuildConfig
 
 // Service for push notifications
 class NotificationService(val context: Context) {

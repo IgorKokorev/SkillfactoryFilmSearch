@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import film.search.filmsearch.utils.AnimationHelper
-import film.search.filmssearch.databinding.FragmentCollectionBinding
+import film.search.filmsearch.databinding.FragmentCollectionBinding
 
 // Empty collection fragment
 class CollectionFragment : Fragment() {

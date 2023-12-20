@@ -10,7 +10,7 @@ import android.graphics.Typeface
 import android.util.AttributeSet
 import android.view.View
 import android.view.animation.DecelerateInterpolator
-import film.search.filmssearch.R
+import film.search.filmsearch.R
 
 // Custom view to show circular rating with animation
 class CustomRatingView @JvmOverloads constructor(context: Context, attributeSet: AttributeSet? = null) : View(context, attributeSet) {

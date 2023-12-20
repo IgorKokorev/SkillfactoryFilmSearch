@@ -5,24 +5,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import film.search.filmsearch.domain.Film
+import film.search.filmsearch.data.entity.Film
+import film.search.filmsearch.databinding.FilmItemBinding
+import film.search.filmsearch.databinding.FragmentFavoritesBinding
 import film.search.filmsearch.utils.AnimationHelper
 import film.search.filmsearch.view.MainActivity
 import film.search.filmsearch.view.rvadapters.FilmRecyclerAdapter
 import film.search.filmsearch.view.rvadapters.TopSpacingItemDecoration
 import film.search.filmsearch.viewmodel.FavoritesFragmentViewModel
-import film.search.filmssearch.databinding.FilmItemBinding
-import film.search.filmssearch.databinding.FragmentFavoritesBinding
 
 // List of favorites films fragment. Mostly the same as main fragment
 class FavoritesFragment : Fragment() {
     private lateinit var binding: FragmentFavoritesBinding
     private lateinit var filmsAdapter: FilmRecyclerAdapter
-    private val viewModel by lazy {
-        ViewModelProvider.NewInstanceFactory().create(FavoritesFragmentViewModel::class.java)
-    }
+    private val viewModel: FavoritesFragmentViewModel by activityViewModels()
+
     private var filmsDataBase = listOf<Film>()
         set(value) {
             if (field == value) return

@@ -4,14 +4,14 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import film.search.filmsearch.App
-import film.search.filmsearch.domain.Film
+import film.search.filmsearch.R
+import film.search.filmsearch.data.entity.Film
+import film.search.filmsearch.databinding.ActivityMainBinding
+import film.search.filmsearch.databinding.FilmItemBinding
 import film.search.filmsearch.view.fragments.FavoritesFragment
 import film.search.filmsearch.view.fragments.FilmDetailsFragment
 import film.search.filmsearch.view.fragments.MainFragment
 import film.search.filmsearch.view.fragments.SettingsFragment
-import film.search.filmssearch.R
-import film.search.filmssearch.databinding.ActivityMainBinding
-import film.search.filmssearch.databinding.FilmItemBinding
 
 
 class MainActivity : AppCompatActivity() {
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         if (supportFragmentManager.backStackEntryCount <= 1) {
-            if (backPressed + App.instance.TIME_INTERVAL > System.currentTimeMillis()) {
+            if (backPressed + App.instance.BACK_CLICK_TIME_INTERVAL > System.currentTimeMillis()) {
                 onBackPressedDispatcher.onBackPressed()
                 finish()
             } else {
