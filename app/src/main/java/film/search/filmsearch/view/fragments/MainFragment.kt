@@ -5,13 +5,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
+import film.search.filmsearch.R
 import film.search.filmsearch.data.entity.Film
 import film.search.filmsearch.databinding.FilmItemBinding
 import film.search.filmsearch.databinding.FragmentMainBinding
@@ -46,7 +48,8 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        readFilmsDBFromViewModel()
+        // Setup all listeners for data from the ViewModel
+        setupDataFromViewModel()
 
         // Setting the whole search view clickable
         binding.searchView.setOnClickListener {
@@ -68,11 +71,21 @@ class MainFragment : Fragment() {
 
     }
 
-    private fun readFilmsDBFromViewModel() {
-        viewModel.filmsListLiveData.observe(viewLifecycleOwner, Observer<List<Film>> {
+    private fun setupDataFromViewModel() {
+        // Listening for changes in films list to show
+        viewModel.filmsListLiveData.observe(viewLifecycleOwner) {
             filmsDataBase = it
+        }
 
-        })
+        // Listening for boolean if we have to show Progress bar
+        viewModel.showProgressBar.observe(viewLifecycleOwner) {
+            binding.progressBar.isVisible = it
+        }
+
+        // Listening for "API error" event
+        viewModel.apiErrorEvent.observe(viewLifecycleOwner) {
+            Toast.makeText(binding.root.context, it + ": " + getString(R.string.api_error_message), Toast.LENGTH_LONG).show()
+        }
     }
 
     private fun setUpSearch() {
@@ -158,7 +171,7 @@ class MainFragment : Fragment() {
 
     private fun refreshFragment() {
         viewModel.loadFirstPage()
-        readFilmsDBFromViewModel()
+        setupDataFromViewModel()
         filmsAdapter.addItems(filmsDataBase)
     }
 }
