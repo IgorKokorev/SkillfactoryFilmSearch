@@ -1,5 +1,6 @@
 package film.search.filmsearch.domain
 
+import androidx.lifecycle.LiveData
 import film.search.filmsearch.data.MainRepository
 import film.search.filmsearch.data.PreferenceProvider
 import film.search.filmsearch.data.Secret
@@ -32,7 +33,8 @@ class Interactor(
                 response: Response<TmdbResultsDto>
             ) {
                 val list = Converter.convertApiListToFilmList(response.body()?.tmdbFilms)
-                callback.onSuccess(list)
+                saveFilmsToDB(list)
+                callback.onSuccess()
             }
 
             override fun onFailure(call: Call<TmdbResultsDto>, t: Throwable) {
@@ -50,7 +52,7 @@ class Interactor(
     fun saveFilmsToDB(list: List<Film>) {
         repo.putFilmsToDb(list)
     }
-    fun getFilmsFromDB(): List<Film> = repo.getAllFilmsFromDB()
+    fun getFilmsFromDB(): LiveData<List<Film>> = repo.getAllFilmsFromDB()
 
     // Working with default films category
     fun saveDefaultCategoryToPreferences(category: String) {
@@ -71,7 +73,7 @@ class Interactor(
     fun getCategoryInDB() = preferences.getCategoryInDB()
 
     interface ApiCallback {
-        fun onSuccess(films: List<Film>)
+        fun onSuccess()
         fun onFailure()
     }
 

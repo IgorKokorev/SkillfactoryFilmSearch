@@ -1,5 +1,6 @@
 package film.search.filmsearch.data
 
+import androidx.lifecycle.LiveData
 import film.search.filmsearch.data.DAO.FilmDao
 import film.search.filmsearch.data.entity.Film
 import java.util.concurrent.Executors
@@ -13,13 +14,13 @@ class MainRepository(private val filmDao: FilmDao) {
         }
     }
 
-    fun getAllFilmsFromDB(): List<Film> {
+    fun getAllFilmsFromDB(): LiveData<List<Film>> {
         return filmDao.getCachedFilms()
     }
 
     fun clearFilmsDB() {
         Executors.newSingleThreadExecutor().execute {
-            filmDao.deleteAll(filmDao.getCachedFilms())
+            filmDao.deleteAll()
         }
     }
 }

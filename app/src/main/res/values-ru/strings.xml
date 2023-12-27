@@ -21,4 +21,5 @@
     <string name="radio_button_top_rated">Топ</string>
     <string name="radio_button_upcoming">Скоро</string>
     <string name="radio_button_playing">В кино</string>
+    <string name="api_error_message">Ошибка обращения к API</string>
 </resources>
