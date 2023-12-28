@@ -22,4 +22,7 @@
     <string name="radio_button_upcoming">Upcoming</string>
     <string name="radio_button_playing">Playing</string>
     <string name="api_error_message">API error happened</string>
+    <string name="ask_for_storage_permission">Please provide permission to save files to the device storage.</string>
+    <string name="downloaded_to_gallery">Saved to gallery</string>
+    <string name="open_in_gallery">Open in gallery</string>
 </resources>

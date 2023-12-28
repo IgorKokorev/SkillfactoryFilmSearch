@@ -22,4 +22,7 @@
     <string name="radio_button_upcoming">Скоро</string>
     <string name="radio_button_playing">В кино</string>
     <string name="api_error_message">Ошибка обращения к API</string>
+    <string name="ask_for_storage_permission">Пожалуйста предоставьте разрешение на работу с памятью устройства.</string>
+    <string name="downloaded_to_gallery">Сохранено в галерею</string>
+    <string name="open_in_gallery">Открыть в галерее</string>
 </resources>
