@@ -25,4 +25,5 @@
     <string name="ask_for_storage_permission">Пожалуйста предоставьте разрешение на работу с памятью устройства.</string>
     <string name="downloaded_to_gallery">Сохранено в галерею</string>
     <string name="open_in_gallery">Открыть в галерее</string>
+    <string name="error_save_message">Ошибка при сохранении файла</string>
 </resources>

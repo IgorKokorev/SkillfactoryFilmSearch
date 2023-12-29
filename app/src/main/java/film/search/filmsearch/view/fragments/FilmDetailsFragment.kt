@@ -1,13 +1,10 @@
 package film.search.filmsearch.view.fragments
 
 import android.Manifest
-import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +21,7 @@ import film.search.filmsearch.R
 import film.search.filmsearch.data.entity.Film
 import film.search.filmsearch.data.tmbd.ApiConstants
 import film.search.filmsearch.databinding.FragmentFilmDetailsBinding
+import film.search.filmsearch.utils.MediaStoreMediator.saveBitmapToGallery
 import film.search.filmsearch.viewmodel.FilmDetailsFragmentViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -51,6 +49,7 @@ class FilmDetailsFragment : Fragment() {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                     arguments?.getParcelable(App.instance.FILM, Film::class.java)
                 } else {
+                    @Suppress("DEPRECATION")
                     arguments?.getParcelable(App.instance.FILM) as Film?
                 }
                 ) ?: return binding.root
@@ -61,13 +60,11 @@ class FilmDetailsFragment : Fragment() {
             .load(ApiConstants.IMAGES_URL + "w780" + film.poster)
             .centerCrop()
             .into(binding.poster)
-//        binding.poster.setImageResource(film.poster)
         binding.description.text = film.description
 
         setFavoriteFAB()
         setShareFAB()
         setDownloadFAB()
-
 
         return binding.root
     }
@@ -116,6 +113,58 @@ class FilmDetailsFragment : Fragment() {
 
     }
 
+    private fun performAsyncLoadOfPoster() {
+        // Handle write external storage permission for older system versions
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU && !checkWriteExternalStoragePermission()) {
+            requestWriteExternalStoragePermission()
+            return
+        }
+
+        // Create parent scope as we'll touch UI
+        MainScope().launch {
+            binding.progressBar.isVisible = true  // ProgressBar ON
+            val job = scope.async {  // Create async job as we need Bitmap as result
+                viewModel.loadWallpaper(ApiConstants.IMAGES_URL + "original" + film.poster)
+            }
+            val result = job.await()
+            // If loading failed
+            if (result == null) {
+                Toast.makeText(binding.root.context, R.string.api_error_message, Toast.LENGTH_SHORT)
+                    .show()
+            } else { // bitmap was loaded correctly
+                // Save image to gallery once loaded
+                val uri = saveBitmapToGallery(
+                    result,
+                    requireContext().applicationContext,
+                    "FilmSearchApp",
+                    film.title
+                )
+
+                // Show snackbar if image is saved successfully
+                if (uri != null) {
+                    Snackbar.make(
+                        binding.root,
+                        R.string.downloaded_to_gallery,
+                        Snackbar.LENGTH_LONG
+                    )
+                        .setAction(R.string.open_in_gallery) {
+                            // Open saved image
+                            val intent = Intent()
+                            intent.action = Intent.ACTION_VIEW
+                            intent.setDataAndType(uri, "image/*")
+                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                            startActivity(intent)
+                        }
+                        .show()
+                } else {
+                    Toast.makeText(requireContext(), R.string.error_save_message, Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            binding.progressBar.isVisible = false // ProgressBar OFF
+        }
+    }
+
     private fun checkWriteExternalStoragePermission(): Boolean {
         val result = ContextCompat.checkSelfPermission(
             requireContext(),
@@ -132,76 +181,4 @@ class FilmDetailsFragment : Fragment() {
         )
     }
 
-    private fun performAsyncLoadOfPoster() {
-        // Handle permission for older system versions
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU && !checkWriteExternalStoragePermission()) {
-            requestWriteExternalStoragePermission()
-            return
-        }
-        // Create parent scope as we'll touch UI
-        MainScope().launch {
-            binding.progressBar.isVisible = true  // ProgressBar ON
-            val job = scope.async {  // Create async job as we need Bitmap as result
-                viewModel.loadWallpaper(ApiConstants.IMAGES_URL + "original" + film.poster)
-            }
-            val result = job.await()
-            // If loading failed
-            if (result == null) {
-                Toast.makeText(binding.root.context, R.string.api_error_message, Toast.LENGTH_SHORT).show()
-            } else { // bitmap was loaded correctly
-                saveImageToGallery(result) // Save image to gallery once loaded
-                Snackbar.make(
-                    binding.root,
-                    R.string.downloaded_to_gallery,
-                    Snackbar.LENGTH_LONG
-                )
-                    .setAction(R.string.open_in_gallery) {
-                        val intent = Intent()
-                        intent.action = Intent.ACTION_VIEW
-                        intent.type = "image/*"
-                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                        startActivity(intent)
-                    }
-                    .show()
-            }
-
-            binding.progressBar.isVisible = false // ProgressBar OFF
-        }
-    }
-
-    private fun saveImageToGallery(bitmap: Bitmap) {
-        // For newer Android versions
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            val contentValues = ContentValues().apply {
-                put(MediaStore.Images.Media.TITLE, film.title.handleSingleQuote())
-                put(MediaStore.Images.Media.DISPLAY_NAME, film.title.handleSingleQuote())
-                put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
-                put(MediaStore.Images.Media.DATE_ADDED, System.currentTimeMillis() / 1000)
-                put(MediaStore.Images.Media.DATE_TAKEN, System.currentTimeMillis())
-                put(MediaStore.Images.Media.RELATIVE_PATH, "Pictures/FilmsSearchApp")
-            }
-            val contentResolver = requireActivity().contentResolver
-            val uri = contentResolver.insert(
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                contentValues
-            )
-            val outputStream = contentResolver.openOutputStream(uri!!)
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream!!)
-            outputStream?.close()
-        } else {
-            // For older system versions
-            @Suppress("DEPRECATION")
-            MediaStore.Images.Media.insertImage(
-                requireActivity().contentResolver,
-                bitmap,
-                film.title.handleSingleQuote(),
-                film.description.handleSingleQuote()
-            )
-        }
-    }
-
-    // Remove quotes from string
-    private fun String.handleSingleQuote(): String {
-        return this.replace("'", "")
-    }
 }
