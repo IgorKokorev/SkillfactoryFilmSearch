@@ -22,12 +22,18 @@ import film.search.filmsearch.view.MainActivity
 import film.search.filmsearch.view.rvadapters.FilmRecyclerAdapter
 import film.search.filmsearch.view.rvadapters.TopSpacingItemDecoration
 import film.search.filmsearch.viewmodel.MainFragmentViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 // Main fragment with list of films
 class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
     private lateinit var filmsAdapter: FilmRecyclerAdapter
     private val viewModel: MainFragmentViewModel by activityViewModels()
+    private lateinit var scope: CoroutineScope
 
     private var filmsDataBase = listOf<Film>()
         set(value) {
@@ -71,15 +77,32 @@ class MainFragment : Fragment() {
 
     }
 
+    // cancel scope to stop coroutines
+    override fun onStop() {
+        super.onStop()
+        scope.cancel()
+    }
+
     private fun setupDataFromViewModel() {
-        // Listening for changes in films list to show
-        viewModel.filmsListLiveData.observe(viewLifecycleOwner) {
-            filmsDataBase = it
+
+        // reading film list in a coroutine
+        scope = CoroutineScope(Dispatchers.IO).also { scope ->
+            scope.launch {
+                viewModel.filmsList.collect {
+                    withContext(Dispatchers.Main) {
+                        filmsDataBase = it
+                    }
+                }
+            }
         }
 
-        // Listening for boolean if we have to show Progress bar
-        viewModel.showProgressBar.observe(viewLifecycleOwner) {
-            binding.progressBar.isVisible = it
+        // Checking in cycle if we need to show progress bar
+        scope.launch {
+            for (element in viewModel.showProgressBar) {
+                launch(Dispatchers.Main) {
+                    binding.progressBar.isVisible = element
+                }
+            }
         }
 
         // Listening for "API error" event

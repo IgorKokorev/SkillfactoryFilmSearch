@@ -1,22 +1,24 @@
 package film.search.filmsearch.utils
 
-import film.search.filmsearch.data.tmbd.TmdbFilm
 import film.search.filmsearch.data.entity.Film
+import film.search.filmsearch.data.tmbd.TmdbFilm
 
 object Converter {
     fun convertApiListToFilmList(list: List<TmdbFilm>?): List<Film> {
         val result = mutableListOf<Film>()
         list?.forEach {
-            result.add(
-                Film(
-                    title = it.title,
-                    poster = it.posterPath,
-                    description = it.overview,
-                    rating = it.voteAverage / 10f,
-                    isFavorite = false
-            )
-            )
+            result.add(convertApiToFilm(it))
         }
         return result
+    }
+
+    fun convertApiToFilm(apiData: TmdbFilm): Film {
+        return Film(
+            title = apiData.title,
+            poster = apiData.posterPath,
+            description = apiData.overview,
+            rating = apiData.voteAverage / 10f,
+            isFavorite = false
+        )
     }
 }
