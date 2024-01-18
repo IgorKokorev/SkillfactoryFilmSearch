@@ -23,7 +23,9 @@ import film.search.filmsearch.view.rvadapters.FilmRecyclerAdapter
 import film.search.filmsearch.view.rvadapters.TopSpacingItemDecoration
 import film.search.filmsearch.viewmodel.MainFragmentViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 
 // Main fragment with list of films
 class MainFragment : Fragment() {
@@ -56,25 +58,18 @@ class MainFragment : Fragment() {
 
         // Setup all data from the ViewModel
         setupDataFromViewModel()
-
         // Setting the whole search view clickable
         binding.searchView.setOnClickListener {
             binding.searchView.isIconified = false
         }
-
         // Setting the 'on-the-fly' search logic
         setUpSearch()
-
         // initializing RecyclerView
         initRecycler()
-
         // initializing swipe refresh - we don't need it anymore?
         initPullToRefresh()
-
         refreshFragment()
-
         AnimationHelper.performFragmentCircularRevealAnimation(binding.mainFragmentRoot, requireActivity(), 0)
-
     }
 
     private fun setupDataFromViewModel() {
@@ -94,28 +89,27 @@ class MainFragment : Fragment() {
             .addTo(autoDisposable)
     }
 
+    // Search films in API logic. Search request is sent only after 1 seconds of no input
     private fun setUpSearch() {
-        binding.searchView.setOnQueryTextListener(object : OnQueryTextListener {
+        Observable.create<String> {
+            binding.searchView.setOnQueryTextListener(object : OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean = true
 
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return true
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                if (newText.isNullOrBlank()) {
-                    filmsAdapter.addItems(filmsDataBase)
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    if (newText.isNullOrBlank()) {
+                        viewModel.loadFirstPage(true)
+                        return true
+                    }
+                    it.onNext(newText)
                     return true
                 }
-
-                val result = filmsDataBase.filter {
-                    it.title.lowercase().contains(newText.lowercase())
-                }
-
-                filmsAdapter.addItems(result)
-                return true
+            })
+        }
+            .debounce(1, TimeUnit.SECONDS)
+            .subscribe {
+                viewModel.loadSearchResults(it)
             }
 
-        })
     }
 
     // Initializing Recycler view with films
@@ -159,7 +153,11 @@ class MainFragment : Fragment() {
                 if (!isLoading) {
                     if (visibleItemCount + firstVisibleItems >= totalItemCount - 3) {
                         isLoading = true
-                        viewModel.addNextPage()
+                        if (binding.searchView.query.isNullOrBlank()) {
+                            viewModel.addNextPage()
+                        } else {
+                            viewModel.addSearchResultsPage(binding.searchView.query.toString())
+                        }
                         isLoading = false
                     }
                 }
@@ -175,9 +173,6 @@ class MainFragment : Fragment() {
     }
 
     private fun refreshFragment() {
-//        filmsAdapter.clearFilms()
-        viewModel.loadFirstPage()
-//        setupDataFromViewModel()
-//        filmsAdapter.addItems(filmsDataBase)
+        viewModel.loadFirstPage(false)
     }
 }

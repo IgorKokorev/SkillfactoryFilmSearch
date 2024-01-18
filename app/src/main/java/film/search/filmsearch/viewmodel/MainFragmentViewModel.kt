@@ -21,22 +21,19 @@ class MainFragmentViewModel : ViewModel() {
         App.instance.dagger.inject(this)
         showProgressBar = interactor.progressBarState
         filmsList = interactor.getFilmsFromDB()
-        loadFirstPage()
+        loadFirstPage(false)
     }
 
-    fun addNextPage() {
-        if (!toLoadFromAPI) return  // Add next page only if we download data from API
-        interactor.getFilmsFromApi(++page)
-    }
-
-    fun loadFirstPage() {
+    // Loading first page with films from API if needed
+    fun loadFirstPage(forceApi: Boolean) {
         val currentTime = System.currentTimeMillis()
         val savedTime = interactor.getLastAPIRequestTime()
 
         page = 0
 
         // if more than established time passed since last API call or category has been changed than request API again
-        if ((currentTime - savedTime) > App.instance.API_REQUEST_TIME_INTERVAL ||
+        if (forceApi ||
+            (currentTime - savedTime) > App.instance.API_REQUEST_TIME_INTERVAL ||
             interactor.getDefaultCategoryFromPreferences() != interactor.getCategoryInDB()
         ) {
             toLoadFromAPI = true
@@ -48,7 +45,22 @@ class MainFragmentViewModel : ViewModel() {
         } else { // else get films from db
             toLoadFromAPI = false
         }
+    }
 
+    // Request next page with films from API
+    fun addNextPage() {
+        if (!toLoadFromAPI) return  // Add next page only if we download data from API
+        interactor.getFilmsFromApi(++page)
+    }
+
+    fun loadSearchResults(query: String) {
+        page = 0
+        interactor.clearLocalFilmsDB()
+        addSearchResultsPage(query)
+    }
+
+    fun addSearchResultsPage(query: String) {
+        interactor.searchFilmsFromApi(query, ++page)
     }
 }
 

@@ -27,7 +27,7 @@ class Interactor(
         // Show ProgressBar
         progressBarState.onNext(true)
 
-        // Switch to RxJava observable
+        // Switch to RxJava observable. We don't about dispose it as Interactor is singleton
         retrofitService.getFilms(
             getDefaultCategoryFromPreferences(),
             Secret.KEY,
@@ -43,33 +43,28 @@ class Interactor(
                 saveFilmsToDB(list)
                 progressBarState.onNext(false)
             }
+    }
+    fun searchFilmsFromApi(query: String, page: Int) {
+        // Show ProgressBar
+        progressBarState.onNext(true)
 
-        /*
-            .enqueue(object :
-                Callback<TmdbResultsDto> {
-            override fun onResponse(
-                call: Call<TmdbResultsDto>,
-                response: Response<TmdbResultsDto>
-            ) {
-                Completable.fromSingle<List<Film>> {
-                    val list = try {
-                    Converter.convertApiListToFilmList(response.body()?.tmdbFilms)
-                } catch (e: Exception) {
-                    emptyList()
-                }
-                    saveFilmsToDB(list)
-                }
-                    .subscribeOn(Schedulers.io())
-                    .subscribe()
+        // Search films by string from API
+        retrofitService.searchFilms(
+            query,
+            Secret.KEY,
+            Locale.getDefault().language,
+            page
+        )
+            .doOnError { t -> null }
+            .map { dto ->
+            Converter.convertApiListToFilmList(dto.tmdbFilms)
+        }
+            .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io())
+            .subscribe { list ->
+                saveFilmsToDB(list)
                 progressBarState.onNext(false)
             }
-
-            override fun onFailure(call: Call<TmdbResultsDto>, t: Throwable) {
-                progressBarState.onNext(false)
-            }
-        })*/
-
-
     }
 
     // Working with local films db

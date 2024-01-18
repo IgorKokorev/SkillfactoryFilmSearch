@@ -13,4 +13,12 @@ interface TmdbApi {
         @Query("language") language: String,
         @Query("page") page: Int
     ): Observable<TmdbResultsDto>
+
+    @GET("3/search/movie")
+    fun searchFilms(
+        @Query("query") query: String,
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String,
+        @Query("page") page: Int
+    ): Observable<TmdbResultsDto>
 }
