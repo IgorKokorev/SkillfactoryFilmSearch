@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import film.search.filmsearch.data.entity.Film
 import film.search.filmsearch.databinding.FilmItemBinding
 import film.search.filmsearch.databinding.FragmentFavoritesBinding
@@ -40,9 +39,9 @@ class FavoritesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.filmsListLiveData.observe(viewLifecycleOwner, Observer<List<Film>> {
+/*        viewModel.filmsListLiveData.observe(viewLifecycleOwner, Observer<List<Film>> {
             filmsDataBase = it
-        })
+        })*/
 
         initRecycler()
         AnimationHelper.performFragmentCircularRevealAnimation(binding.root, requireActivity(), 1)

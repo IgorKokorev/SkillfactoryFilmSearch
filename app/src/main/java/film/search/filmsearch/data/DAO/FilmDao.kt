@@ -5,16 +5,16 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import film.search.filmsearch.data.entity.Film
-import kotlinx.coroutines.flow.Flow
+import io.reactivex.rxjava3.core.Observable
 
 // Room's DAO interface to communicate with films local db
 @Dao
 interface FilmDao {
     @Query("SELECT * FROM cached_films")
-    fun getCachedFilms(): Flow<List<Film>>
+    fun getCachedFilms(): Observable<List<Film>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(list: List<Film>?)
+    fun insertAll(list: List<Film>)
 
     @Query("DELETE FROM cached_films")
     fun deleteAll()
