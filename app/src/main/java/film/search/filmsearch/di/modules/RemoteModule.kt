@@ -1,10 +1,12 @@
 package film.search.filmsearch.di.modules
 
+//import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import dagger.Module
 import dagger.Provides
+import film.search.filmsearch.BuildConfig
 import film.search.filmsearch.data.tmbd.ApiConstants
 import film.search.filmsearch.data.tmbd.TmdbApi
-import film.search.filmsearch.BuildConfig
+import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -31,6 +33,7 @@ class RemoteModule {
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
         .baseUrl(ApiConstants.BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
         .client(okHttpClient)
         .build()
 

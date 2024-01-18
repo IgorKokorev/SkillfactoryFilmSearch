@@ -5,7 +5,6 @@ import film.search.filmsearch.data.PreferenceProvider
 import film.search.filmsearch.data.Secret
 import film.search.filmsearch.data.entity.Film
 import film.search.filmsearch.data.tmbd.TmdbApi
-import film.search.filmsearch.data.tmbd.TmdbResultsDto
 import film.search.filmsearch.utils.Converter
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
@@ -13,9 +12,6 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.util.Locale
 
 // class to interact with film db, external API and preferences
@@ -31,12 +27,24 @@ class Interactor(
         // Show ProgressBar
         progressBarState.onNext(true)
 
+        // Switch to RxJava observable
         retrofitService.getFilms(
             getDefaultCategoryFromPreferences(),
             Secret.KEY,
             Locale.getDefault().language,
             page
         )
+            .map { dto ->
+            Converter.convertApiListToFilmList(dto.tmdbFilms)
+        }
+            .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io())
+            .subscribe { list ->
+                saveFilmsToDB(list)
+                progressBarState.onNext(false)
+            }
+
+        /*
             .enqueue(object :
                 Callback<TmdbResultsDto> {
             override fun onResponse(
@@ -59,7 +67,7 @@ class Interactor(
             override fun onFailure(call: Call<TmdbResultsDto>, t: Throwable) {
                 progressBarState.onNext(false)
             }
-        })
+        })*/
 
 
     }
