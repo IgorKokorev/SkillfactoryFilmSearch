@@ -7,7 +7,11 @@ object Converter {
     fun convertApiListToFilmList(list: List<TmdbFilm>?): List<Film> {
         val result = mutableListOf<Film>()
         list?.forEach {
-            result.add(convertApiToFilm(it))
+            try {
+                result.add(convertApiToFilm(it))
+            } catch (e: Exception) {
+
+            }
         }
         return result
     }
