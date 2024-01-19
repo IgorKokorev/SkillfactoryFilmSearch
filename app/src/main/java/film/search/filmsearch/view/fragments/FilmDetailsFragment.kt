@@ -19,7 +19,7 @@ import com.google.android.material.snackbar.Snackbar
 import film.search.filmsearch.App
 import film.search.filmsearch.R
 import film.search.filmsearch.data.entity.Film
-import film.search.filmsearch.data.tmbd.ApiConstants
+import film.search.filmsearch.data.tmdb.ApiConstants
 import film.search.filmsearch.databinding.FragmentFilmDetailsBinding
 import film.search.filmsearch.utils.MediaStoreMediator.saveBitmapToGallery
 import film.search.filmsearch.viewmodel.FilmDetailsFragmentViewModel
@@ -98,19 +98,24 @@ class FilmDetailsFragment : Fragment() {
     }
 
     private fun setFavoriteFAB() {
-
         // setting 'add to favorites' fab click listener
         binding.favoritesFab.setOnClickListener {
             film.isFavorite = !film.isFavorite
-            setFavoriteFAB()
-        }
 
-        // changing 'add to favorites' fab icon depending on status
+            if (film.isFavorite) viewModel.interactor.saveFilmToFavorites(film)
+            else viewModel.interactor.deleteFilmFromFavorites(film)
+
+            setFavoriteIcon()
+        }
+        setFavoriteIcon()
+    }
+
+    // changing 'add to favorites' fab icon depending on status
+    private fun setFavoriteIcon() {
         binding.favoritesFab.setImageResource(
             if (film.isFavorite) R.drawable.icon_favorite
             else R.drawable.icon_favorite_border
         )
-
     }
 
     private fun performAsyncLoadOfPoster() {

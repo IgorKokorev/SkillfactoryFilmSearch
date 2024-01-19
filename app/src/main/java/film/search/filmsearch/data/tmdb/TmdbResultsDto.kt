@@ -1,4 +1,4 @@
-package film.search.filmsearch.data.tmbd
+package film.search.filmsearch.data.tmdb
 
 import com.google.gson.annotations.SerializedName
 

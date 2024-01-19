@@ -1,4 +1,4 @@
-package film.search.filmsearch.data.tmbd
+package film.search.filmsearch.data.tmdb
 
 object ApiConstants {
     const val BASE_URL = "https://api.themoviedb.org/"

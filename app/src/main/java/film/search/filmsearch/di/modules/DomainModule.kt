@@ -5,7 +5,7 @@ import dagger.Module
 import dagger.Provides
 import film.search.filmsearch.data.MainRepository
 import film.search.filmsearch.data.PreferenceProvider
-import film.search.filmsearch.data.tmbd.TmdbApi
+import film.search.filmsearch.data.tmdb.TmdbApi
 import film.search.filmsearch.domain.Interactor
 import javax.inject.Singleton
 
