@@ -1,4 +1,4 @@
-package film.search.filmsearch.data.tmbd
+package film.search.filmsearch.data.tmdb
 
 import io.reactivex.rxjava3.core.Observable
 import retrofit2.http.GET

@@ -31,7 +31,7 @@ import java.util.concurrent.TimeUnit
 class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
     private lateinit var filmsAdapter: FilmRecyclerAdapter
-    private val viewModel: MainFragmentViewModel by viewModels<MainFragmentViewModel>() /*activityViewModels()*/
+    private val viewModel: MainFragmentViewModel by viewModels<MainFragmentViewModel>()
     private val autoDisposable = AutoDisposable()
     private var filmsDataBase = listOf<Film>()
         set(value) {

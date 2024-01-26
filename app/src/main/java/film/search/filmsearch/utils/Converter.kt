@@ -1,7 +1,8 @@
 package film.search.filmsearch.utils
 
+import film.search.filmsearch.data.entity.FavoriteFilm
 import film.search.filmsearch.data.entity.Film
-import film.search.filmsearch.data.tmbd.TmdbFilm
+import film.search.filmsearch.data.tmdb.TmdbFilm
 
 object Converter {
     fun convertApiListToFilmList(list: List<TmdbFilm>?): List<Film> {
@@ -9,9 +10,7 @@ object Converter {
         list?.forEach {
             try {
                 result.add(convertApiToFilm(it))
-            } catch (e: Exception) {
-
-            }
+            } catch (e: Exception) {}
         }
         return result
     }
@@ -22,7 +21,39 @@ object Converter {
             poster = apiData.posterPath,
             description = apiData.overview,
             rating = apiData.voteAverage / 10f,
+            tmdbId = apiData.id,
             isFavorite = false
         )
+    }
+
+    fun filmToFavorite(film: Film): FavoriteFilm {
+        return FavoriteFilm(
+            title = film.title,
+            poster = film.poster,
+            description = film.description,
+            rating = film.rating,
+            tmdbId = film.tmdbId
+        )
+    }
+
+    fun favoriteToFilm(favoriteFilm: FavoriteFilm): Film {
+        return Film(
+            title = favoriteFilm.title,
+            poster = favoriteFilm.poster,
+            description = favoriteFilm.description,
+            rating = favoriteFilm.rating,
+            tmdbId = favoriteFilm.tmdbId,
+            isFavorite = true
+        )
+    }
+
+    fun favoriteListToFilmList(list: List<FavoriteFilm>?): List<Film> {
+        val result = mutableListOf<Film>()
+        list?.forEach {
+            try {
+                result.add(favoriteToFilm(it))
+            } catch (e: Exception) {}
+        }
+        return result
     }
 }
