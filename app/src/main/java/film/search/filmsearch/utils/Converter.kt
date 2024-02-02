@@ -2,10 +2,10 @@ package film.search.filmsearch.utils
 
 import film.search.filmsearch.data.entity.FavoriteFilm
 import film.search.filmsearch.data.entity.Film
-import film.search.filmsearch.data.tmdb.TmdbFilm
+import film.search.retrofit.entity.TmdbFilm
 
 object Converter {
-    fun convertApiListToFilmList(list: List<TmdbFilm>?): List<Film> {
+    fun convertApiListToFilmList(list: List<film.search.retrofit.entity.TmdbFilm>?): List<Film> {
         val result = mutableListOf<Film>()
         list?.forEach {
             try {
@@ -15,7 +15,7 @@ object Converter {
         return result
     }
 
-    fun convertApiToFilm(apiData: TmdbFilm): Film {
+    fun convertApiToFilm(apiData: film.search.retrofit.entity.TmdbFilm): Film {
         return Film(
             title = apiData.title,
             poster = apiData.posterPath,

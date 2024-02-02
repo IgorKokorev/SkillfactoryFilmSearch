@@ -7,6 +7,8 @@ plugins {
     id 'androidx.room'
 }
 
+apply from: "$project.rootDir/versions.gradle"
+
 // For room: export schema to the path
 room {
     schemaDirectory "$projectDir/schemas"
@@ -53,13 +55,6 @@ android {
 }
 
 dependencies {
-    def room_version = '2.6.1'
-    def okhttp_version = '4.12.0'
-    def retrofit_version = '2.9.0'
-    def dagger_version = '2.50'
-    def coroutines_version = '1.7.3'
-    def glide_version = '4.16.0'
-
     implementation "androidx.fragment:fragment-ktx:1.6.2"
     implementation "androidx.core:core-ktx:1.12.0"
     implementation "androidx.appcompat:appcompat:1.6.1"
@@ -67,33 +62,26 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:2.1.4"
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
     implementation "com.google.code.gson:gson:2.10.1"
+
+    implementation project(':retrofit') // import retrofit module
+
     // Glide
     implementation "com.github.bumptech.glide:glide:$glide_version"
     annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
-    // OkHttp
-    implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
-    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
-    // Retrofit
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-    implementation "com.squareup.retrofit2:adapter-rxjava:$retrofit_version"
-    implementation "com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0"
     // Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
     // Dagger
-    implementation "com.google.dagger:dagger:$dagger_version"
-    ksp "com.google.dagger:dagger-compiler:$dagger_version"
+    implementation dagger
+    kapt daggerCompiler
     // Room
-    implementation "androidx.room:room-runtime:$room_version"
+    implementation roomRuntime
     implementation "androidx.room:room-ktx:$room_version"
-    implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.room:room-rxjava3:$room_version"
-    ksp "androidx.room:room-compiler:$room_version"
+    kapt roomCompiler
     //RxJava
-    implementation 'io.reactivex.rxjava3:rxandroid:3.0.2'
-    implementation 'io.reactivex.rxjava3:rxjava:3.1.8'
+    implementation rxandroid
+    implementation rxjava
 
     // Tests
     testImplementation "junit:junit:4.13.2"

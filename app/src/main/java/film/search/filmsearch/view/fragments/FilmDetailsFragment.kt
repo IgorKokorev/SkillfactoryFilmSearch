@@ -19,10 +19,10 @@ import com.google.android.material.snackbar.Snackbar
 import film.search.filmsearch.App
 import film.search.filmsearch.R
 import film.search.filmsearch.data.entity.Film
-import film.search.filmsearch.data.tmdb.ApiConstants
 import film.search.filmsearch.databinding.FragmentFilmDetailsBinding
 import film.search.filmsearch.utils.MediaStoreMediator.saveBitmapToGallery
 import film.search.filmsearch.viewmodel.FilmDetailsFragmentViewModel
+import film.search.retrofit.entity.ApiConstants
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope

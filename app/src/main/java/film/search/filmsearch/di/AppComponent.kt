@@ -3,17 +3,17 @@ package film.search.filmsearch.di
 import dagger.Component
 import film.search.filmsearch.di.modules.DatabaseModule
 import film.search.filmsearch.di.modules.DomainModule
-import film.search.filmsearch.di.modules.RemoteModule
 import film.search.filmsearch.viewmodel.FavoritesFragmentViewModel
 import film.search.filmsearch.viewmodel.FilmDetailsFragmentViewModel
 import film.search.filmsearch.viewmodel.MainFragmentViewModel
 import film.search.filmsearch.viewmodel.SettingsFragmentViewModel
+import film.search.retrofit.RemoteProvider
 import javax.inject.Singleton
 
 @Singleton
 @Component(
+    dependencies = [RemoteProvider::class],
     modules = [
-        RemoteModule::class,
         DatabaseModule::class,
         DomainModule::class
     ]

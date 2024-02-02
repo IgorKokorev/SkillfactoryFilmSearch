@@ -1,11 +1,12 @@
-package film.search.filmsearch.di.modules
+package film.search.retrofit
 
 //import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import dagger.Module
 import dagger.Provides
-import film.search.filmsearch.BuildConfig
-import film.search.filmsearch.data.tmdb.ApiConstants
-import film.search.filmsearch.data.tmdb.TmdbApi
+import film.search.retrofit.entity.ApiConstants
+//import film.search.filmsearch.BuildConfig
+//import film.search.filmsearch.data.tmdb.ApiConstants
+//import film.search.filmsearch.data.tmdb.TmdbApi
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

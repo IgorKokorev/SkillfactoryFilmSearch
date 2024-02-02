@@ -1,4 +1,4 @@
-package film.search.filmsearch.data.tmdb
+package film.search.retrofit.entity
 
 object ApiConstants {
     const val BASE_URL = "https://api.themoviedb.org/"
