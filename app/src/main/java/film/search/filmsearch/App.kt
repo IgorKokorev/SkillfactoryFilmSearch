@@ -5,7 +5,7 @@ import film.search.filmsearch.di.AppComponent
 import film.search.filmsearch.di.DaggerAppComponent
 import film.search.filmsearch.di.modules.DatabaseModule
 import film.search.filmsearch.di.modules.DomainModule
-import film.search.filmsearch.di.modules.RemoteModule
+import film.search.retrofit.DaggerRemoteComponent
 
 class App : Application() {
     lateinit var dagger: AppComponent
@@ -21,7 +21,7 @@ class App : Application() {
         instance = this
         //Создаем компонент
         dagger = DaggerAppComponent.builder()
-            .remoteModule(RemoteModule())
+            .remoteProvider(DaggerRemoteComponent.create())
             .databaseModule(DatabaseModule())
             .domainModule(DomainModule(this))
             .build()

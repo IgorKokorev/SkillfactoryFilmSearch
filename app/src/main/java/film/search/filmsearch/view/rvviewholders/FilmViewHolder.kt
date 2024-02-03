@@ -3,10 +3,10 @@ package film.search.filmsearch.view.rvviewholders
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import film.search.filmsearch.App
-import film.search.filmsearch.data.tmdb.ApiConstants
 import film.search.filmsearch.data.entity.Film
-import film.search.filmsearch.view.rvadapters.FilmRecyclerAdapter
 import film.search.filmsearch.databinding.FilmItemBinding
+import film.search.filmsearch.view.rvadapters.FilmRecyclerAdapter
+import film.search.retrofit.entity.ApiConstants
 
 // Holder for Recycler view item
 class FilmViewHolder(val binding: FilmItemBinding) : RecyclerView.ViewHolder(binding.root) {

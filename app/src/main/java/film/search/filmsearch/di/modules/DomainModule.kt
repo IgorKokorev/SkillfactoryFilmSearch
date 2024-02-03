@@ -5,7 +5,6 @@ import dagger.Module
 import dagger.Provides
 import film.search.filmsearch.data.MainRepository
 import film.search.filmsearch.data.PreferenceProvider
-import film.search.filmsearch.data.tmdb.TmdbApi
 import film.search.filmsearch.domain.Interactor
 import javax.inject.Singleton
 
@@ -20,6 +19,6 @@ class DomainModule(val context: Context) {
 
     @Singleton
     @Provides
-    fun provideInteractor(repository: MainRepository, tmdbApi: TmdbApi, preferenceProvider: PreferenceProvider) =
+    fun provideInteractor(repository: MainRepository, tmdbApi: film.search.retrofit.TmdbApi, preferenceProvider: PreferenceProvider) =
         Interactor(repo = repository, retrofitService = tmdbApi, preferences = preferenceProvider)
 }

@@ -1,5 +1,6 @@
-package film.search.filmsearch.data.tmdb
+package film.search.retrofit
 
+import film.search.retrofit.entity.TmdbResultsDto
 import io.reactivex.rxjava3.core.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path
