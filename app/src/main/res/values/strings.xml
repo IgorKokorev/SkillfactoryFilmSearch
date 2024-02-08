@@ -25,4 +25,6 @@
     <string name="downloaded_to_gallery">Saved to gallery</string>
     <string name="open_in_gallery">Open in gallery</string>
     <string name="error_save_message">Error saving file</string>
+    <string name="battery_low_toast">Battery low!</string>
+    <string name="power_cable_connected_toast">Power cable connected!</string>
 </resources>

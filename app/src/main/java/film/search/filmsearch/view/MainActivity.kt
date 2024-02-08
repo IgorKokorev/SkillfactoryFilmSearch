@@ -1,5 +1,7 @@
 package film.search.filmsearch.view
 
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +10,7 @@ import film.search.filmsearch.R
 import film.search.filmsearch.data.entity.Film
 import film.search.filmsearch.databinding.ActivityMainBinding
 import film.search.filmsearch.databinding.FilmItemBinding
+import film.search.filmsearch.utils.BatteryReceiver
 import film.search.filmsearch.view.fragments.FavoritesFragment
 import film.search.filmsearch.view.fragments.FilmDetailsFragment
 import film.search.filmsearch.view.fragments.MainFragment
@@ -17,6 +20,7 @@ import film.search.filmsearch.view.fragments.SettingsFragment
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var backPressed = 0L
+    private val receiver = BatteryReceiver()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +32,11 @@ class MainActivity : AppCompatActivity() {
         // initializing menu buttons click listeners
         initMenuButtons()
 
+        // Registering Receiver to catch Low Battery and Power connected events
+        val filter = IntentFilter(Intent.ACTION_BATTERY_LOW)
+        filter.addAction(Intent.ACTION_POWER_CONNECTED)
+        registerReceiver(receiver, filter)
+
         // initializing notification service
 //        App.instance.notificationService = NotificationService(this)
 
@@ -37,6 +46,11 @@ class MainActivity : AppCompatActivity() {
             .add(R.id.fragment_placeholder, MainFragment())
             .addToBackStack(App.instance.FRAGMENT_TAG)
             .commit()
+    }
+
+    override fun onDestroy() {
+        unregisterReceiver(receiver)
+        super.onDestroy()
     }
 
     // Check back pressed. If 2 times in less than 2 sec om main screen - exit. If not main screen (fragment) - back.

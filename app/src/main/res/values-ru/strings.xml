@@ -26,4 +26,6 @@
     <string name="downloaded_to_gallery">Сохранено в галерею</string>
     <string name="open_in_gallery">Открыть в галерее</string>
     <string name="error_save_message">Ошибка при сохранении файла</string>
+    <string name="battery_low_toast">Низкий заряд батареи!</string>
+    <string name="power_cable_connected_toast">Кабель питания подключён!</string>
 </resources>
