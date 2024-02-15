@@ -10,8 +10,8 @@
     <string name="share">Share</string>
     <string name="send_to_friend">Send film %s to a friend?</string>
     <string name="double_tap_toast">Double tap for exit</string>
-    <string name="notification_title">Sending film</string>
-    <string name="notification_text">Sending film %s to a friend...</string>
+    <string name="notification_title">Check film</string>
+    <string name="notification_text">"Don't forget to check the film "</string>
     <string name="send_film_text">Check out this film: %s - %s</string>
     <string name="send_film_title">Share To:</string>
     <string name="menu__text_home">Go home!</string>

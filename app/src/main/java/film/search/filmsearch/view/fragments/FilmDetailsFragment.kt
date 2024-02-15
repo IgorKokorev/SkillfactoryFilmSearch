@@ -21,6 +21,7 @@ import film.search.filmsearch.R
 import film.search.filmsearch.data.entity.Film
 import film.search.filmsearch.databinding.FragmentFilmDetailsBinding
 import film.search.filmsearch.utils.MediaStoreMediator.saveBitmapToGallery
+import film.search.filmsearch.utils.NotificationService
 import film.search.filmsearch.viewmodel.FilmDetailsFragmentViewModel
 import film.search.retrofit.entity.ApiConstants
 import kotlinx.coroutines.CoroutineScope
@@ -33,6 +34,7 @@ import kotlinx.coroutines.launch
 class FilmDetailsFragment : Fragment() {
     private lateinit var binding: FragmentFilmDetailsBinding
     private lateinit var film: Film
+    private lateinit var notificationService: NotificationService
     private val scope = CoroutineScope(Dispatchers.IO)
     private val viewModel: FilmDetailsFragmentViewModel by activityViewModels()
 
@@ -43,6 +45,8 @@ class FilmDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentFilmDetailsBinding.inflate(layoutInflater)
+
+        notificationService = NotificationService(requireContext().applicationContext)
 
         // getting film as argument. Method depends on OS version
         film = (
@@ -102,7 +106,10 @@ class FilmDetailsFragment : Fragment() {
         binding.favoritesFab.setOnClickListener {
             film.isFavorite = !film.isFavorite
 
-            if (film.isFavorite) viewModel.interactor.saveFilmToFavorites(film)
+            if (film.isFavorite) {
+                viewModel.interactor.saveFilmToFavorites(film)
+                notificationService.sendFilmNotification(film)
+            }
             else viewModel.interactor.deleteFilmFromFavorites(film)
 
             setFavoriteIcon()

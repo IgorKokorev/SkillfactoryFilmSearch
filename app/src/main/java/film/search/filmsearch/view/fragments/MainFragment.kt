@@ -118,7 +118,7 @@ class MainFragment : Fragment() {
         filmsAdapter = FilmRecyclerAdapter(object : FilmRecyclerAdapter.OnItemClickListener {
             // If a film is clicked a new fragment with film details is launched
             override fun click(film: Film, position: Int, binding: FilmItemBinding) {
-                (requireActivity() as MainActivity).launchDetailsFragment(film, position, binding)
+                (requireActivity() as MainActivity).launchDetailsFragment(film)
             }
         })
 

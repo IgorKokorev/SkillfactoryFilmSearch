@@ -4,8 +4,8 @@ import film.search.filmsearch.data.MainRepository
 import film.search.filmsearch.data.PreferenceProvider
 import film.search.filmsearch.data.Secret
 import film.search.filmsearch.data.entity.Film
-import film.search.retrofit.TmdbApi
 import film.search.filmsearch.utils.Converter
+import film.search.retrofit.TmdbApi
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -15,7 +15,7 @@ import java.util.Locale
 // class to interact with film db, external API and preferences
 class Interactor(
     private val repo: MainRepository,
-    private val retrofitService: film.search.retrofit.TmdbApi,
+    private val retrofitService: TmdbApi,
     private val preferences: PreferenceProvider
 ) {
     var progressBarState: BehaviorSubject<Boolean> = BehaviorSubject.create()

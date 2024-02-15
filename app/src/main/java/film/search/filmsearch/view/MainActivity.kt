@@ -1,7 +1,9 @@
 package film.search.filmsearch.view
 
+import android.Manifest
 import android.content.Intent
 import android.content.IntentFilter
+import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -9,7 +11,6 @@ import film.search.filmsearch.App
 import film.search.filmsearch.R
 import film.search.filmsearch.data.entity.Film
 import film.search.filmsearch.databinding.ActivityMainBinding
-import film.search.filmsearch.databinding.FilmItemBinding
 import film.search.filmsearch.utils.BatteryReceiver
 import film.search.filmsearch.view.fragments.FavoritesFragment
 import film.search.filmsearch.view.fragments.FilmDetailsFragment
@@ -40,12 +41,30 @@ class MainActivity : AppCompatActivity() {
         // initializing notification service
 //        App.instance.notificationService = NotificationService(this)
 
-        // starting main fragment
-        supportFragmentManager
-            .beginTransaction()
-            .add(R.id.fragment_placeholder, MainFragment())
-            .addToBackStack(App.instance.FRAGMENT_TAG)
-            .commit()
+        // Ask for permission to post notification
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            requestPermissions(arrayOf(Manifest.permission.POST_NOTIFICATIONS), 99)
+        }
+
+        // If the activity was launched from an intent we get film from the intent and open it in film datails fragment
+        val film =
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        intent?.getParcelableExtra(App.instance.FILM, Film::class.java)
+                    } else {
+                        @Suppress("DEPRECATION")
+                        intent?.getParcelableExtra(App.instance.FILM) as Film?
+                    }
+
+        if (film == null) {
+            // starting main fragment
+            supportFragmentManager
+                .beginTransaction()
+                .add(R.id.fragment_placeholder, MainFragment())
+                .addToBackStack(App.instance.FRAGMENT_TAG)
+                .commit()
+        } else {
+            launchDetailsFragment(film)
+        }
     }
 
     override fun onDestroy() {
@@ -124,10 +143,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     // Launch Film Details screen (fragment) and transfer film data to it
-    fun launchDetailsFragment(film: Film, position: Int, filmItemBinding: FilmItemBinding) {
+    fun launchDetailsFragment(film: Film) {
         val bundle = Bundle()
         bundle.putParcelable(App.instance.FILM, film)
-        bundle.putInt(App.instance.POSITION, position)
         val fragment = FilmDetailsFragment()
         fragment.arguments = bundle
 
