@@ -5,7 +5,10 @@ ext {
     dagger_version = '2.50'
     coroutines_version = '1.7.3'
     glide_version = '4.16.0'
+    work_version = '2.9.0'
 
+    work = "androidx.work:work-runtime-ktx:$work_version"
+    work_rxjava2 = "androidx.work:work-rxjava2:$work_version"
     dagger = "com.google.dagger:dagger:$dagger_version"
     daggerCompiler = "com.google.dagger:dagger-compiler:$dagger_version"
     roomRuntime = "androidx.room:room-runtime:$room_version"

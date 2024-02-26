@@ -13,6 +13,7 @@ import kotlin.coroutines.suspendCoroutine
 class FilmDetailsFragmentViewModel : ViewModel() {
     @Inject
     lateinit var interactor: Interactor
+
     init {
         App.instance.dagger.inject(this)
     }

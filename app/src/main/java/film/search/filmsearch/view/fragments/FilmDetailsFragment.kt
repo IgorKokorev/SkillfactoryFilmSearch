@@ -46,7 +46,7 @@ class FilmDetailsFragment : Fragment() {
     ): View {
         binding = FragmentFilmDetailsBinding.inflate(layoutInflater)
 
-        notificationService = NotificationService(requireContext().applicationContext)
+        notificationService = NotificationService(binding.root.context)
 
         // getting film as argument. Method depends on OS version
         film = (
@@ -108,7 +108,7 @@ class FilmDetailsFragment : Fragment() {
 
             if (film.isFavorite) {
                 viewModel.interactor.saveFilmToFavorites(film)
-                notificationService.sendFilmNotification(film)
+                notificationService.setFilmNotification(film)
             }
             else viewModel.interactor.deleteFilmFromFavorites(film)
 
