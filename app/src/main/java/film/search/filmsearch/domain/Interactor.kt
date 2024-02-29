@@ -4,6 +4,7 @@ import film.search.filmsearch.data.MainRepository
 import film.search.filmsearch.data.PreferenceProvider
 import film.search.filmsearch.data.Secret
 import film.search.filmsearch.data.entity.Film
+import film.search.filmsearch.data.entity.WatchLaterFilm
 import film.search.filmsearch.utils.Converter
 import film.search.retrofit.TmdbApi
 import io.reactivex.rxjava3.core.Completable
@@ -19,7 +20,7 @@ class Interactor(
     private val preferences: PreferenceProvider
 ) {
     var progressBarState: BehaviorSubject<Boolean> = BehaviorSubject.create()
-    private lateinit var favoritesTmdbId: List<Int>
+    private var favoritesTmdbId = emptyList<Int>()
 
     init {
         getFavouriteFilmsFromDB()
@@ -135,5 +136,26 @@ class Interactor(
 
     fun isFavorite(film: Film): Observable<Boolean> {
         return repo.isFilmInFavorites(film)
+    }
+
+    fun saveFilmToWatchLater(film: Film, time: Long) {
+        repo.saveFilmToWatchLater(film, time)
+    }
+
+    fun deleteFilmFromWatchLater(film: WatchLaterFilm) {
+        repo.deleteFilmFromWatchLater(film)
+    }
+
+    fun getWatchLaterFilms(): Observable<List<WatchLaterFilm>> {
+        return repo.getWatchLaterFilms()
+    }
+
+    fun deleteFilmFromWatchLaterByTmdbId(tmdbId: Int) {
+        repo.deleteFilmFromWatchLaterByTmdbId(tmdbId)
+    }
+
+    fun saveWatchLater(watchLaterFilm: WatchLaterFilm) {
+        repo.saveWatchLater(watchLaterFilm)
+
     }
 }

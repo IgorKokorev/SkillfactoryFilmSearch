@@ -7,6 +7,7 @@ import dagger.Provides
 import film.search.filmsearch.data.AppDatabase
 import film.search.filmsearch.data.DAO.FavoriteFilmDao
 import film.search.filmsearch.data.DAO.FilmDao
+import film.search.filmsearch.data.DAO.WatchLaterFilmDao
 import film.search.filmsearch.data.MainRepository
 import javax.inject.Singleton
 
@@ -33,6 +34,10 @@ class DatabaseModule {
 
     @Singleton
     @Provides
-    fun provideRepository(filmDao: FilmDao, favoriteFilmDao: FavoriteFilmDao) =
-        MainRepository(filmDao, favoriteFilmDao)
+    fun provideWatchLaterFilmDao(db: AppDatabase): WatchLaterFilmDao = db.watchLaterFilmDao()
+
+    @Singleton
+    @Provides
+    fun provideRepository(filmDao: FilmDao, favoriteFilmDao: FavoriteFilmDao, watchLaterFilmDao: WatchLaterFilmDao) =
+        MainRepository(filmDao, favoriteFilmDao, watchLaterFilmDao)
 }

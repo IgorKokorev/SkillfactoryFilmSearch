@@ -59,6 +59,19 @@
         app:srcCompat="@drawable/icon_cloud_download"
         app:tint="@android:color/white"/>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/details_fab_watch_later"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:borderWidth="0dp"
+        android:translationX="144dp"
+        android:backgroundTint="@color/colorAccentDark"
+        app:layout_anchor="@id/app_bar"
+        app:layout_anchorGravity="left|bottom"
+        app:srcCompat="@drawable/icon_watch_later"
+        app:tint="@android:color/white"/>
+
     <ProgressBar
         android:id="@+id/progress_bar"
         android:visibility="invisible"

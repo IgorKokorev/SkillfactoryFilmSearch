@@ -4,6 +4,7 @@ import android.app.Activity
 import android.view.View
 import android.view.ViewAnimationUtils
 import android.view.animation.AccelerateDecelerateInterpolator
+import film.search.filmsearch.App
 import java.util.concurrent.Executors
 import kotlin.math.hypot
 import kotlin.math.roundToInt
@@ -14,13 +15,12 @@ import kotlin.math.roundToInt
     Center - clicked menu item (using position from 0)
  */
 object AnimationHelper {
-    private const val menuItems = 3
     fun performFragmentCircularRevealAnimation(rootView: View, activity: Activity, position: Int) {
         Executors.newSingleThreadExecutor().execute {
             while (true) {
                 if (rootView.isAttachedToWindow) {
                     activity.runOnUiThread {
-                        val itemCenter = rootView.width / (menuItems * 2)
+                        val itemCenter = rootView.width / (App.instance.BOTTOM_MENU_ITEMS_NUMBER * 2)
                         val step = (itemCenter * 2) * (position) + itemCenter
 
                         val x: Int = step
