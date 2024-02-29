@@ -13,7 +13,6 @@ class App : Application() {
     val BACK_CLICK_TIME_INTERVAL = 2000L
     val API_REQUEST_TIME_INTERVAL = 1000L * 60 * 10
     val FILM = "film"
-    val POSITION = "position"
     val TRANSITION_NAME = "transition"
 
     override fun onCreate() {

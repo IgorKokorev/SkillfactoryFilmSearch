@@ -21,4 +21,5 @@ class DomainModule(val context: Context) {
     @Provides
     fun provideInteractor(repository: MainRepository, tmdbApi: film.search.retrofit.TmdbApi, preferenceProvider: PreferenceProvider) =
         Interactor(repo = repository, retrofitService = tmdbApi, preferences = preferenceProvider)
+
 }
