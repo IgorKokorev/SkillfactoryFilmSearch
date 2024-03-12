@@ -16,7 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
-import film.search.filmsearch.App
+import film.search.filmsearch.Constants
 import film.search.filmsearch.R
 import film.search.filmsearch.data.entity.Film
 import film.search.filmsearch.databinding.FragmentFilmDetailsBinding
@@ -51,10 +51,10 @@ class FilmDetailsFragment : Fragment() {
         // getting film as argument. Method depends on OS version
         film = (
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    arguments?.getParcelable(App.instance.FILM, Film::class.java)
+                    arguments?.getParcelable(Constants.FILM, Film::class.java)
                 } else {
                     @Suppress("DEPRECATION")
-                    arguments?.getParcelable(App.instance.FILM) as Film?
+                    arguments?.getParcelable(Constants.FILM) as Film?
                 }
                 ) ?: return binding.root
 

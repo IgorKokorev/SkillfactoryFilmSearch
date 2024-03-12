@@ -5,11 +5,11 @@ plugins {
     id 'kotlin-kapt'
     id 'com.google.devtools.ksp'
     id 'androidx.room'
+    id 'com.google.gms.google-services'
 }
 
 apply from: "$project.rootDir/versions.gradle"
 
-// For room: export schema to the path
 room {
     schemaDirectory "$projectDir/schemas"
 }
@@ -17,6 +17,7 @@ room {
 android {
     namespace 'film.search.filmsearch'
     compileSdk 34
+    flavorDimensions = ["version"]
 
     defaultConfig {
         applicationId "film.search.filmsearch"
@@ -32,6 +33,33 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+
+    productFlavors {
+        free {
+            dimension "version"
+//            applicationIdSuffix ".free"
+//            versionNameSuffix "-free"
+        }
+        paid {
+            dimension "version"
+//            applicationIdSuffix ".paid"
+//            versionNameSuffix "-paid"
+        }
+    }
+
+    sourceSets {
+        free {
+            java {
+                srcDirs 'src/free/java'
+            }
+        }
+        paid {
+            java {
+                srcDirs 'src/paid/java'
+            }
         }
     }
 
@@ -56,6 +84,7 @@ android {
 
 dependencies {
     implementation "androidx.fragment:fragment-ktx:1.6.2"
+//    debugImplementation "androidx.fragment:fragment-testing:1.6.2"
     implementation "androidx.core:core-ktx:1.12.0"
     implementation "androidx.appcompat:appcompat:1.6.1"
     implementation "com.google.android.material:material:1.11.0"
@@ -67,6 +96,7 @@ dependencies {
 
     // Glide
     implementation "com.github.bumptech.glide:glide:$glide_version"
+    implementation 'com.google.firebase:firebase-messaging:23.4.1'
     annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
     // Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"

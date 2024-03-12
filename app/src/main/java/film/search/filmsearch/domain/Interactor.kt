@@ -158,4 +158,9 @@ class Interactor(
         repo.saveWatchLater(watchLaterFilm)
 
     }
+
+    fun saveFistFreeAccessTime() {
+        preferences.saveFistFreeAccessTime()
+    }
+    fun getFistFreeAccessTime() = preferences.getFirstFreeAccessTime()
 }

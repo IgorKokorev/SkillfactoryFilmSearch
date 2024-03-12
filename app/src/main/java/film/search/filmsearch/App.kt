@@ -1,6 +1,9 @@
 package film.search.filmsearch
 
 import android.app.Application
+import android.util.Log
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 import film.search.filmsearch.di.AppComponent
 import film.search.filmsearch.di.DaggerAppComponent
 import film.search.filmsearch.di.modules.DatabaseModule
@@ -9,23 +12,25 @@ import film.search.retrofit.DaggerRemoteComponent
 
 class App : Application() {
     lateinit var dagger: AppComponent
-    val FRAGMENT_TAG = "fragment"
-    val BACK_CLICK_TIME_INTERVAL = 2000L
-    val API_REQUEST_TIME_INTERVAL = 1000L * 60 * 10
-    val BOTTOM_MENU_ITEMS_NUMBER = 4
-    val BUNDLE: String = "bundle"
-    val FILM = "film"
-    val TRANSITION_NAME = "transition"
 
     override fun onCreate() {
         super.onCreate()
         instance = this
-        //Создаем компонент
+        // Creating dagger component
         dagger = DaggerAppComponent.builder()
             .remoteProvider(DaggerRemoteComponent.create())
             .databaseModule(DatabaseModule())
             .domainModule(DomainModule(this))
             .build()
+
+        FirebaseMessaging.getInstance().token
+            .addOnCompleteListener(OnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    Log.w("MainActivity", "Fetching FCM registration token failed", task.exception);
+                    return@OnCompleteListener
+                }
+                Log.i("MainActivity", task.result!!)
+            })
     }
 
     companion object {

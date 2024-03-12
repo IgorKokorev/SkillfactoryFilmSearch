@@ -1,23 +1,19 @@
 package film.search.filmsearch.utils
 
-import android.app.AlarmManager
-import android.app.DatePickerDialog
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
-import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat.getString
 import androidx.core.content.ContextCompat.getSystemService
-import film.search.filmsearch.App
+import film.search.filmsearch.Constants
 import film.search.filmsearch.R
 import film.search.filmsearch.data.entity.Film
 import film.search.filmsearch.view.MainActivity
-import java.util.Calendar
 
 // Service for push notifications
 class NotificationService(val context: Context) {
@@ -81,7 +77,7 @@ class NotificationService(val context: Context) {
 
 
         val intent = Intent(context, MainActivity::class.java)
-        intent.putExtra(App.instance.FILM, film)
+        intent.putExtra(Constants.FILM, film)
         val pendingIntent = PendingIntent.getActivity(
             context,
             0,

@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import film.search.filmsearch.App
+import film.search.filmsearch.Constants
 import film.search.filmsearch.data.entity.Film
 import film.search.filmsearch.domain.Interactor
 import javax.inject.Inject
@@ -19,13 +20,13 @@ class WatchLaterReminderReceiver : BroadcastReceiver() {
     }
 
     override fun onReceive(context: Context?, intent: Intent?) {
-        val bundle: Bundle? = intent?.getBundleExtra(App.instance.BUNDLE)
+        val bundle: Bundle? = intent?.getBundleExtra(Constants.BUNDLE)
         val film =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                bundle?.getParcelable(App.instance.FILM, Film::class.java)
+                bundle?.getParcelable(Constants.FILM, Film::class.java)
             } else {
                 @Suppress("DEPRECATION")
-                bundle?.getParcelable<Film>(App.instance.FILM)
+                bundle?.getParcelable<Film>(Constants.FILM)
             }
         if (film != null) {
             interactor.deleteFilmFromWatchLaterByTmdbId(film.tmdbId)

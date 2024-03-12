@@ -12,6 +12,6 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "FilmsSearch"
+rootProject.name = "FilmSearch"
 include ':app'
 include ':retrofit'

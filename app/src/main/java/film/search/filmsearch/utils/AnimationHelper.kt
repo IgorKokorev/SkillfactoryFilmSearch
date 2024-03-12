@@ -4,7 +4,7 @@ import android.app.Activity
 import android.view.View
 import android.view.ViewAnimationUtils
 import android.view.animation.AccelerateDecelerateInterpolator
-import film.search.filmsearch.App
+import film.search.filmsearch.Constants
 import java.util.concurrent.Executors
 import kotlin.math.hypot
 import kotlin.math.roundToInt
@@ -20,7 +20,7 @@ object AnimationHelper {
             while (true) {
                 if (rootView.isAttachedToWindow) {
                     activity.runOnUiThread {
-                        val itemCenter = rootView.width / (App.instance.BOTTOM_MENU_ITEMS_NUMBER * 2)
+                        val itemCenter = rootView.width / (Constants.BOTTOM_MENU_ITEMS_NUMBER * 2)
                         val step = (itemCenter * 2) * (position) + itemCenter
 
                         val x: Int = step

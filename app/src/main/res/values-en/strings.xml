@@ -28,4 +28,8 @@
     <string name="error_save_message">Error saving file</string>
     <string name="battery_low_toast">Battery low!</string>
     <string name="power_cable_connected_toast">Power cable connected!</string>
+    <string name="first_free_access_title">Free access limitations</string>
+    <string name="free_access_message">Free version has limitations. You can use VIP options for 5 minutes.</string>
+    <string name="ok">Ok</string>
+    <string name="don_t_forget_to_subscribe">Don\'t forget to subscribe!</string>
 </resources>

@@ -28,4 +28,8 @@
     <string name="error_save_message">Ошибка при сохранении файла</string>
     <string name="battery_low_toast">Низкий заряд батареи!</string>
     <string name="power_cable_connected_toast">Кабель питания подключён!</string>
+    <string name="first_free_access_title">Ограничения бесплатной версии</string>
+    <string name="free_access_message">Бесплатная версия имеет ограниченный функционал. Вы можете использовать премиум опции в течение 3 минут.</string>
+    <string name="ok">Окей</string>
+    <string name="don_t_forget_to_subscribe">Не забудьте подписаться на премиум версию!</string>
 </resources>

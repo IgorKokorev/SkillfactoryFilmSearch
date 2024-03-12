@@ -2,6 +2,7 @@ package film.search.filmsearch.viewmodel
 
 import androidx.lifecycle.ViewModel
 import film.search.filmsearch.App
+import film.search.filmsearch.Constants
 import film.search.filmsearch.data.entity.Film
 import film.search.filmsearch.domain.Interactor
 import io.reactivex.rxjava3.core.Observable
@@ -33,7 +34,7 @@ class MainFragmentViewModel : ViewModel() {
 
         // if more than established time passed since last API call or category has been changed than request API again
         if (forceApi ||
-            (currentTime - savedTime) > App.instance.API_REQUEST_TIME_INTERVAL ||
+            (currentTime - savedTime) > Constants.API_REQUEST_TIME_INTERVAL ||
             interactor.getDefaultCategoryFromPreferences() != interactor.getCategoryInDB()
         ) {
             toLoadFromAPI = true

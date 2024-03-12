@@ -8,6 +8,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import film.search.filmsearch.App
+import film.search.filmsearch.Constants
 import film.search.filmsearch.data.entity.Film
 import film.search.filmsearch.data.entity.WatchLaterFilm
 import film.search.filmsearch.domain.Interactor
@@ -74,8 +75,8 @@ class AlarmService(val context: Context) {
             context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(film.title, null, context, WatchLaterReminderReceiver()::class.java)
         val bundle: Bundle = Bundle()
-        bundle.putParcelable(App.instance.FILM, film)
-        intent.putExtra(App.instance.BUNDLE, bundle)
+        bundle.putParcelable(Constants.FILM, film)
+        intent.putExtra(Constants.BUNDLE, bundle)
         val pendingIntent = PendingIntent.getBroadcast(
             context,
             film.tmdbId,
@@ -94,8 +95,8 @@ class AlarmService(val context: Context) {
             context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(watchLaterFilm.title, null, context, WatchLaterReminderReceiver()::class.java)
         val bundle: Bundle = Bundle()
-        bundle.putParcelable(App.instance.FILM, watchLaterFilm)
-        intent.putExtra(App.instance.BUNDLE, bundle)
+        bundle.putParcelable(Constants.FILM, watchLaterFilm)
+        intent.putExtra(Constants.BUNDLE, bundle)
         val pendingIntent = PendingIntent.getBroadcast(
             context,
             watchLaterFilm.tmdbId,
@@ -110,8 +111,8 @@ class AlarmService(val context: Context) {
             context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(watchLaterFilm.title, null, context, WatchLaterReminderReceiver()::class.java)
         val bundle: Bundle = Bundle()
-        bundle.putParcelable(App.instance.FILM, Converter.watchLaterToFilm(watchLaterFilm))
-        intent.putExtra(App.instance.BUNDLE, bundle)
+        bundle.putParcelable(Constants.FILM, Converter.watchLaterToFilm(watchLaterFilm))
+        intent.putExtra(Constants.BUNDLE, bundle)
         val pendingIntent = PendingIntent.getBroadcast(
             context,
             watchLaterFilm.tmdbId,
