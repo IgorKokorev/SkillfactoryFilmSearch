@@ -16,12 +16,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
-import film.search.filmsearch.App
+import film.search.filmsearch.Constants
 import film.search.filmsearch.R
 import film.search.filmsearch.data.entity.Film
 import film.search.filmsearch.databinding.FragmentFilmDetailsBinding
+import film.search.filmsearch.utils.AlarmService
 import film.search.filmsearch.utils.MediaStoreMediator.saveBitmapToGallery
-import film.search.filmsearch.utils.NotificationService
 import film.search.filmsearch.viewmodel.FilmDetailsFragmentViewModel
 import film.search.retrofit.entity.ApiConstants
 import kotlinx.coroutines.CoroutineScope
@@ -34,7 +34,7 @@ import kotlinx.coroutines.launch
 class FilmDetailsFragment : Fragment() {
     private lateinit var binding: FragmentFilmDetailsBinding
     private lateinit var film: Film
-    private lateinit var notificationService: NotificationService
+    private lateinit var alarmService: AlarmService
     private val scope = CoroutineScope(Dispatchers.IO)
     private val viewModel: FilmDetailsFragmentViewModel by activityViewModels()
 
@@ -46,15 +46,15 @@ class FilmDetailsFragment : Fragment() {
     ): View {
         binding = FragmentFilmDetailsBinding.inflate(layoutInflater)
 
-        notificationService = NotificationService(binding.root.context)
+        alarmService = AlarmService(binding.root.context)
 
         // getting film as argument. Method depends on OS version
         film = (
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    arguments?.getParcelable(App.instance.FILM, Film::class.java)
+                    arguments?.getParcelable(Constants.FILM, Film::class.java)
                 } else {
                     @Suppress("DEPRECATION")
-                    arguments?.getParcelable(App.instance.FILM) as Film?
+                    arguments?.getParcelable(Constants.FILM) as Film?
                 }
                 ) ?: return binding.root
 
@@ -69,16 +69,26 @@ class FilmDetailsFragment : Fragment() {
         setFavoriteFAB()
         setShareFAB()
         setDownloadFAB()
+        setWatchLaterFAB()
 
         return binding.root
     }
 
+    // set 'watch later' fab. User is to set time when to remind to check the film
+    private fun setWatchLaterFAB() {
+        binding.detailsFabWatchLater.setOnClickListener {
+            alarmService.setFilmNotificationAlarm(film)
+        }
+    }
+
+    // set 'download poster' fab
     private fun setDownloadFAB() {
         binding.detailsFabDownloadWp.setOnClickListener {
             performAsyncLoadOfPoster()
         }
     }
 
+    // set 'share' fab. Sends film info to a contact
     private fun setShareFAB() {
         // setting share fab click listener
         binding.shareFab.setOnClickListener {
@@ -101,23 +111,21 @@ class FilmDetailsFragment : Fragment() {
         }
     }
 
+    // set 'favorite' fab. Adds film to the favorites db
     private fun setFavoriteFAB() {
         // setting 'add to favorites' fab click listener
         binding.favoritesFab.setOnClickListener {
             film.isFavorite = !film.isFavorite
-
             if (film.isFavorite) {
                 viewModel.interactor.saveFilmToFavorites(film)
-                notificationService.setFilmNotification(film)
             }
             else viewModel.interactor.deleteFilmFromFavorites(film)
-
             setFavoriteIcon()
         }
         setFavoriteIcon()
     }
 
-    // changing 'add to favorites' fab icon depending on status
+    // set 'add to favorites' fab icon depending on status
     private fun setFavoriteIcon() {
         binding.favoritesFab.setImageResource(
             if (film.isFavorite) R.drawable.icon_favorite

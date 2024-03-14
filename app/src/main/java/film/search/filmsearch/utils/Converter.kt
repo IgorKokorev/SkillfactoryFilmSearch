@@ -2,7 +2,7 @@ package film.search.filmsearch.utils
 
 import film.search.filmsearch.data.entity.FavoriteFilm
 import film.search.filmsearch.data.entity.Film
-import film.search.retrofit.entity.TmdbFilm
+import film.search.filmsearch.data.entity.WatchLaterFilm
 
 object Converter {
     fun convertApiListToFilmList(list: List<film.search.retrofit.entity.TmdbFilm>?): List<Film> {
@@ -55,5 +55,28 @@ object Converter {
             } catch (e: Exception) {}
         }
         return result
+    }
+
+    fun filmToWatchLater(film: Film, time: Long): WatchLaterFilm {
+        return WatchLaterFilm(
+            title = film.title,
+            time = time,
+            tmdbId = film.tmdbId,
+            description = film.description,
+            poster = film.poster,
+            rating = film.rating,
+            isFavorite = film.isFavorite
+        )
+    }
+
+    fun watchLaterToFilm(watchLaterFilm: WatchLaterFilm) : Film {
+        return Film(
+            title = watchLaterFilm.title,
+            poster = watchLaterFilm.poster,
+            description = watchLaterFilm.description,
+            rating = watchLaterFilm.rating,
+            tmdbId = watchLaterFilm.tmdbId,
+            isFavorite = watchLaterFilm.isFavorite
+        )
     }
 }

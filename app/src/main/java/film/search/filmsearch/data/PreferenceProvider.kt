@@ -23,9 +23,18 @@ class PreferenceProvider(context: Context) {
     fun saveDefaultCategory(category: String) {
         preference.edit().putString(KEY_DEFAULT_CATEGORY, category).apply()
     }
-
     fun getDefaultCategory(): String {
         return preference.getString(KEY_DEFAULT_CATEGORY, DEFAULT_CATEGORY) ?: DEFAULT_CATEGORY
+    }
+
+    // First time in millis when free version accessed paid options
+    fun saveFistFreeAccessTime() {
+        if (getFirstFreeAccessTime() == 0L) {
+            preference.edit().putLong(KEY_FIRST_FREE_LAUNCH_TIME, System.currentTimeMillis()).apply()
+        }
+    }
+    fun getFirstFreeAccessTime(): Long {
+        return preference.getLong(KEY_FIRST_FREE_LAUNCH_TIME, 0L)
     }
 
     // Last time in millis when remote API was accessed
@@ -33,7 +42,6 @@ class PreferenceProvider(context: Context) {
         val time = System.currentTimeMillis()
         preference.edit().putLong(KEY_LAST_DOWNLOAD_TIME, time).apply()
     }
-
     fun getLastAPIRequestTime(): Long {
         return preference.getLong(KEY_LAST_DOWNLOAD_TIME, 0L)
     }
@@ -51,6 +59,7 @@ class PreferenceProvider(context: Context) {
     companion object {
         private const val SETTINGS = "settings"
         private const val KEY_FIRST_LAUNCH = "first_launch"
+        private const val KEY_FIRST_FREE_LAUNCH_TIME = "first_free_launch_time"
         private const val KEY_DEFAULT_CATEGORY = "default_category"
         private const val DEFAULT_CATEGORY = "popular"
         private const val KEY_LAST_DOWNLOAD_TIME = "last_time"

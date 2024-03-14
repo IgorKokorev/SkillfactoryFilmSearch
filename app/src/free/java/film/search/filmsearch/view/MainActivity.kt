@@ -7,7 +7,7 @@ import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import film.search.filmsearch.App
+import film.search.filmsearch.Constants
 import film.search.filmsearch.R
 import film.search.filmsearch.data.entity.Film
 import film.search.filmsearch.databinding.ActivityMainBinding
@@ -16,6 +16,7 @@ import film.search.filmsearch.view.fragments.FavoritesFragment
 import film.search.filmsearch.view.fragments.FilmDetailsFragment
 import film.search.filmsearch.view.fragments.MainFragment
 import film.search.filmsearch.view.fragments.SettingsFragment
+import film.search.filmsearch.view.fragments.WatchLaterFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -49,10 +50,10 @@ class MainActivity : AppCompatActivity() {
         // If the activity was launched from an intent we get film from the intent and open it in film datails fragment
         val film =
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                        intent?.getParcelableExtra(App.instance.FILM, Film::class.java)
+                        intent?.getParcelableExtra(Constants.FILM, Film::class.java)
                     } else {
                         @Suppress("DEPRECATION")
-                        intent?.getParcelableExtra(App.instance.FILM) as Film?
+                        intent?.getParcelableExtra(Constants.FILM) as Film?
                     }
 
         if (film == null) {
@@ -60,7 +61,7 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager
                 .beginTransaction()
                 .add(R.id.fragment_placeholder, MainFragment())
-                .addToBackStack(App.instance.FRAGMENT_TAG)
+                .addToBackStack(Constants.FRAGMENT_TAG)
                 .commit()
         } else {
             launchDetailsFragment(film)
@@ -76,7 +77,7 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         if (supportFragmentManager.backStackEntryCount <= 1) {
-            if (backPressed + App.instance.BACK_CLICK_TIME_INTERVAL > System.currentTimeMillis()) {
+            if (backPressed + Constants.BACK_CLICK_TIME_INTERVAL > System.currentTimeMillis()) {
                 onBackPressedDispatcher.onBackPressed()
                 finish()
             } else {
@@ -111,7 +112,7 @@ class MainActivity : AppCompatActivity() {
                     supportFragmentManager
                         .beginTransaction()
                         .replace(R.id.fragment_placeholder, fragment, tag)
-                        .addToBackStack(App.instance.FRAGMENT_TAG)
+                        .addToBackStack(Constants.FRAGMENT_TAG)
                         .commit()
                     true
                 }
@@ -121,18 +122,27 @@ class MainActivity : AppCompatActivity() {
                     supportFragmentManager
                         .beginTransaction()
                         .replace(R.id.fragment_placeholder, fragment, tag)
-                        .addToBackStack(App.instance.FRAGMENT_TAG)
+                        .addToBackStack(Constants.FRAGMENT_TAG)
                         .commit()
                     true
                 }
-
+                R.id.watch_later -> {
+                    val tag = "watch later"
+                    val fragment = supportFragmentManager.findFragmentByTag(tag) ?: WatchLaterFragment()
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.fragment_placeholder, fragment, tag)
+                        .addToBackStack(Constants.FRAGMENT_TAG)
+                        .commit()
+                    true
+                }
                 R.id.settings -> {
                     val tag = "settings"
                     val fragment = supportFragmentManager.findFragmentByTag(tag) ?: SettingsFragment()
                     supportFragmentManager
                         .beginTransaction()
                         .replace(R.id.fragment_placeholder, fragment, tag)
-                        .addToBackStack(App.instance.FRAGMENT_TAG)
+                        .addToBackStack(Constants.FRAGMENT_TAG)
                         .commit()
                     true
                 }
@@ -145,14 +155,14 @@ class MainActivity : AppCompatActivity() {
     // Launch Film Details screen (fragment) and transfer film data to it
     fun launchDetailsFragment(film: Film) {
         val bundle = Bundle()
-        bundle.putParcelable(App.instance.FILM, film)
+        bundle.putParcelable(Constants.FILM, film)
         val fragment = FilmDetailsFragment()
         fragment.arguments = bundle
 
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragment_placeholder, fragment)
-            .addToBackStack(App.instance.FRAGMENT_TAG)
+            .addToBackStack(Constants.FRAGMENT_TAG)
             .commit()
     }
 
