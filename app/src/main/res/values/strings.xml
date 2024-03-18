@@ -31,4 +31,7 @@
     <string name="free_access_message">Free version has limitations. You can use VIP options for 3 minutes.</string>
     <string name="ok">Ok</string>
     <string name="don_t_forget_to_subscribe">Don\'t forget to subscribe!</string>
+    <string name="startup_film_alert_header">Hot news!</string>
+    <string name="startup_film_alert_text">Have a look at the new release: %1$s</string>
+    <string name="skip">Skip</string>
 </resources>
