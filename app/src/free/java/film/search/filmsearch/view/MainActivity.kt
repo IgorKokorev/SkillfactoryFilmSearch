@@ -23,6 +23,7 @@ import film.search.filmsearch.Constants
 import film.search.filmsearch.R
 import film.search.filmsearch.data.entity.Film
 import film.search.filmsearch.databinding.ActivityMainBinding
+import film.search.filmsearch.databinding.ViewImageBinding
 import film.search.filmsearch.utils.BatteryReceiver
 import film.search.filmsearch.view.fragments.FavoritesFragment
 import film.search.filmsearch.view.fragments.FilmDetailsFragment
@@ -111,16 +112,19 @@ class MainActivity : AppCompatActivity() {
 
                     Glide.with(this)
                         .asDrawable()
-                        .load(ApiConstants.IMAGES_URL + "w45" + film.poster)
+                        .load(ApiConstants.IMAGES_URL + "w780" + film.poster)
                         .into(object : CustomTarget<Drawable>() {
                             override fun onResourceReady(
                                 resource: Drawable,
                                 transition: Transition<in Drawable>?
                             ) {
+                                val imageViewBinding = ViewImageBinding.inflate(layoutInflater)
+                                imageViewBinding.image.setImageDrawable(resource)
+
                                 MaterialAlertDialogBuilder(binding.root.context)
                                     .setTitle(getString(R.string.startup_film_alert_header))
                                     .setMessage(getString(R.string.startup_film_alert_text, film.title))
-                                    .setIcon(resource)
+                                    .setView(imageViewBinding.root)
                                     .setNegativeButton(getString(R.string.skip)) { _, _ -> }
                                     .setPositiveButton(getString(R.string.ok)) { dialog, which ->
                                         launchDetailsFragment(film)
