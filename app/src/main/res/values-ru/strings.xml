@@ -32,4 +32,7 @@
     <string name="free_access_message">Бесплатная версия имеет ограниченный функционал. Вы можете использовать премиум опции в течение 3 минут.</string>
     <string name="ok">Окей</string>
     <string name="don_t_forget_to_subscribe">Не забудьте подписаться на премиум версию!</string>
+    <string name="startup_film_alert_header">Горячие новости!</string>
+    <string name="startup_film_alert_text">Обратите внимание на новый фильм в нашей коллекции: %1$s</string>
+    <string name="skip">Пропустить</string>
 </resources>

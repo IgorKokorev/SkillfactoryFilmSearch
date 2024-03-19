@@ -3,26 +3,44 @@ package film.search.filmsearch.view
 import android.Manifest
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.Firebase
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.google.firebase.remoteconfig.remoteConfig
+import com.google.firebase.remoteconfig.remoteConfigSettings
+import com.google.gson.Gson
+import com.google.gson.JsonSyntaxException
 import film.search.filmsearch.Constants
 import film.search.filmsearch.R
 import film.search.filmsearch.data.entity.Film
 import film.search.filmsearch.databinding.ActivityMainBinding
+import film.search.filmsearch.databinding.ViewImageBinding
 import film.search.filmsearch.utils.BatteryReceiver
 import film.search.filmsearch.view.fragments.FavoritesFragment
 import film.search.filmsearch.view.fragments.FilmDetailsFragment
 import film.search.filmsearch.view.fragments.MainFragment
 import film.search.filmsearch.view.fragments.SettingsFragment
 import film.search.filmsearch.view.fragments.WatchLaterFragment
+import film.search.retrofit.entity.ApiConstants
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var backPressed = 0L
     private val receiver = BatteryReceiver()
+    private lateinit var remoteConfig: FirebaseRemoteConfig
+    private val ioScope = CoroutineScope(Dispatchers.IO)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +48,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        // initialize Firebase remote config
+        initFirebaseRemoteConfig()
 
         // initializing menu buttons click listeners
         initMenuButtons()
@@ -57,6 +78,7 @@ class MainActivity : AppCompatActivity() {
                     }
 
         if (film == null) {
+
             // starting main fragment
             supportFragmentManager
                 .beginTransaction()
@@ -66,6 +88,55 @@ class MainActivity : AppCompatActivity() {
         } else {
             launchDetailsFragment(film)
         }
+    }
+
+    // initializing Firebase RemoteConfig and getting the film to show.
+    private fun initFirebaseRemoteConfig() {
+        remoteConfig = Firebase.remoteConfig
+        val configSettings = remoteConfigSettings {
+            minimumFetchIntervalInSeconds = 60 * 60 * 12
+        }
+        remoteConfig.setConfigSettingsAsync(configSettings)
+        remoteConfig.fetchAndActivate()
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    val str = remoteConfig.getString("startup_film")
+                    if (str.isBlank()) return@addOnCompleteListener
+                    val film: Film
+                    try {
+                        film = Gson().fromJson(str, Film::class.java)
+                    } catch (e: JsonSyntaxException) {
+                        Log.d("!!! Firebase RemoteConfig", "Can't parse RemoteConfig data key: \"startup_film\" to film. Received data from FBRC: $str")
+                        return@addOnCompleteListener
+                    }
+
+                    Glide.with(this)
+                        .asDrawable()
+                        .load(ApiConstants.IMAGES_URL + "w780" + film.poster)
+                        .into(object : CustomTarget<Drawable>() {
+                            override fun onResourceReady(
+                                resource: Drawable,
+                                transition: Transition<in Drawable>?
+                            ) {
+                                val imageViewBinding = ViewImageBinding.inflate(layoutInflater)
+                                imageViewBinding.image.setImageDrawable(resource)
+
+                                MaterialAlertDialogBuilder(binding.root.context)
+                                    .setTitle(getString(R.string.startup_film_alert_header))
+                                    .setMessage(getString(R.string.startup_film_alert_text, film.title))
+                                    .setView(imageViewBinding.root)
+                                    .setNegativeButton(getString(R.string.skip)) { _, _ -> }
+                                    .setPositiveButton(getString(R.string.ok)) { dialog, which ->
+                                        launchDetailsFragment(film)
+                                    }
+                                    .show()
+                            }
+                            override fun onLoadCleared(placeholder: Drawable?) {}
+                        })
+
+                    Log.d("!!! Firebase RemoteConfig", "Received data from FBRC: $str")
+                }
+            }
     }
 
     override fun onDestroy() {
