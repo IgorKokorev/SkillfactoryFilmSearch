@@ -1,11 +1,14 @@
 package film.search.filmsearch.utils
 
+import android.util.Log
+import com.google.gson.Gson
 import film.search.filmsearch.data.entity.FavoriteFilm
 import film.search.filmsearch.data.entity.Film
 import film.search.filmsearch.data.entity.WatchLaterFilm
+import film.search.retrofit.entity.TmdbFilm
 
 object Converter {
-    fun convertApiListToFilmList(list: List<film.search.retrofit.entity.TmdbFilm>?): List<Film> {
+    fun convertApiListToFilmList(list: List<TmdbFilm>?): List<Film> {
         val result = mutableListOf<Film>()
         list?.forEach {
             try {
@@ -15,7 +18,8 @@ object Converter {
         return result
     }
 
-    fun convertApiToFilm(apiData: film.search.retrofit.entity.TmdbFilm): Film {
+    fun convertApiToFilm(apiData: TmdbFilm): Film {
+        Log.d("!!! Converter:convertApiToFilm", "TmdbFilm: ${Gson().toJson(apiData)}" )
         return Film(
             title = apiData.title,
             poster = apiData.posterPath,
